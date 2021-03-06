@@ -1,0 +1,14 @@
+{
+  "name": "projeto-depara",
+  "version": "1.0.0",
+  "description": "App de_para",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "author": "Bruna Nolasco",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
