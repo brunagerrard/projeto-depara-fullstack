@@ -6,3 +6,4 @@ Projeto em andamento para o curso de pós-graduação do IGTI em Desenvolvimento
 - Next
 - Node
 - Express
+- Styled Components
