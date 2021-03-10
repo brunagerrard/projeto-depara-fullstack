@@ -20,9 +20,9 @@ export default function Button() {
     <Btn
       onClick={() => {
         const hiddenLogin = document.getElementById("hidden");
-        hiddenLogin.style.top === "60px"
+        hiddenLogin.style.top === "65px"
           ? (hiddenLogin.style.top = "-40px")
-          : (hiddenLogin.style.top = "60px");
+          : (hiddenLogin.style.top = "65px");
       }}
     >
       entre

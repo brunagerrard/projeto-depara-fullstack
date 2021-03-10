@@ -34,9 +34,8 @@ const Navbar = styled.nav`
 
   #hidden {
     padding: 0.2rem 0.5rem;
-    border-radius: 50px;
-    border: 1px solid ${({ theme }) => theme.colors.rose};
-    background-color: white;
+    border: none;
+    background-color: transparent;
     position: absolute;
     top: -40px;
     color: ${({ theme }) => theme.colors.faintRose};
