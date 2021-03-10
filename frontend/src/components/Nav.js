@@ -3,20 +3,27 @@ import Link from "next/link";
 import Button from "./Button";
 
 const Navbar = styled.nav`
-  background-color: ${({ theme }) => theme.colors.primaryRed};
+  background-color: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 57px;
+  margin: 2vh 2vw;
+  border-radius: 15px;
+  box-shadow: 0 0 .5em rgba(0, 0, 0, 0.05);
 
   a,
   button {
     font: ${({ theme }) => theme.fonts.links};
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.2px;
     text-underline-offset: 3px;
     color: white;
     cursor: pointer;
+  }
+
+  a:first-of-type {
+    color: ${({theme}) => theme.colors.primaryRed};
   }
 
   #login {
@@ -30,7 +37,6 @@ const Navbar = styled.nav`
     border-radius: 50px;
     border: 1px solid ${({ theme }) => theme.colors.rose};
     background-color: white;
-    letter-spacing: 2px;
     position: absolute;
     top: -40px;
     color: ${({ theme }) => theme.colors.faintRose};

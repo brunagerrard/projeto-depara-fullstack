@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Header from "../../src/components/Header";
 
 export default function Menu({ data }) {
   const router = useRouter();
@@ -7,7 +8,11 @@ export default function Menu({ data }) {
   } = router;
 
   const restaurant = data.find((r) => r._id === id);
-  return <h1>{restaurant.name}</h1>;
+  return (
+    <>
+      <Header title={restaurant.name} />
+    </>
+  );
 }
 
 export async function getServerSideProps() {

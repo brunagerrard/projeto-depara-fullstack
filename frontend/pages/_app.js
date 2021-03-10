@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
   html, body {
     min-height: 100vh;
-    background-color: ${({ theme }) => theme.colors.primaryRed}
+    background-color: ${({ theme }) => theme.colors.background}
   }
 `;
 
@@ -24,8 +24,8 @@ const theme = {
     faintRose: "#c4a8b9",
   },
   fonts: {
-    links: "400 1rem Archivo, sans-serif",
-    secLinks: "italic 400 .9rem Ubuntu, sans-serif",
+    links: "600 .9rem Inter, sans-serif",
+    secLinks: "400 .8rem Inter, sans-serif",
     paragraph: "300 1.1rem Montserrat, sans-serif",
     titles: "600 2rem Archivo, sans-serif",
   },
