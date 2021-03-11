@@ -9,10 +9,14 @@ const List = styled.main`
   margin: 0 auto;
   background-color: ${({ theme }) => theme.colors.background};
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: repeat(auto-fill, 1fr);
   grid-gap: 1rem;
   padding: 2rem 10%;
+
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  }
 `;
 
 export default function Restaurants({ data }) {
@@ -22,7 +26,7 @@ export default function Restaurants({ data }) {
         <title>Restaurantes</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;1,600&family=Montserrat:wght@200;300;400&family=Poppins:wght@300;600&family=Ubuntu:ital,wght@1,300;1,400&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto+Slab:wght@300;400;500;600&display=swap"
           rel="stylesheet"
         />
       </Head>

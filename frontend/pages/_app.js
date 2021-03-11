@@ -27,7 +27,7 @@ const theme = {
     links: "600 .9rem Inter, sans-serif",
     secLinks: "400 .8rem Inter, sans-serif",
     paragraph: "300 1.1rem Montserrat, sans-serif",
-    titles: "600 2rem Archivo, sans-serif",
+    titles: "600 2rem Roboto Slab, sans-serif",
   },
 };
 
