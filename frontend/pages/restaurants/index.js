@@ -41,7 +41,7 @@ export default function Restaurants({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:8008/api/restaurants`);
+  const res = await fetch(`http://localhost:8888/api/restaurants`);
   const data = await res.json();
 
   return { props: { data } };

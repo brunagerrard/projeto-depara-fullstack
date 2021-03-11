@@ -1,5 +1,6 @@
 const express = require("express");
-const restaurantsApi = require("./data/rest-api");
+const restaurantsData = require("./data/restaurants");
+
 const app = express();
 
 app.get("/", (req, res) => {
@@ -8,12 +9,12 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/restaurants", (req, res) => {
-  res.json(restaurantsApi);
+  res.json(restaurantsData);
 });
 
 app.get("/api/restaurants/:id", (req, res) => {
-  const restaurant = restaurantsApi.find((r) => r._id === req.params.id);
+  const restaurant = restaurantsData.find((r) => r._id === req.params.id);
   res.json(restaurant);
 });
 
-app.listen(8008);
+app.listen(8888);

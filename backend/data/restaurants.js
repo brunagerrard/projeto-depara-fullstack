@@ -1,4 +1,4 @@
-const restaurantsApi = [
+const restaurantsData = [
   {
     _id: "1",
     name: "Acarajé do Largo",
@@ -109,4 +109,4 @@ const restaurantsApi = [
   },
 ];
 
-module.exports = restaurantsApi;
+module.exports = restaurantsData;

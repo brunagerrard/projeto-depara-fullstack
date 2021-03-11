@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import Head from 'next/head'
+import Head from "next/head";
 import Header from "../../src/components/Header";
 
 export default function Menu({ data }) {
@@ -11,7 +11,7 @@ export default function Menu({ data }) {
   const restaurant = data.find((r) => r._id === id);
   return (
     <>
-    <Head>
+      <Head>
         <title>{restaurant.name}</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
@@ -25,7 +25,7 @@ export default function Menu({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:8008/api/restaurants`);
+  const res = await fetch(`http://localhost:8888/api/restaurants`);
   const data = await res.json();
 
   return { props: { data } };
