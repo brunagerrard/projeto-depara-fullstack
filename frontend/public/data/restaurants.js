@@ -109,4 +109,4 @@ const restaurantsData = [
   },
 ];
 
-module.exports = restaurantsData;
+export default restaurantsData;

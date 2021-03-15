@@ -1,14 +1,16 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Header from "../../src/components/Header";
+import restaurantsData from '../../public/data/restaurants'
 
-export default function Menu({ data }) {
+export default function Menu() {
   const router = useRouter();
   const {
     query: { id },
   } = router;
 
-  const restaurant = data.find((r) => r._id === id);
+  const restaurant = restaurantsData.find((r) => r._id === id);
+
   return (
     <>
       <Head>
@@ -22,11 +24,4 @@ export default function Menu({ data }) {
       <Header title={restaurant.name} />
     </>
   );
-}
-
-export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:8888/api/restaurants`);
-  const data = await res.json();
-
-  return { props: { data } };
 }

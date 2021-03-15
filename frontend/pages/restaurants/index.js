@@ -2,6 +2,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import Header from "../../src/components/Header";
 import Restaurant from "../../src/components/Restaurant";
+import restaurantsData from '../../public/data/restaurants'
 
 const List = styled.main`
   height: 100%;
@@ -40,9 +41,8 @@ export default function Restaurants({ data }) {
   );
 }
 
-export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:8888/api/restaurants`);
-  const data = await res.json();
+export async function getStaticProps() {
+  const data = restaurantsData;
 
   return { props: { data } };
 }
