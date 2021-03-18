@@ -1,8 +1,8 @@
 import Head from "next/head";
 import styled from "styled-components";
-import Header from "../../src/components/Header";
-import Restaurant from "../../src/components/Restaurant";
-import restaurantsData from '../../public/data/restaurants'
+import Header from "../../components/Header";
+import Restaurant from "../../components/Restaurant";
+import restaurantsData from "../../public/data/restaurants";
 
 const List = styled.main`
   height: 100%;
