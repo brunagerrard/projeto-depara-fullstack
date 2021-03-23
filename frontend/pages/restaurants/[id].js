@@ -10,7 +10,8 @@ export default function Menu({data}) {
   } = router;
 
   const restaurant = data.find((r) => r._id === id);
-  console.log(data)
+  const { menu } = restaurant
+
   return (
     <>
       <Head>
@@ -22,6 +23,7 @@ export default function Menu({data}) {
         />
       </Head>
       <Header title={restaurant.name} />
+      {menu.map(item => `<h1>${item.price}</h1>`)}
     </>
   );
 }

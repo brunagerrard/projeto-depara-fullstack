@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-const Card = styled.div`
+export const Card = styled.div`
   background-color: #ffffff;
   border-radius: 15px;
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.05);
