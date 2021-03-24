@@ -24,10 +24,12 @@ const theme = {
     faintRose: "#c4a8b9",
   },
   fonts: {
+    titles: "600 2rem Roboto Slab, sans-serif",
+    secTitles: "600 1.1rem Inter, sans-serif",
+    paragraph: "300 1.1rem Inter, sans-serif",
+    smallParagraph: "300 .9rem Roboto Slab, sans-serif",
     links: "600 .9rem Inter, sans-serif",
     secLinks: "400 .8rem Inter, sans-serif",
-    paragraph: "300 1.1rem Montserrat, sans-serif",
-    titles: "600 2rem Roboto Slab, sans-serif",
   },
 };
 
