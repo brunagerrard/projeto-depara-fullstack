@@ -82,30 +82,105 @@ const restaurantsData = [
     name: "Na Larica",
     cuisine: "Especial",
     image: "../images/rest-avatar.png",
+    menu: [
+      {
+        _id: 2.1,
+        option: "Feijoada",
+        description:
+          "Feijoada completa para 1 pessoa. Acompanha arroz, farofa, couve e laranja.",
+        price: 25.0,
+      },
+      {
+        _id: 2.2,
+        option: "Pão de queijo",
+        description: "Ele mesmo",
+        price: 4.0,
+      },
+    ],
   },
   {
     _id: "5",
     name: "São Jorge",
     cuisine: "Bebidas",
     image: "../images/rest-avatar.png",
+    menu: [
+      {
+        _id: 2.1,
+        option: "Feijoada",
+        description:
+          "Feijoada completa para 1 pessoa. Acompanha arroz, farofa, couve e laranja.",
+        price: 25.0,
+      },
+      {
+        _id: 2.2,
+        option: "Pão de queijo",
+        description: "Ele mesmo",
+        price: 4.0,
+      },
+    ],
   },
   {
     _id: "6",
     name: "Siri & Queijo",
     cuisine: "Frutos do mar",
     image: "../images/rest-avatar.png",
+    menu: [
+      {
+        _id: 2.1,
+        option: "Feijoada",
+        description:
+          "Feijoada completa para 1 pessoa. Acompanha arroz, farofa, couve e laranja.",
+        price: 25.0,
+      },
+      {
+        _id: 2.2,
+        option: "Pão de queijo",
+        description: "Ele mesmo",
+        price: 4.0,
+      },
+    ],
   },
   {
     _id: "7",
     name: "Pretensioso",
     cuisine: "Vegano",
     image: "../images/rest-avatar.png",
+    menu: [
+      {
+        _id: 2.1,
+        option: "Feijoada",
+        description:
+          "Feijoada completa para 1 pessoa. Acompanha arroz, farofa, couve e laranja.",
+        price: 25.0,
+      },
+      {
+        _id: 2.2,
+        option: "Pão de queijo",
+        description: "Ele mesmo",
+        price: 4.0,
+      },
+    ],
   },
   {
     _id: "8",
     name: "Die Young",
     cuisine: "Fast-food",
     image: "../images/rest-avatar.png",
+    menu: [
+      {
+        _id: 2.1,
+        option: "Feijoada",
+        description:
+          "Feijoada completa para 1 pessoa. Acompanha arroz, farofa, couve e laranja.",
+        price: 25.0,
+      },
+      {
+        _id: 2.2,
+        option: "Pão de queijo",
+        description: "Ele mesmo",
+        price: 4.0,
+      },
+    ],
   },
 ];
 

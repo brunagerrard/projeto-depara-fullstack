@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Header from "../../components/Header";
 import restaurantsData from "../../public/data/restaurants";
+import { useState } from "react";
 
 export default function Menu({ data }) {
   const router = useRouter();
@@ -11,6 +12,8 @@ export default function Menu({ data }) {
 
   const restaurant = data.find((r) => r._id === id);
   const { menu } = restaurant
+
+  const [menuData, setMenuData] = useState([])
 
   return (
     <>
