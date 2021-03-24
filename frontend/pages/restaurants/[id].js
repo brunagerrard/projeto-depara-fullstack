@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Header from "../../components/Header";
 import restaurantsData from "../../public/data/restaurants";
-import RestaurantMenu from "../../components/RestaurantMenu";
+import { List, RestaurantMenu } from "../../components/RestaurantMenu";
 
 export default function Menu({ data }) {
   const router = useRouter();
@@ -11,7 +11,7 @@ export default function Menu({ data }) {
   } = router;
 
   const restaurant = data.find((r) => r._id === id);
-  const { menu } = restaurant
+  const { menu } = restaurant;
 
   return (
     <>
@@ -24,10 +24,11 @@ export default function Menu({ data }) {
         />
       </Head>
       <Header title={restaurant.name} />
-      { menu ? menu.map(item => (
-        <RestaurantMenu key={item._id} item={item} />
-      ))
-        : 'loading'}
+      <List>
+        {menu
+          ? menu.map((item) => <RestaurantMenu key={item._id} item={item} />)
+          : "loading"}
+      </List>
     </>
   );
 }
