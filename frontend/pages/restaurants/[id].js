@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Header from "../../components/Header";
 import restaurantsData from "../../public/data/restaurants";
-import { useState } from "react";
+import RestaurantMenu from "../../components/RestaurantMenu";
 
 export default function Menu({ data }) {
   const router = useRouter();
@@ -12,8 +12,6 @@ export default function Menu({ data }) {
 
   const restaurant = data.find((r) => r._id === id);
   const { menu } = restaurant
-
-  const [menuData, setMenuData] = useState([])
 
   return (
     <>
@@ -26,7 +24,10 @@ export default function Menu({ data }) {
         />
       </Head>
       <Header title={restaurant.name} />
-      {menu.map(item => `<h1>${item.price}</h1>`)}
+      { menu ? menu.map(item => (
+        <RestaurantMenu key={item._id} item={item} />
+      ))
+        : 'loading'}
     </>
   );
 }
