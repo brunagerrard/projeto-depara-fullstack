@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const List = styled.main`
   height: 100%;
@@ -29,6 +31,10 @@ const Option = styled.div`
     h3 {
       color: ${({ theme }) => theme.colors.primaryRed};
     }
+
+    #add {
+      opacity: 1;
+    }
   }
 
   h3 {
@@ -38,11 +44,20 @@ const Option = styled.div`
 
   p {
     font: ${({ theme }) => theme.fonts.smallParagraph};
-
-    &:last-of-type {
-      margin: 1rem 0;
+  }
+  
+  div {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+    & p {
       font-weight: 400;
     }
+  }
+
+  #add {
+    opacity: 0;
+    transition: opacity .1s;
   }
 `;
 
@@ -51,7 +66,20 @@ export const RestaurantMenu = ({ item }) => {
     <Option>
       <h3>{item.option}</h3>
       <p>{item.description}</p>
-      <p>R$ {item.price},00</p>
+      <div>
+        <p>R$ {item.price},00</p>
+        <p 
+        id="add"
+        style={{
+          display: "inline-block",
+          width: "0.9rem",
+          color: "#cc2929",
+          cursor: "pointer",
+        }}>
+          <FontAwesomeIcon icon={faPlus} />
+        </p>
+      </div>
+      
     </Option>
   );
 };
