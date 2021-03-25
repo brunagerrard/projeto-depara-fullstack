@@ -21,11 +21,9 @@ const Option = styled.div`
     inset 0 -10px 0 0 ${({ theme }) => theme.colors.richYellow};
   padding: 1rem 2rem;
   cursor: pointer;
-  border: 1px solid #ffffff;
-  transition: border 0.2s, margin 0.3s;
+  transition: margin 0.2s;
 
   &:hover {
-    border: 1px solid ${({ theme }) => theme.colors.richYellow};
     margin-left: 0.4rem;
 
     h3 {

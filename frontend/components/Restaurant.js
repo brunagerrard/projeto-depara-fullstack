@@ -3,12 +3,16 @@ import styled from "styled-components";
 
 export const Card = styled.div`
   background-color: #ffffff;
-  border-radius: 15px;
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   padding: 15px;
   height: 100%;
+  transition: margin .2s;
+  &:hover {
+    box-shadow: inset 0 -3px 0 0 ${({ theme }) => theme.colors.richYellow};
+    margin-left: 5px;
+  }
   img {
     width: 80px;
     border-radius: 50%;
