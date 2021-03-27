@@ -11,6 +11,10 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     background-color: ${({ theme }) => theme.colors.background}
   }
+
+  h2 {
+    font: 600 1.6rem Inter;
+  }
 `;
 
 const theme = {

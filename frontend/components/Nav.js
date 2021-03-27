@@ -57,7 +57,7 @@ export default function Nav() {
       <div id="login">
         <Button />
         <button id="hidden">
-          <Link href="">entregar</Link> | <Link href="/restaurants">pedir</Link>
+          <Link href="/contact">entregar</Link> | <Link href="/restaurants">pedir</Link>
         </button>
       </div>
     </Navbar>

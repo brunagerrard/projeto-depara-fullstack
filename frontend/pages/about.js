@@ -2,25 +2,21 @@ import styled from "styled-components";
 import Head from "next/head";
 import Header from "../components/Header";
 
-const AboutBox = styled.div`
+export const AboutBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-const AboutContent = styled.main`
+export const AboutContent = styled.main`
   background-color: ${({ theme }) => theme.colors.background};
-  width: calc(100% - 114px);
+  width: 80%;
   height: 100%;
   padding: 2.4rem 0;
 
   > p {
     font: ${({ theme }) => theme.fonts.paragraph};
     margin: 1.6rem auto;
-  }
-
-  h2 {
-    font: 600 1.6rem Inter;
   }
 `;
 
