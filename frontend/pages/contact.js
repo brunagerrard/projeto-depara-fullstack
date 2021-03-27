@@ -20,7 +20,7 @@ export default function Contact() {
       <AboutBox>
           <AboutContent>
             <h2>somos fortes quando estamos juntos. organize-se!</h2>
-
+            <p>É entregador e tem interesse em formar uma cooperativa? Entre em contato pelo formulário abaixo.</p>
             <Form />
           </AboutContent>
       </AboutBox>
