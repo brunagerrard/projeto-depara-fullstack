@@ -1,25 +1,26 @@
 import styled from "styled-components";
 import Head from "next/head";
+import Header from "../components/Header";
 
 const AboutBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  min-height: 100vh;
 `;
 
 const AboutContent = styled.main`
   background-color: ${({ theme }) => theme.colors.background};
   width: calc(100% - 114px);
-  height: calc(100vh - 209px);
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  height: 100%;
+  padding: 2.4rem 0;
 
   > p {
     font: ${({ theme }) => theme.fonts.paragraph};
+    margin: 1.6rem auto;
+  }
+
+  h2 {
+    font: 600 1.6rem Inter;
   }
 `;
 
@@ -30,22 +31,22 @@ export default function About() {
         <title>Sobre de_para</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;1,600&family=Montserrat:wght@200;300;400&family=Poppins:wght@300;600&family=Ubuntu:ital,wght@1,300;1,400&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto+Slab:wght@300;400;500;600&display=swap"
           rel="stylesheet"
         />
       </Head>
+      <Header title="Sobre o Projeto" />
       <AboutBox>
         <AboutContent>
+          <h2>o problema que queremos atacar</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-            at erat tincidunt, suscipit risus id, interdum magna. Proin nec
-            ligula sed elit finibus tempor eu in nulla. Maecenas quis dui odio.
-            In efficitur fermentum mauris et luctus. Etiam metus erat, vehicula
-            nec vulputate nec, semper et orci. Phasellus vitae sapien auctor,
-            rutrum leo ut, convallis dolor. Ut eget orci et tortor vestibulum
-            facilisis vel quis dolor. Cras sit amet orci accumsan, eleifend
-            neque at, vehicula metus. Nulla gravida diam quis eros placerat
-            suscipit.
+          Trabalho desregulamentado e precarizado, ausência total de vínculo empregatício, alta exposição ao Covid-19, falta de direitos básicos, algoritmos arbitrários de controle: essa é a realidade de um setor da informalidade que cresceu como nunca no ano de 2020 no Brasil - o nicho dos entregadores de aplicativo, trabalhadores que já vinham da informalidade ou perderam seus empregos em massa no ano da pandemia, que ainda segue arrasando o país sem o obstáculo de medidas públicas efetivas.
+          </p>
+          <p>
+          Os entregadores de aplicativo estão submetidos ao jugo cruel das gigantes empresas de <em>delivery</em>, que, independentemente do quanto aumentem seus lucros sobretudo num momento em que as pessoas estão necessitando mais de serviços de entrega para evitar a exposição ao vírus, se recusam a reconhecer o óbvio vínculo empregatício que domina as relações entre Empresa e Entregador, baixam cada vez mais o valor da corrida, impõem bloqueios e desativações completamente arbitrárias e injustificadas, frequentemente passam a conta de prejuízos para o entregador, etc.
+          </p>
+          <p>
+          A solução proposta é essencialmente uma alternativa, ainda que de complexidade vastamente menor, às grandes corporações de <em>delivery</em> que hoje sugam o valor produzido pelos trabalhadores aos quais não reconhece formalmente. Essa solução será escalável e pretendo que sirva de base para a adaptação e implementação futuras de uma cooperativa de <em>delivery</em>.
           </p>
         </AboutContent>
       </AboutBox>
