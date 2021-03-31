@@ -45,7 +45,7 @@ const Option = styled.div`
   p {
     font: ${({ theme }) => theme.fonts.smallParagraph};
   }
-  
+
   div {
     display: flex;
     justify-content: space-between;
@@ -57,29 +57,29 @@ const Option = styled.div`
 
   #add {
     opacity: 0;
-    transition: opacity .1s;
+    transition: opacity 0.1s;
   }
 `;
 
-export const RestaurantMenu = ({ item }) => {
+export const RestaurantMenu = ({ item, handleAddToCart }) => {
   return (
-    <Option>
+    <Option onClick={() => handleAddToCart(item)}>
       <h3>{item.option}</h3>
       <p>{item.description}</p>
       <div>
         <p>R$ {item.price},00</p>
-        <p 
-        id="add"
-        style={{
-          display: "inline-block",
-          width: "0.9rem",
-          color: "#cc2929",
-          cursor: "pointer",
-        }}>
+        <p
+          id="add"
+          style={{
+            display: "inline-block",
+            width: "0.9rem",
+            color: "#cc2929",
+            cursor: "pointer",
+          }}
+        >
           <FontAwesomeIcon icon={faPlus} />
         </p>
       </div>
-      
     </Option>
   );
 };

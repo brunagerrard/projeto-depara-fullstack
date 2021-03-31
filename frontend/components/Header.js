@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const RedTop = styled.header`
   width: 100%;
-  height: 30vh;
+  height: 20vh;
   min-height: 100px;
   background-color: ${({ theme }) => theme.colors.primaryRed};
   display: flex;

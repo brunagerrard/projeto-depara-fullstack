@@ -19,6 +19,7 @@
 .DS_Store
 *.pem
 tasks.todo
+.vscode
 
 # debug
 npm-debug.log*

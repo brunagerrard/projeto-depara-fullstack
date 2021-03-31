@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
+import { useState } from "react";
 import Head from "next/head";
 import Header from "../../components/Header";
 import restaurantsData from "../../public/data/restaurants";
 import { List, RestaurantMenu } from "../../components/RestaurantMenu";
+import Cart from "../../components/Cart";
 
 export default function Menu({ data }) {
   const router = useRouter();
@@ -12,6 +14,13 @@ export default function Menu({ data }) {
 
   const restaurant = data.find((r) => r._id === id);
   const { menu } = restaurant;
+
+  const [cartItems, setCartItems] = useState([]);
+  function handleAddToCart(clickedItem) {
+    setCartItems((prev) => {
+      return [...prev, { ...clickedItem }];
+    });
+  }
 
   return (
     <>
@@ -26,9 +35,16 @@ export default function Menu({ data }) {
       <Header title={restaurant.name} />
       <List>
         {menu
-          ? menu.map((item) => <RestaurantMenu key={item._id} item={item} />)
+          ? menu.map((item) => (
+              <RestaurantMenu
+                key={item._id}
+                item={item}
+                handleAddToCart={handleAddToCart}
+              />
+            ))
           : "loading"}
       </List>
+      <Cart cartItems={cartItems} />
     </>
   );
 }
