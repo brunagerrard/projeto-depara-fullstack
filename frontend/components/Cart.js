@@ -21,6 +21,25 @@ const CartWrapper = styled.aside`
   }
 `;
 
+const CartList = styled.div`
+  max-height: 20vh;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    width: 0.4rem;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #dddddd40;
+    border-radius: 7px;
+  }
+
+  :hover {
+    ::-webkit-scrollbar-thumb {
+      background-color: #dddddd;
+    }
+  }
+`;
+
 export default function Cart({ cartItems }) {
   return (
     <CartWrapper>
@@ -30,11 +49,13 @@ export default function Cart({ cartItems }) {
           Você ainda não adicionou nada. Clique sobre o item que deseja incluir!
         </p>
       ) : null}
-      {cartItems.map((item) => (
-        <CartItem key={item.id} item={item}>
-          {item.option}
-        </CartItem>
-      ))}
+      <CartList>
+        {cartItems.map((item) => (
+          <CartItem key={item.id} item={item}>
+            {item.option}
+          </CartItem>
+        ))}
+      </CartList>
     </CartWrapper>
   );
 }
