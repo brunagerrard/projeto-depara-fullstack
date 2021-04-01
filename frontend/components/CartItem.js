@@ -28,8 +28,7 @@ export default function CartItem({ item, removeFromCart }) {
     <Item>
       <p>{item.option}</p>
       <small>{item.price},00</small>
-      <button onClick={() => removeFromCart(item.id)}>-</button>
-      {/* <p
+      <p
         style={{
           display: "inline-block",
           width: "10px",
@@ -41,7 +40,7 @@ export default function CartItem({ item, removeFromCart }) {
           icon={faMinus}
           onClick={() => removeFromCart(item.id)}
         />
-      </p> */}
+      </p>
     </Item>
   );
 }

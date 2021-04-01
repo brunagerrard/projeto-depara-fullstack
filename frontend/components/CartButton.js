@@ -7,6 +7,11 @@ const Button = styled.button`
   border: none;
   padding: 0.6rem 2rem;
   cursor: pointer;
+  transition: background-color 0.1s;
+
+  :hover {
+    background-color: ${({ theme }) => theme.colors.primaryRed};
+  }
 
   :disabled {
     background-color: ${({ theme }) => theme.colors.background};
