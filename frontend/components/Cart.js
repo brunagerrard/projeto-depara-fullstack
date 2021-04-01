@@ -1,4 +1,6 @@
+import { useState } from "react";
 import CartItem from "./CartItem";
+import CartButton from "./CartButton";
 import styled from "styled-components";
 
 const CartWrapper = styled.aside`
@@ -40,7 +42,20 @@ const CartList = styled.div`
   }
 `;
 
-export default function Cart({ cartItems }) {
+export default function Cart({ cartItems, setCartItems }) {
+  const [isDisabled, setIsDisabled] = useState(true);
+  function handleRemoveFromCart(id) {
+    setCartItems((prev) =>
+      prev.reduce((acc, item) => {
+        if (item.id === id) {
+          return [...acc];
+        } else {
+          return [...acc, item];
+        }
+      }, [])
+    );
+  }
+
   return (
     <CartWrapper>
       <h4>Carrinho</h4>
@@ -51,11 +66,16 @@ export default function Cart({ cartItems }) {
       ) : null}
       <CartList>
         {cartItems.map((item) => (
-          <CartItem key={item.id} item={item}>
+          <CartItem
+            key={item.id}
+            item={item}
+            removeFromCart={handleRemoveFromCart}
+          >
             {item.option}
           </CartItem>
         ))}
       </CartList>
+      <CartButton isDisabled={cartItems.length === 0} />
     </CartWrapper>
   );
 }

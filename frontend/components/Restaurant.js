@@ -8,7 +8,7 @@ export const Card = styled.div`
   align-items: center;
   padding: 15px;
   height: 100%;
-  transition: margin .2s;
+  transition: margin 0.2s;
   &:hover {
     box-shadow: inset 0 -3px 0 0 ${({ theme }) => theme.colors.richYellow};
     margin-left: 5px;
@@ -37,7 +37,7 @@ export const Card = styled.div`
 
 function Restaurant({ restaurant }) {
   return (
-    <Link href="/restaurants/[id]" as={`/restaurants/${restaurant._id}`}>
+    <Link href="/restaurants/[id]" as={`/restaurants/${restaurant.id}`}>
       <a style={{ textDecoration: "none" }}>
         <Card>
           <img src={restaurant.image} />

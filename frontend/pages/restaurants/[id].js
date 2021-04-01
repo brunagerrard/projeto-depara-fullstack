@@ -12,7 +12,7 @@ export default function Menu({ data }) {
     query: { id },
   } = router;
 
-  const restaurant = data.find((r) => r._id === id);
+  const restaurant = data.find((r) => r.id === id);
   const { menu } = restaurant;
 
   const [cartItems, setCartItems] = useState([]);
@@ -37,14 +37,14 @@ export default function Menu({ data }) {
         {menu
           ? menu.map((item) => (
               <RestaurantMenu
-                key={item._id}
+                key={item.id}
                 item={item}
                 handleAddToCart={handleAddToCart}
               />
             ))
           : "loading"}
       </List>
-      <Cart cartItems={cartItems} />
+      <Cart cartItems={cartItems} setCartItems={setCartItems} />
     </>
   );
 }

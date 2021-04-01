@@ -34,7 +34,7 @@ export default function Restaurants({ data }) {
       <Header title="Restaurantes" />
       <List>
         {data.map((restaurant) => (
-          <Restaurant restaurant={restaurant} key={restaurant._id} />
+          <Restaurant restaurant={restaurant} key={restaurant.id} />
         ))}
       </List>
     </>
