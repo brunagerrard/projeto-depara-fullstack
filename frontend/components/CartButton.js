@@ -1,7 +1,18 @@
 import styled from "styled-components";
 
 const Button = styled.button`
-  margin-left: 100%;
+  background-color: ${({ theme }) => theme.colors.darkerRed};
+  color: ${({ theme }) => theme.colors.richYellow};
+  font: ${({ theme }) => theme.fonts.links};
+  border: none;
+  padding: 0.6rem 2rem;
+  cursor: pointer;
+
+  :disabled {
+    background-color: ${({ theme }) => theme.colors.background};
+    color: #aaaaaa;
+    cursor: default;
+  }
 `;
 
 export default function CartButton({ isDisabled }) {

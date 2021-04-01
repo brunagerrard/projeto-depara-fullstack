@@ -9,17 +9,23 @@ const CartWrapper = styled.aside`
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(5px);
   position: sticky;
-  bottom: 0;
-  display: block;
+  bottom: -21vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   margin: 0 auto;
   padding: 1.3rem 2rem;
   border: 1px solid #ffffff;
   box-shadow: 0 0 5px #dddddd;
   font: ${({ theme }) => theme.fonts.secLinks};
+  transition: bottom 0.4s;
+
+  :hover {
+    bottom: 0;
+  }
 
   h4 {
     font-size: 1.1rem;
-    margin-bottom: 20px;
   }
 `;
 
