@@ -8,9 +8,8 @@ const Navbar = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 20px 57px;
-  margin: 2vh 2vw;
   border-radius: 15px;
-  box-shadow: 0 0 .5em rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.05);
 
   a,
   button {
@@ -23,7 +22,7 @@ const Navbar = styled.nav`
   }
 
   a:first-of-type {
-    color: ${({theme}) => theme.colors.primaryRed};
+    color: ${({ theme }) => theme.colors.primaryRed};
   }
 
   #login {
@@ -57,7 +56,8 @@ export default function Nav() {
       <div id="login">
         <Button />
         <button id="hidden">
-          <Link href="/contact">entregar</Link> | <Link href="/restaurants">pedir</Link>
+          <Link href="/contact">entregar</Link> |{" "}
+          <Link href="/restaurants">pedir</Link>
         </button>
       </div>
     </Navbar>

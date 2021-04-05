@@ -14,12 +14,19 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html, body {
+    background-color: ${({ theme }) => theme.colors.background};
     min-height: 100vh;
-    background-color: ${({ theme }) => theme.colors.background}
+    :hover .underline {
+      background-size: 100% 88%;
+    }
   }
 
   h2 {
     font: 600 1.6rem Inter;
+  }
+
+  p {
+    font: ${({ theme }) => theme.fonts.paragraph}
   }
 `;
 
