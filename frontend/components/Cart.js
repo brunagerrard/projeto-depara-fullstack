@@ -24,8 +24,13 @@ const CartWrapper = styled.aside`
     bottom: 0;
   }
 
-  h4 {
+  h4,
+  h5 {
     font-size: 1.1rem;
+  }
+
+  p {
+    font-size: 0.9rem;
   }
 `;
 
@@ -50,6 +55,7 @@ const CartList = styled.div`
 
 export default function Cart({ cartItems, setCartItems }) {
   const [isDisabled, setIsDisabled] = useState(true);
+
   function handleRemoveFromCart(id) {
     setCartItems((prev) =>
       prev.reduce((acc, item) => {
@@ -60,6 +66,10 @@ export default function Cart({ cartItems, setCartItems }) {
         }
       }, [])
     );
+  }
+
+  function calculateTotal(items) {
+    return items.reduce((acc, item) => acc + item.price, 0);
   }
 
   return (
@@ -81,6 +91,7 @@ export default function Cart({ cartItems, setCartItems }) {
           </CartItem>
         ))}
       </CartList>
+      <h5>Total: ${calculateTotal(cartItems).toFixed(2)}</h5>
       <CartButton isDisabled={cartItems.length === 0} />
     </CartWrapper>
   );
