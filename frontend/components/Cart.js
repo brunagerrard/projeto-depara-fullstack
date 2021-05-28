@@ -92,7 +92,7 @@ export default function Cart({ cartItems, setCartItems }) {
         ))}
       </CartList>
       <h5>Total: ${calculateTotal(cartItems).toFixed(2)}</h5>
-      <CartButton isDisabled={cartItems.length === 0} />
+      <CartButton isDisabled={cartItems.length === 0} cartItems={cartItems} />
     </CartWrapper>
   );
 }

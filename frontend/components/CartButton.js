@@ -20,10 +20,19 @@ const Button = styled.button`
   }
 `;
 
-export default function CartButton({ isDisabled }) {
+export default function CartButton({ isDisabled, cartItems }) {
   return (
     <>
-      <Button disabled={isDisabled}>Confirmar pedido</Button>
+      <Button
+        disabled={isDisabled}
+        onClick={function () {
+          const order = [...cartItems];
+          order.map((i) => console.log(i.option, i.price));
+          // return console.log(order);
+        }}
+      >
+        Confirmar pedido
+      </Button>
     </>
   );
 }

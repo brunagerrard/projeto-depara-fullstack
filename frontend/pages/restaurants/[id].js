@@ -21,7 +21,6 @@ export default function Menu({ data }) {
       return [...prev, { ...clickedItem }];
     });
   }
-  
 
   return (
     <>
