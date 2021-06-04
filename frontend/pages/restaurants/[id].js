@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import Head from "next/head";
 import Header from "../../components/Header";
+import Confirmation from "../../components/Confirmation";
 import restaurantsData from "../../public/data/restaurants";
 import { List, RestaurantMenu } from "../../components/RestaurantMenu";
 import Cart from "../../components/Cart";
@@ -45,20 +46,21 @@ export default function Menu({ data }) {
           : "loading"}
       </List>
       <Cart cartItems={cartItems} setCartItems={setCartItems} />
+      <Confirmation cartItems={cartItems} />
     </>
   );
 }
 
 export async function getStaticPaths() {
   const paths = [
-    { params: { id: "1" } },
-    { params: { id: "2" } },
-    { params: { id: "3" } },
-    { params: { id: "4" } },
-    { params: { id: "5" } },
-    { params: { id: "6" } },
-    { params: { id: "7" } },
-    { params: { id: "8" } },
+    { params: { id: "acaraje-do-largo" } },
+    { params: { id: "uai-food" } },
+    { params: { id: "caranguejo-de-ressaca" } },
+    { params: { id: "na-larica" } },
+    { params: { id: "sao-jorge" } },
+    { params: { id: "siri-e-queijo" } },
+    { params: { id: "pretensioso" } },
+    { params: { id: "die-young" } },
   ];
 
   return {

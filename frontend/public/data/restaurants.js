@@ -1,6 +1,6 @@
 const restaurantsData = [
   {
-    id: "1",
+    id: "acaraje-do-largo",
     name: "Acarajé do Largo",
     cuisine: "Baiana",
     image: "../images/rest-avatar.png",
@@ -36,7 +36,7 @@ const restaurantsData = [
     ],
   },
   {
-    id: "2",
+    id: "uai-food",
     name: "Uai Food",
     cuisine: "Mineira",
     image: "../images/rest-avatar.png",
@@ -57,7 +57,7 @@ const restaurantsData = [
     ],
   },
   {
-    id: "3",
+    id: "caranguejo-de-ressaca",
     name: "Caranguejo de Ressaca",
     cuisine: "Frutos do mar",
     image: "../images/rest-avatar.png",
@@ -78,7 +78,7 @@ const restaurantsData = [
     ],
   },
   {
-    id: "4",
+    id: "na-larica",
     name: "Na Larica",
     cuisine: "Especial",
     image: "../images/rest-avatar.png",
@@ -99,7 +99,7 @@ const restaurantsData = [
     ],
   },
   {
-    id: "5",
+    id: "sao-jorge",
     name: "São Jorge",
     cuisine: "Bebidas",
     image: "../images/rest-avatar.png",
@@ -120,7 +120,7 @@ const restaurantsData = [
     ],
   },
   {
-    id: "6",
+    id: "siri-e-queijo",
     name: "Siri & Queijo",
     cuisine: "Frutos do mar",
     image: "../images/rest-avatar.png",
@@ -141,7 +141,7 @@ const restaurantsData = [
     ],
   },
   {
-    id: "7",
+    id: "pretensioso",
     name: "Pretensioso",
     cuisine: "Vegano",
     image: "../images/rest-avatar.png",
@@ -162,7 +162,7 @@ const restaurantsData = [
     ],
   },
   {
-    id: "8",
+    id: "die-young",
     name: "Die Young",
     cuisine: "Fast-food",
     image: "../images/rest-avatar.png",
