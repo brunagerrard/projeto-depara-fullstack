@@ -20,17 +20,15 @@ const Button = styled.button`
   }
 `;
 
-export default function CartButton({ isDisabled, cartItems }) {
+export default function CartButton({ isDisabled, cartItems, setShowModal }) {
   return (
     <>
       <Button
         disabled={isDisabled}
-        onClick={function () {
-          const order = [...cartItems];
+        onClick={() => setShowModal(true)}>
+          {/* const order = [...cartItems];
           order.map((i) => console.log(i.option, i.price));
-          // return console.log(order);
-        }}
-      >
+          return console.log(order); */}      
         Confirmar pedido
       </Button>
     </>

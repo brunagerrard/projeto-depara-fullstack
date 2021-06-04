@@ -53,7 +53,7 @@ const CartList = styled.div`
   }
 `;
 
-export default function Cart({ cartItems, setCartItems }) {
+export default function Cart({ cartItems, setCartItems, setShowModal }) {
   const [isDisabled, setIsDisabled] = useState(true);
 
   function handleRemoveFromCart(id) {
@@ -92,7 +92,7 @@ export default function Cart({ cartItems, setCartItems }) {
         ))}
       </CartList>
       <h5>Total: ${calculateTotal(cartItems).toFixed(2)}</h5>
-      <CartButton isDisabled={cartItems.length === 0} cartItems={cartItems} />
+      <CartButton isDisabled={cartItems.length === 0} cartItems={cartItems} setShowModal={setShowModal} />
     </CartWrapper>
   );
 }

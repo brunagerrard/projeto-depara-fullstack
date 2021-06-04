@@ -23,6 +23,8 @@ export default function Menu({ data }) {
     });
   }
 
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <>
       <Head>
@@ -45,8 +47,8 @@ export default function Menu({ data }) {
             ))
           : "loading"}
       </List>
-      <Cart cartItems={cartItems} setCartItems={setCartItems} />
-      <Confirmation cartItems={cartItems} />
+      <Cart cartItems={cartItems} setCartItems={setCartItems} setShowModal={setShowModal} />
+      <Confirmation cartItems={cartItems} showModal={showModal} />
     </>
   );
 }
