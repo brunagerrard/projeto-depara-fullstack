@@ -62,18 +62,36 @@ const MyForm = styled.form`
 `
 
 export default function Form() {
+    const sendFormData = async e => {
+        e.preventDefault()
+        const res = await fetch ('api/contact', {
+            body: JSON.stringify({
+                name: e.target.name.value,
+                email: e.target.email.value,
+                story: e.target.story.value
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST'
+        })
+
+        const result = await res.json()
+
+        e.target.reset()
+    }
   return (
     <FormWrapper>
-        <MyForm>
+        <MyForm onSubmit={sendFormData}>
             <label htmlFor="name">Como quer ser chamado?</label>
-            <input type="text" id="name" name="name" placeholder="Seu nome" />
+            <input type="text" id="name" name="name" placeholder="Seu nome" required />
             <label htmlFor="email">Qual o seu melhor e-mail para contato?
             <br /><small>Não divulgamos seus dados nem enviamos spam.</small>
             </label>
-            <input type="text" id="email" name="email" placeholder="Seu e-mail" />
+            <input type="text" id="email" name="email" placeholder="Seu e-mail" required />
             <label htmlFor="story">Quer enviar algum comentário?</label>
             <textarea id="story" name="story" placeholder="Escreva o que quiser" />
-            <button type="submit" onClick={e => e.preventDefault}>Enviar</button>
+            <button type="submit">Enviar</button>
         </MyForm>
     </FormWrapper>
   );
