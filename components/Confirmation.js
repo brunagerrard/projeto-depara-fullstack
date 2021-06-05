@@ -1,5 +1,7 @@
-import styled from "styled-components"
-import { Button } from "./CartButton"
+import { useState } from 'react'
+import styled from 'styled-components'
+import Address from './Address'
+import { Button } from './CartButton'
 
 const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
@@ -65,18 +67,31 @@ const OrderItem = styled.input`
   border: none;
   font: ${({ theme }) => theme.fonts.paragraph};
   font-size: 0.9rem;
-  padding-bottom: 0.7rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 2px solid #eee;
+  margin-top: 1rem;
+
+  :first-of-type {
+  }
 `
 
 export default function Confirmation({ cartItems, showModal, setShowModal }) {
+  const [tipoLogradouro, setTipoLogradouro] = useState('')
+  const [nomeLogradouro, setNomeLogradouro] = useState('')
   if (!showModal) {
     return null
   } else {
     return (
       <ModalWrapper>
         <Modal>
-          <h4>Revise seu pedido:</h4>
+          <h4>Insira um endereço válido:</h4>
           <OrderDetails>
+            <Address
+              tipoLogradouro={tipoLogradouro}
+              setTipoLogradouro={setTipoLogradouro}
+              nomeLogradouro={nomeLogradouro}
+              setNomeLogradouro={setNomeLogradouro}
+            />
             {cartItems.map(item => (
               <OrderItem
                 key={item.id}

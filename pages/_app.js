@@ -46,6 +46,8 @@ const theme = {
     darkerRed: "#aa2121",
     richYellow: "#ffc700",
     background: "#f0f0f7",
+    meredithGrey: "#e9e8eb",
+    ellisGrey: "#cbcacf",
     maroon: "#4d2626",
     rose: "#ffc2c2",
     faintRose: "#c4a8b9",
