@@ -68,7 +68,6 @@ export default function Form() {
 
   const sendFormData = async e => {
     e.preventDefault()
-    setIsFormSent(false)
 
     const res = await fetch("api/contact", {
       body: JSON.stringify({
@@ -86,7 +85,7 @@ export default function Form() {
 
     e.target.reset()
 
-    setTimeout(() => setIsFormSent(true), 2000)
+    if(result) setIsFormSent(true)
   }
   return (
     <FormWrapper>
@@ -113,10 +112,10 @@ export default function Form() {
         />
         <label htmlFor="story">Quer enviar algum comentário?</label>
         <textarea id="story" name="story" placeholder="Escreva o que quiser" />
-        <button type="submit">Enviar</button>
+        <button type="submit" onClick={() => setIsFormSent('sending')}>Enviar</button>
       </MyForm>
 
-      {isFormSent === "false" ? "sending" : isFormSent === "true" ? "sent" : 'nada'}
+      {isFormSent === 'sending' ? 'sending' : isFormSent && 'sent'}
     </FormWrapper>
   )
 }
