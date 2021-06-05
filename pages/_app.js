@@ -25,6 +25,16 @@ const GlobalStyle = createGlobalStyle`
     font: 600 1.6rem Inter;
   }
 
+  h4 {
+    color: ${({theme}) => theme.colors.darkerRed};
+  }
+
+  h4,
+  h5 {
+    font: ${({ theme }) => theme.fonts.secLinks};
+    font-size: 1.1rem;
+  }
+
   p {
     font: ${({ theme }) => theme.fonts.paragraph}
   }

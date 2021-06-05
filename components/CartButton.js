@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Button = styled.button`
+export const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.darkerRed};
   color: ${({ theme }) => theme.colors.richYellow};
   font: ${({ theme }) => theme.fonts.links};

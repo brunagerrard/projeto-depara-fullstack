@@ -1,6 +1,7 @@
-import styled from "styled-components";
-import { faMinus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components"
+// import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const Item = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.richYellow};
@@ -15,19 +16,23 @@ const Item = styled.div`
     flex-grow: 2;
   }
 
-  small {
+  p:nth-of-type(2) {
     flex-grow: 0.5;
   }
 
-  button {
+  #trash-icon {
+    color: ${({ theme }) => theme.colors.richYellow};
+    :hover {
+      color: ${({ theme }) => theme.colors.primaryRed};
+    }
   }
-`;
+`
 
 export default function CartItem({ item, removeFromCart }) {
   return (
     <Item>
       <p>{item.option}</p>
-      <small>{item.price},00</small>
+      <p>{item.price},00</p>
       <p
         style={{
           display: "inline-block",
@@ -37,10 +42,11 @@ export default function CartItem({ item, removeFromCart }) {
         }}
       >
         <FontAwesomeIcon
-          icon={faMinus}
+          icon={faTrashAlt}
           onClick={() => removeFromCart(item.id)}
+          id="trash-icon"
         />
       </p>
     </Item>
-  );
+  )
 }

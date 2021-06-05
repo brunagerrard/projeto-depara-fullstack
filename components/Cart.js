@@ -17,16 +17,10 @@ const CartWrapper = styled.aside`
   padding: 1.3rem 2rem;
   border: 1px solid #ffffff;
   box-shadow: 0 0 5px #dddddd;
-  font: ${({ theme }) => theme.fonts.secLinks};
   transition: bottom 0.4s;
 
   :hover {
     bottom: 0;
-  }
-
-  h4,
-  h5 {
-    font-size: 1.1rem;
   }
 
   p {
@@ -91,7 +85,7 @@ export default function Cart({ cartItems, setCartItems, setShowModal }) {
           </CartItem>
         ))}
       </CartList>
-      <h5>Total: ${calculateTotal(cartItems).toFixed(2)}</h5>
+      <h5>Total: R${calculateTotal(cartItems).toFixed(2)}</h5>
       <CartButton isDisabled={cartItems.length === 0} cartItems={cartItems} setShowModal={setShowModal} />
     </CartWrapper>
   );
