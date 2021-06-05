@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.darkerRed};
@@ -18,19 +18,17 @@ export const Button = styled.button`
     color: #aaaaaa;
     cursor: default;
   }
-`;
+`
 
 export default function CartButton({ isDisabled, cartItems, setShowModal }) {
   return (
     <>
-      <Button
-        disabled={isDisabled}
-        onClick={() => setShowModal(true)}>
-          {/* const order = [...cartItems];
+      <Button disabled={isDisabled} onClick={() => setShowModal(true)}>
+        {/* const order = [...cartItems];
           order.map((i) => console.log(i.option, i.price));
-          return console.log(order); */}      
+          return console.log(order); */}
         Confirmar pedido
       </Button>
     </>
-  );
+  )
 }

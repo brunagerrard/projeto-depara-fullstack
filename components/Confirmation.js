@@ -32,7 +32,32 @@ const Modal = styled.div`
   }
 `
 
-const OrderDetails = styled.form``
+const OrderDetails = styled.form`
+  margin-bottom: 1.6rem;
+`
+
+const DoOrDie = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4rem;
+
+  button:first-of-type {
+    box-shadow: inset 0 0 0 1px ${({ theme }) => theme.colors.darkerRed};
+    color: ${({ theme }) => theme.colors.darkerRed};
+    background-color: #ffffff;
+
+    :hover {
+      color: #ffffff;
+      background-color: ${({ theme }) => theme.colors.darkerRed};
+    }
+  }
+
+  button:last-of-type {
+    background-color: ${({ theme }) => theme.colors.richYellow};
+    color: ${({ theme }) => theme.colors.darkerRed};
+    flex-grow: 2;
+  }
+`
 
 const OrderItem = styled.input`
   width: 100%;
@@ -40,7 +65,7 @@ const OrderItem = styled.input`
   border: none;
   font: ${({ theme }) => theme.fonts.paragraph};
   font-size: 0.9rem;
-  padding-bottom: .7rem;
+  padding-bottom: 0.7rem;
 `
 
 export default function Confirmation({ cartItems, showModal, setShowModal }) {
@@ -61,7 +86,10 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
               />
             ))}
           </OrderDetails>
-          <Button onClick={() => setShowModal(false)}>Cancelar</Button>
+          <DoOrDie>
+            <Button onClick={() => setShowModal(false)}>Cancelar</Button>
+            <Button>Confirmar</Button>
+          </DoOrDie>
         </Modal>
       </ModalWrapper>
     )
