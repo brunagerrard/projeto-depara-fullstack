@@ -48,7 +48,7 @@ export default function Menu({ data }) {
           : "loading"}
       </List>
       <Cart cartItems={cartItems} setCartItems={setCartItems} setShowModal={setShowModal} />
-      <Confirmation cartItems={cartItems} showModal={showModal} />
+      <Confirmation cartItems={cartItems} showModal={showModal} setShowModal={setShowModal} />
     </>
   );
 }
