@@ -1,18 +1,30 @@
 import Head from 'next/head'
 import Nav from '../components/Nav'
-import Landing from '../components/Landing'
 import styled from 'styled-components'
+import Hero from '../components/Hero'
 
 const HomeBox = styled.div`
-  padding: 3vh 2vw 4.7vh;
-  height: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  @media (min-width: 1200px) {
+    flex-direction: row;
+  }
+
+  #logo {
+    width: 250px;
+    z-index: 1;
+  }
 `
 
 export default function Home() {
   return (
     <HomeBox>
       <Head>
-        <title>de_para</title>
+        <title>de_para: delivery camarada</title>
         <link rel='preconnect' href='https://fonts.gstatic.com' />
         <link rel='shortcut icon' href='/favicon.png' />
         <link
@@ -20,7 +32,12 @@ export default function Home() {
           rel='stylesheet'
         />
       </Head>
-      <Landing />
+      <Hero/>
+      <img
+        src="/images/logodepara.svg"
+        alt="Logotipo da aplicação de_para, com a ilustração de uma bicicleta formada por símbolos comunistas. O pneu dianteiro é similar à engrenagem de uma máquina, o traseiro é uma foice e o guidão o martelo."
+        id="logo"
+      />
       <Nav />
     </HomeBox>
   )

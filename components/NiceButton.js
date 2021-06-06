@@ -1,33 +1,42 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 
-const Button = styled.button`
-  border: none;
+const Button = styled.a`
+  text-decoration: none;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.primaryRed};
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
-  width: 30vw;
+  background-color: rgba(255, 255, 255, 0.85);
+  width: 40vw;
   max-width: 180px;
   height: 160px;
   cursor: pointer;
   padding: 2rem 1rem;
-  transition: all 0.3s;
+  transition: all 0.2s;
   overflow: hidden;
   box-shadow: 0 5px 10px ${({ theme }) => theme.colors.meredithGrey};
   z-index: 1;
 
+  @media (max-width: 350px) {
+    width: 100%;
+    max-width: 100%;
+  }
+
   :hover {
     background-color: rgba(255, 255, 255, 0.9);
-    padding-top: 20px;
+    padding-top: 25px;
+    box-shadow: 0 5px 10px 5px ${({ theme }) => theme.colors.meredithGrey};
   }
 
-  a {
-    text-decoration: none;
-    color: ${({ theme }) => theme.colors.primaryRed};
-  }
-
-  h2 {
+  h1 {
     font: ${({ theme }) => theme.fonts.links};
+    font-size: 1.1rem;
     margin-top: 0.8rem;
+    transition: transform .2s;
+  }
+
+  :hover h1 {
+    transform: scale(1.1)
   }
 `
 
@@ -37,11 +46,9 @@ const Icon = styled.img`
 
 const NiceButton = React.forwardRef(({ onClick, href, icon, text }, ref) => {
   return (
-    <Button>
-      <a href={href} onClick={onClick} ref={ref}>
-        <Icon src={icon} />
-        <h2>{text}</h2>
-      </a>
+    <Button href={href} onClick={onClick} ref={ref}>
+      <Icon src={icon} />
+      <h1>{text}</h1>
     </Button>
   )
 })
