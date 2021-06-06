@@ -1,20 +1,9 @@
-import { useState } from 'react'
 import styled from 'styled-components'
 
 const AddressForm = styled.div`
-  #street-name {
-    border: none;
-    outline: none;
-    border-bottom: 2px solid ${({ theme }) => theme.colors.meredithGrey};
-    width: 100%;
-    font: ${({ theme }) => theme.fonts.links};
-    padding: 0.8rem 0.3rem 0.4rem;
-    margin: 1.1rem 0;
-
-    ::placeholder {
-      color: ${({ theme }) => theme.colors.ellisGrey};
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `
 
 const StreetType = styled.div`
@@ -46,6 +35,20 @@ const StreetType = styled.div`
     height: 0;
   }
 `
+
+const TextInput = styled.input`
+  border: none;
+  outline: none;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.meredithGrey};
+  width: 100%;
+  font: ${({ theme }) => theme.fonts.links};
+  padding: 0.8rem 0.3rem 0.4rem;
+
+  ::placeholder {
+    color: ${({ theme }) => theme.colors.ellisGrey};
+  }
+`
+
 export default function Address({
   tipoLogradouro,
   setTipoLogradouro,
@@ -96,10 +99,19 @@ export default function Address({
         />
         <label for='rodovia'>Rodovia</label>
       </StreetType>
-      <input
-        name='street-name'
+      <TextInput
+        type='text'
+        name='street'
         placeholder='insira o nome e número do local: Exemplo, 123'
-        id='street-name'
+        id='street'
+        onInput={e => setNomeLogradouro(e.target.value)}
+        required
+      />
+      <TextInput
+        type='text'
+        name='neighborhood'
+        placeholder='insira o nome do bairro'
+        id='neighborhood'
         onInput={e => setNomeLogradouro(e.target.value)}
         required
       />

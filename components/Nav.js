@@ -1,65 +1,28 @@
-import styled from "styled-components";
-import Link from "next/link";
-import Button from "./Button";
+import styled from 'styled-components'
+import Link from 'next/link'
+import NiceButton from './NiceButton'
 
-const Navbar = styled.nav`
-  background-color: #ffffff;
+const NavButtons = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 57px;
-  border-radius: 15px;
-  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.05);
-
-  a,
-  button {
-    font: ${({ theme }) => theme.fonts.links};
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    text-underline-offset: 3px;
-    color: white;
-    cursor: pointer;
-  }
-
-  a:first-of-type {
-    color: ${({ theme }) => theme.colors.primaryRed};
-  }
-
-  #login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #hidden {
-    padding: 0.2rem 0.5rem;
-    border: none;
-    background-color: transparent;
-    position: absolute;
-    top: -40px;
-    color: ${({ theme }) => theme.colors.faintRose};
-    transition: top 0.5s;
-  }
-
-  #hidden a {
-    font: ${({ theme }) => theme.fonts.secLinks};
-    color: ${({ theme }) => theme.colors.faintRose};
-    text-transform: none;
-    text-decoration: none;
-  }
-`;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 2rem 0 0 3rem;
+`
 
 export default function Nav() {
   return (
-    <Navbar>
-      <Link href="/about">o projeto</Link>
-      <div id="login">
-        <Button />
-        <button id="hidden">
-          <Link href="/contact">entregar</Link> |{" "}
-          <Link href="/restaurants">pedir</Link>
-        </button>
-      </div>
-    </Navbar>
-  );
+    <>
+      <NavButtons>
+        <Link href='/about' passHref>
+          <NiceButton text='conhecer' icon='/images/magnifier.png' />
+        </Link>
+        <Link href='/contact' passHref>
+          <NiceButton text='entregar' icon='/images/person.png' />
+        </Link>
+        <Link href='/restaurants' passHref>
+          <NiceButton text='pedir' icon='/images/burger.png' />
+        </Link>
+      </NavButtons>
+    </>
+  )
 }
