@@ -1,7 +1,9 @@
-import { useState } from "react"
-import styled from "styled-components"
-import Address from "./Address"
-import { Button } from "./CartButton"
+/** @format */
+
+import { useState } from 'react'
+import styled from 'styled-components'
+import Address from './Address'
+import { Button } from './CartButton'
 
 const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
@@ -75,24 +77,35 @@ const OrderItem = styled.input`
 `
 
 export default function Confirmation({ cartItems, showModal, setShowModal }) {
-  const [tipoLogradouro, setTipoLogradouro] = useState("")
-  const [nomeLogradouro, setNomeLogradouro] = useState("")
-  const [bairro, setBairro] = useState("")
-  const [tipoResidencia, setTipoResidencia] = useState("")
-  const [complemento, setComplemento] = useState("")
+  const [tipoLogradouro, setTipoLogradouro] = useState('')
+  const [nomeLogradouro, setNomeLogradouro] = useState('')
+  const [bairro, setBairro] = useState('')
+  const [tipoResidencia, setTipoResidencia] = useState('')
+  const [complemento, setComplemento] = useState('')
+  const [numApto, setNumApto] = useState('')
+  const [numSala, setNumSala] = useState('')
+  const [edificio, setEdificio] = useState('')
 
   const sendFormData = async e => {
     e.preventDefault()
 
-    const res = await fetch("../api/place-order", {
+    const res = await fetch('../api/place-order', {
       body: JSON.stringify({
-        address: `${tipoLogradouro} ${nomeLogradouro}, ${bairro}. ${tipoResidencia}. ${complemento}`,
+        address: {
+          tipo: tipoResidencia,
+          apartamento: numApto,
+          sala: numSala,
+          edificio,
+          nome: `${tipoLogradouro} ${nomeLogradouro}`,
+          bairro,
+          complemento,
+        },
         order: cartItems,
       }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      method: "POST",
+      method: 'POST',
     })
 
     const result = await res.json()
@@ -119,6 +132,12 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
               setTipoResidencia={setTipoResidencia}
               complemento={complemento}
               setComplemento={setComplemento}
+              numApto={numApto}
+              setNumApto={setNumApto}
+              numSala={numSala}
+              setNumSala={setNumSala}
+              edificio={edificio}
+              setEdificio={setEdificio}
             />
             {cartItems.map(item => (
               <OrderItem

@@ -1,4 +1,6 @@
-import styled from "styled-components"
+/** @format */
+
+import styled from 'styled-components'
 
 const AddressForm = styled.div`
   display: flex;
@@ -25,7 +27,7 @@ const StreetType = styled.div`
     }
   }
 
-  input[type="radio"]:checked + label {
+  input[type='radio']:checked + label {
     border-color: ${({ theme }) => theme.colors.richYellow};
   }
 
@@ -60,9 +62,71 @@ export default function Address({
   setTipoResidencia,
   complemento,
   setComplemento,
+  numApto,
+  setNumApto,
+  numSala,
+  setNumSala,
+  edificio,
+  setEdificio,
 }) {
   return (
     <AddressForm>
+      <StreetType>
+        <input
+          type="radio"
+          id="casa"
+          name="building"
+          value="Casa"
+          onClick={e => setTipoResidencia(e.target.value)}
+        />
+        <label htmlFor="casa">Casa</label>
+        <input
+          type="radio"
+          id="apartamento"
+          name="building"
+          value="Apartamento"
+          onClick={e => setTipoResidencia(e.target.value)}
+        />
+        <label htmlFor="apartamento">Apartamento</label>
+        <input
+          type="radio"
+          id="comercial"
+          name="building"
+          value="Sala Comercial"
+          onClick={e => setTipoResidencia(e.target.value)}
+        />
+        <label htmlFor="comercial">Prédio comercial</label>
+      </StreetType>
+      {tipoResidencia === 'Apartamento' && (
+        <TextInput
+          type="text"
+          name="apto"
+          placeholder="número do apartamento"
+          id="apto"
+          onInput={e => setNumApto(e.target.value)}
+          required
+        />
+      )}
+      {tipoResidencia === 'Sala Comercial' && (
+        <>
+          <TextInput
+            type="text"
+            name="predio"
+            placeholder="nome do edifício"
+            id="predio"
+            onInput={e => setEdificio(e.target.value)}
+            required
+          />
+          <TextInput
+            type="text"
+            name="sala"
+            placeholder="número da sala"
+            id="sala"
+            onInput={e => setNumSala(e.target.value)}
+            required
+          />
+        </>
+      )}
       <StreetType>
         <input
           type="radio"
@@ -124,15 +188,18 @@ export default function Address({
       <TextInput
         type="text"
         name="additional"
-        placeholder="complementos, ex: apto 101"
+        placeholder="complementos"
         id="additional"
         onInput={e => setComplemento(e.target.value)}
         required
       />
-      {tipoLogradouro && (
+      {complemento && (
         <p>
-          Você receberá esse pedido {tipoLogradouro === "Largo" ? "no" : "na"}{" "}
-          {tipoLogradouro} {nomeLogradouro}
+          Você receberá esse pedido em {tipoResidencia === 'Apartamento' ? 'seu' : 'sua'} {tipoResidencia} {' '}
+          {tipoResidencia === 'Apartamento' && numApto}
+          {tipoResidencia === 'Sala Comercial' && `${numSala} no edifício ${edificio}`}
+          {complemento}, {tipoLogradouro === 'Largo' ? 'no' : 'na'}{' '}
+          {tipoLogradouro} {nomeLogradouro}, {bairro}. 
         </p>
       )}
     </AddressForm>

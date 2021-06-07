@@ -1,4 +1,6 @@
-import styled from "styled-components"
+/** @format */
+
+import styled from 'styled-components'
 import {
   faHamburger,
   faPizzaSlice,
@@ -11,8 +13,8 @@ import {
   faCookieBite,
   faDrumstickBite,
   faBeer,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Container = styled.div`
   position: absolute;
@@ -35,14 +37,12 @@ const Icons = styled.div`
   }
 
   .icons-12 {
-    filter: blur(1px);
     opacity: 0.4;
     color: ${({ theme }) => theme.colors.primaryRed};
     width: 2.8rem;
     animation: falling 17s infinite alternate;
   }
   .icons-9 {
-    filter: blur(1px);
     color: ${({ theme }) => theme.colors.faintRose};
     width: 2.8rem;
     animation: falling 10s infinite alternate;
@@ -60,12 +60,11 @@ const Icons = styled.div`
   }
   .icons-3 {
     color: ${({ theme }) => theme.colors.richYellow};
-    filter: blur(2px);
     width: 4.8rem;
-    animation: falling 5s infinite alternate;
+    opacity: 0.5;
+    animation: falling 10s infinite alternate;
   }
   .icons-2 {
-    filter: blur(1px);
     color: ${({ theme }) => theme.colors.ellisGrey};
     width: 3.4rem;
     animation: falling 22s infinite alternate;
@@ -73,14 +72,17 @@ const Icons = styled.div`
 
   @keyframes falling {
     0% {
-      transform: translateY(700px);
+      transform: translateY(100vh);
       opacity: 0;
+      filter: blur(5px);
     }
-    25% {
+    40% {
+      transform: scale(0.7);
       opacity: 0.5;
     }
     80% {
-        transform: scale(0.7);
+      filter: blur(0);
+      transform: scale(1);
     }
     100% {
       transform: translateY(-100px);
@@ -161,18 +163,18 @@ function Hero() {
             id={`icon${j}`}
             className={
               j % 12 == 0
-                ? "icons-12"
+                ? 'icons-12'
                 : j % 9 == 0
-                ? "icons-9"
+                ? 'icons-9'
                 : j % 7 == 0
-                ? "icons-7"
+                ? 'icons-7'
                 : j % 5 == 0
-                ? "icons-5"
+                ? 'icons-5'
                 : j % 3 == 0
-                ? "icons-3"
+                ? 'icons-3'
                 : j % 2 == 0
-                ? "icons-2"
-                : "floating-icons"
+                ? 'icons-2'
+                : 'floating-icons'
             }
           />
         ))}

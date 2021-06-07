@@ -1,44 +1,43 @@
-import { useRouter } from "next/router";
-import styled from "styled-components";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+/** @format */
 
-const RedTop = styled.header`
-  width: 100%;
-  height: 20vh;
-  min-height: 100px;
-  background-color: ${({ theme }) => theme.colors.primaryRed};
+import { useRouter } from 'next/router'
+import styled from 'styled-components'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+const Bar = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+  margin-top: 2.4rem;
+`
 
 const HeaderTitle = styled.h1`
   width: 80%;
   font: ${({ theme }) => theme.fonts.titles};
-  color: rgba(455, 455, 455, 0.98);
-`;
+  color: ${({ theme }) => theme.colors.primaryRed};
+`
 
 function Header(props) {
-  const router = useRouter();
+  const router = useRouter()
   return (
-    <RedTop>
+    <Bar>
       <HeaderTitle>
         <p
           style={{
-            display: "inline-block",
-            width: "20px",
-            marginRight: "20px",
-            color: "rgba(455, 455, 455, 0.98)",
-            cursor: "pointer",
+            display: 'inline-block',
+            width: '20px',
+            marginRight: '20px',
+            color: `${({ theme }) => theme.colors.primaryRed}`,
+            cursor: 'pointer',
           }}
         >
           <FontAwesomeIcon icon={faArrowLeft} onClick={() => router.back()} />
         </p>
         {props.title}
       </HeaderTitle>
-    </RedTop>
-  );
+    </Bar>
+  )
 }
 
-export default Header;
+export default Header

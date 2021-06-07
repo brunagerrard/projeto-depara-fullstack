@@ -1,0 +1,6 @@
+{
+    "prettier.singleQuote": true,
+    "prettier.arrowParens": "avoid",
+    "prettier.insertPragma": true,
+    "prettier.semi": false
+}
