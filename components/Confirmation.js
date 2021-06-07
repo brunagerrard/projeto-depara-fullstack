@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import styled from 'styled-components'
-import Address from './Address'
-import { Button } from './CartButton'
+import { useState } from "react"
+import styled from "styled-components"
+import Address from "./Address"
+import { Button } from "./CartButton"
 
 const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
@@ -68,7 +68,6 @@ const OrderItem = styled.input`
   font: ${({ theme }) => theme.fonts.paragraph};
   font-size: 0.9rem;
   padding-bottom: 0.2rem;
-  border-bottom: 2px solid #eee;
   margin-top: 1rem;
 
   :first-of-type {
@@ -76,8 +75,31 @@ const OrderItem = styled.input`
 `
 
 export default function Confirmation({ cartItems, showModal, setShowModal }) {
-  const [tipoLogradouro, setTipoLogradouro] = useState('')
-  const [nomeLogradouro, setNomeLogradouro] = useState('')
+  const [tipoLogradouro, setTipoLogradouro] = useState("")
+  const [nomeLogradouro, setNomeLogradouro] = useState("")
+  const [bairro, setBairro] = useState("")
+  const [tipoResidencia, setTipoResidencia] = useState("")
+  const [complemento, setComplemento] = useState("")
+
+  const sendFormData = async e => {
+    e.preventDefault()
+
+    const res = await fetch("../api/place-order", {
+      body: JSON.stringify({
+        address: `${tipoLogradouro} ${nomeLogradouro}, ${bairro}. ${tipoResidencia}. ${complemento}`,
+        order: cartItems,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    })
+
+    const result = await res.json()
+
+    e.target.reset()
+  }
+
   if (!showModal) {
     return null
   } else {
@@ -85,12 +107,18 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
       <ModalWrapper>
         <Modal>
           <h4>Insira um endereço válido:</h4>
-          <OrderDetails>
+          <OrderDetails onSubmit={sendFormData}>
             <Address
               tipoLogradouro={tipoLogradouro}
               setTipoLogradouro={setTipoLogradouro}
               nomeLogradouro={nomeLogradouro}
               setNomeLogradouro={setNomeLogradouro}
+              bairro={bairro}
+              setBairro={setBairro}
+              tipoResidencia={tipoResidencia}
+              setTipoResidencia={setTipoResidencia}
+              complemento={complemento}
+              setComplemento={setComplemento}
             />
             {cartItems.map(item => (
               <OrderItem
@@ -100,11 +128,11 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
                 disabled
               />
             ))}
+            <DoOrDie>
+              <Button onClick={() => setShowModal(false)}>Cancelar</Button>
+              <Button type="submit">Confirmar</Button>
+            </DoOrDie>
           </OrderDetails>
-          <DoOrDie>
-            <Button onClick={() => setShowModal(false)}>Cancelar</Button>
-            <Button>Confirmar</Button>
-          </DoOrDie>
         </Modal>
       </ModalWrapper>
     )
