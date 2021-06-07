@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components"
 
 const AddressForm = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const StreetType = styled.div`
     }
   }
 
-  input[type='radio']:checked + label {
+  input[type="radio"]:checked + label {
     border-color: ${({ theme }) => theme.colors.richYellow};
   }
 
@@ -54,71 +54,85 @@ export default function Address({
   setTipoLogradouro,
   nomeLogradouro,
   setNomeLogradouro,
+  bairro,
+  setBairro,
+  tipoResidencia,
+  setTipoResidencia,
+  complemento,
+  setComplemento,
 }) {
   return (
     <AddressForm>
       <StreetType>
         <input
-          type='radio'
-          id='rua'
-          name='street-type'
-          value='Rua'
+          type="radio"
+          id="rua"
+          name="street-type"
+          value="Rua"
           onClick={e => setTipoLogradouro(e.target.value)}
         />
-        <label for='rua'>Rua</label>
+        <label htmlFor="rua">Rua</label>
         <input
-          type='radio'
-          id='av'
-          name='street-type'
-          value='Avenida'
+          type="radio"
+          id="av"
+          name="street-type"
+          value="Avenida"
           onClick={e => setTipoLogradouro(e.target.value)}
         />
-        <label for='av'>Avenida</label>
+        <label htmlFor="av">Avenida</label>
         <input
-          type='radio'
-          id='travessa'
-          name='street-type'
-          value='Travessa'
+          type="radio"
+          id="travessa"
+          name="street-type"
+          value="Travessa"
           onClick={e => setTipoLogradouro(e.target.value)}
         />
-        <label for='travessa'>Travessa</label>
+        <label htmlFor="travessa">Travessa</label>
         <input
-          type='radio'
-          id='largo'
-          name='street-type'
-          value='Largo'
+          type="radio"
+          id="largo"
+          name="street-type"
+          value="Largo"
           onClick={e => setTipoLogradouro(e.target.value)}
         />
-        <label for='largo'>Largo</label>
+        <label htmlFor="largo">Largo</label>
         <input
-          type='radio'
-          id='rodovia'
-          name='street-type'
-          value='Rodovia'
+          type="radio"
+          id="rodovia"
+          name="street-type"
+          value="Rodovia"
           onClick={e => setTipoLogradouro(e.target.value)}
         />
-        <label for='rodovia'>Rodovia</label>
+        <label htmlFor="rodovia">Rodovia</label>
       </StreetType>
       <TextInput
-        type='text'
-        name='street'
-        placeholder='insira o nome e número do local: Exemplo, 123'
-        id='street'
+        type="text"
+        name="street"
+        placeholder="nome e número do local: Exemplo, 123"
+        id="street"
         onInput={e => setNomeLogradouro(e.target.value)}
         required
       />
       <TextInput
-        type='text'
-        name='neighborhood'
-        placeholder='insira o nome do bairro'
-        id='neighborhood'
-        onInput={e => setNomeLogradouro(e.target.value)}
+        type="text"
+        name="neighborhood"
+        placeholder="bairro"
+        id="neighborhood"
+        onInput={e => setBairro(e.target.value)}
+        required
+      />
+      <TextInput
+        type="text"
+        name="additional"
+        placeholder="complementos, ex: apto 101"
+        id="additional"
+        onInput={e => setComplemento(e.target.value)}
         required
       />
       {tipoLogradouro && (
         <p>
-          Você receberá esse pedido {tipoLogradouro === 'Largo' ? 'no' : 'na'}{' '}
-          {tipoLogradouro}: {nomeLogradouro}
+          Você receberá esse pedido {tipoLogradouro === "Largo" ? "no" : "na"}{" "}
+          {tipoLogradouro} {nomeLogradouro}
         </p>
       )}
     </AddressForm>
