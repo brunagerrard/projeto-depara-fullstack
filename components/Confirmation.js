@@ -38,9 +38,7 @@ const Modal = styled.div`
   }
 `
 
-const OrderDetails = styled.form`
-  
-`
+const OrderDetails = styled.form``
 
 const DoOrDie = styled.div`
   display: flex;
@@ -103,6 +101,7 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
       body: JSON.stringify({
         user: {
           name: session.user.name,
+          email: session.user.email,
         },
         address: {
           tipo: tipoResidencia,
@@ -113,7 +112,9 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
           bairro,
           complemento,
         },
+        restaurant: document.title,
         order: cartItems,
+        status: 'Pedido enviado',
       }),
       headers: {
         'Content-Type': 'application/json',
