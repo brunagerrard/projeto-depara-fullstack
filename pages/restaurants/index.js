@@ -1,8 +1,11 @@
-import Head from "next/head";
-import styled from "styled-components";
-import Header from "../../components/Header";
-import Restaurant from "../../components/Restaurant";
-import restaurantsData from "../../public/data/restaurants";
+/** @format */
+
+import Head from 'next/head'
+import styled from 'styled-components'
+import Header from '../../components/Header'
+import Restaurant from '../../components/Restaurant'
+import Session from '../../components/Session'
+import restaurantsData from '../../public/data/restaurants'
 
 const List = styled.main`
   height: 100%;
@@ -18,11 +21,12 @@ const List = styled.main`
   @media (max-width: 800px) {
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   }
-`;
+`
 
 export default function Restaurants({ data }) {
   return (
     <>
+      <Session />
       <Head>
         <title>Restaurantes</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -33,16 +37,16 @@ export default function Restaurants({ data }) {
       </Head>
       <Header title="Restaurantes" />
       <List>
-        {data.map((restaurant) => (
+        {data.map(restaurant => (
           <Restaurant restaurant={restaurant} key={restaurant.id} />
         ))}
       </List>
     </>
-  );
+  )
 }
 
 export async function getStaticProps() {
-  const data = restaurantsData;
+  const data = restaurantsData
 
-  return { props: { data } };
+  return { props: { data } }
 }

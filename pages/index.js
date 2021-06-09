@@ -1,10 +1,9 @@
 /** @format */
 
 import Head from 'next/head'
-import { signIn, signOut, useSession } from 'next-auth/client'
 import styled from 'styled-components'
 import Nav from '../components/Nav'
-import Hero from '../components/Hero'
+import Session from '../components/Session'
 
 const HomeBox = styled.div`
   height: 100vh;
@@ -23,13 +22,7 @@ const HomeBox = styled.div`
   }
 `
 
-const Login = styled.div`
-  position: absolute;
-  top: 20px;
-`
-
 export default function Home() {
-  const [session, loading] = useSession()
   return (
     <HomeBox>
       <Head>
@@ -41,21 +34,7 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      <Hero />
-      <Login>
-        {!session && (
-          <>
-            Not signed in <br />
-            <button onClick={() => signIn('auth0')}>Sign in</button>
-          </>
-        )}
-        {session && (
-          <>
-            Signed in as {session.user.email} <br />
-            <button onClick={() => signOut()}>Sign out</button>
-          </>
-        )}
-      </Login>
+      <Session/>
       <img
         src="/images/logodepara.svg"
         alt="Logotipo da aplicação de_para, com a ilustração de uma bicicleta formada por símbolos comunistas. O pneu dianteiro é similar à engrenagem de uma máquina, o traseiro é uma foice e o guidão o martelo."
