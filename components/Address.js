@@ -1,18 +1,28 @@
 /** @format */
-
+import { useSession } from 'next-auth/client'
 import styled from 'styled-components'
 
 const AddressForm = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  #feedback {
+    padding: 1rem .8rem;
+    margin-bottom: .8rem;
+    background-color: ${({theme}) => theme.colors.background};
+  }
 `
 
 const StreetType = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 0.2rem;
   font: ${({ theme }) => theme.fonts.links};
+
+  @media (max-width: 700px) {
+  }
 
   label {
     flex-grow: 1;
@@ -69,6 +79,7 @@ export default function Address({
   edificio,
   setEdificio,
 }) {
+  const [session] = useSession()
   return (
     <AddressForm>
       <StreetType>
@@ -146,22 +157,6 @@ export default function Address({
         <label htmlFor="av">Avenida</label>
         <input
           type="radio"
-          id="travessa"
-          name="street-type"
-          value="Travessa"
-          onClick={e => setTipoLogradouro(e.target.value)}
-        />
-        <label htmlFor="travessa">Travessa</label>
-        <input
-          type="radio"
-          id="largo"
-          name="street-type"
-          value="Largo"
-          onClick={e => setTipoLogradouro(e.target.value)}
-        />
-        <label htmlFor="largo">Largo</label>
-        <input
-          type="radio"
           id="rodovia"
           name="street-type"
           value="Rodovia"
@@ -194,12 +189,14 @@ export default function Address({
         required
       />
       {complemento && (
-        <p>
-          Você receberá esse pedido em {tipoResidencia === 'Apartamento' ? 'seu' : 'sua'} {tipoResidencia} {' '}
+        <p id='feedback'>
+          {session.user.name}, você receberá esse pedido em{' '}
+          {tipoResidencia === 'Apartamento' ? 'seu' : 'sua'} {tipoResidencia}{' '}
           {tipoResidencia === 'Apartamento' && numApto}
-          {tipoResidencia === 'Sala Comercial' && `${numSala} no edifício ${edificio}`}
-          {complemento}, {tipoLogradouro === 'Largo' ? 'no' : 'na'}{' '}
-          {tipoLogradouro} {nomeLogradouro}, {bairro}. 
+          {tipoResidencia === 'Sala Comercial' &&
+            `${numSala} no edifício ${edificio}`}
+            {tipoLogradouro === 'Largo' ? 'no' : 'na'} {tipoLogradouro}{' '}
+          {nomeLogradouro}, {bairro}.
         </p>
       )}
     </AddressForm>

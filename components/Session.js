@@ -33,7 +33,6 @@ const SessionBar = styled.div`
     vertical-align: middle;
     padding: 0;
     font-size: 1.2rem;
-    margin-right: 0.8rem;
   }
 `
 
@@ -52,12 +51,11 @@ export default function Session() {
               style={{
                 display: 'inline-block',
                 width: '20px',
-                marginRight: '20px',
                 color: `${({ theme }) => theme.colors.primaryRed}`,
                 cursor: 'pointer',
               }}
             >
-              <FontAwesomeIcon icon={faSignInAlt} title='login' />
+              <FontAwesomeIcon icon={faSignInAlt} title="login" />
             </p>
           </button>
         </>
@@ -70,12 +68,11 @@ export default function Session() {
               style={{
                 display: 'inline-block',
                 width: '20px',
-                marginRight: '20px',
                 color: `${({ theme }) => theme.colors.primaryRed}`,
                 cursor: 'pointer',
               }}
             >
-              <FontAwesomeIcon icon={faSignOutAlt} title='logout' />
+              <FontAwesomeIcon icon={faSignOutAlt} title="logout" />
             </p>
           </button>
         </>

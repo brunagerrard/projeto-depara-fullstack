@@ -1,5 +1,5 @@
 /** @format */
-
+import { useSession } from 'next-auth/client'
 import { useState } from 'react'
 import styled from 'styled-components'
 import Address from './Address'
@@ -15,6 +15,7 @@ const ModalWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-y: scroll;
 `
 
 const Modal = styled.div`
@@ -22,7 +23,8 @@ const Modal = styled.div`
   width: 80vw;
   display: flex;
   flex-direction: column;
-  padding: 1.6rem;
+  justify-content: center;
+  padding: 1.2rem;
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.3);
 
   @media (min-width: 600px) {
@@ -36,14 +38,16 @@ const Modal = styled.div`
   }
 `
 
-const OrderDetails = styled.form`
-  margin-bottom: 1.6rem;
-`
+const OrderDetails = styled.form``
 
 const DoOrDie = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 0.4rem;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
 
   button:first-of-type {
     box-shadow: inset 0 0 0 1px ${({ theme }) => theme.colors.darkerRed};
@@ -63,20 +67,24 @@ const DoOrDie = styled.div`
   }
 `
 
-const OrderItem = styled.input`
-  width: 100%;
-  background-color: #ffffff;
-  border: none;
-  font: ${({ theme }) => theme.fonts.paragraph};
-  font-size: 0.9rem;
-  padding-bottom: 0.2rem;
-  margin-top: 1rem;
+// const OrderItem = styled.input`
+//   width: 100%;
+//   border: none;
+//   font: ${({ theme }) => theme.fonts.smallParagraph};
+//   text-align: center;
+//   padding: 0.2rem 0.5rem;
+//   background-color: #ffffff;
 
-  :first-of-type {
-  }
-`
+//   :first-of-type {
+//     margin-top: 1rem;
+//   }
+//   :last-of-type {
+//     margin-bottom: 1rem;
+//   }
+// `
 
 export default function Confirmation({ cartItems, showModal, setShowModal }) {
+  const [session] = useSession()
   const [tipoLogradouro, setTipoLogradouro] = useState('')
   const [nomeLogradouro, setNomeLogradouro] = useState('')
   const [bairro, setBairro] = useState('')
@@ -91,6 +99,10 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
 
     const res = await fetch('../api/place-order', {
       body: JSON.stringify({
+        user: {
+          name: session.user.name,
+          email: session.user.email,
+        },
         address: {
           tipo: tipoResidencia,
           apartamento: numApto,
@@ -100,7 +112,9 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
           bairro,
           complemento,
         },
+        restaurant: document.title,
         order: cartItems,
+        status: 'Pedido enviado',
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -139,14 +153,14 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
               edificio={edificio}
               setEdificio={setEdificio}
             />
-            {cartItems.map(item => (
+            {/* {cartItems.map(item => (
               <OrderItem
                 key={item.id}
-                value={item.option}
+                value={`${item.option} - R$${item.price}.00`}
                 name={`item${item.id}`}
                 disabled
               />
-            ))}
+            ))} */}
             <DoOrDie>
               <Button onClick={() => setShowModal(false)}>Cancelar</Button>
               <Button type="submit">Confirmar</Button>
