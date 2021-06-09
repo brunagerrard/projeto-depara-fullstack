@@ -9,7 +9,7 @@ const Bar = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2.4rem;
+  margin-top: 4.4rem;
 `
 
 const HeaderTitle = styled.h1`

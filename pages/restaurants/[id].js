@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Head from "next/head";
+import restaurantsData from "../../public/data/restaurants";
 import Header from "../../components/Header";
 import Confirmation from "../../components/Confirmation";
-import restaurantsData from "../../public/data/restaurants";
 import { List, RestaurantMenu } from "../../components/RestaurantMenu";
 import Cart from "../../components/Cart";
+import Session from "../../components/Session";
 
 export default function Menu({ data }) {
   const router = useRouter();
@@ -35,6 +36,7 @@ export default function Menu({ data }) {
           rel="stylesheet"
         />
       </Head>
+      <Session/>
       <Header title={restaurant.name} />
       <List>
         {menu

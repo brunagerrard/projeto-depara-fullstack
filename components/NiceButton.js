@@ -1,5 +1,7 @@
-import React from "react"
-import styled from "styled-components"
+/** @format */
+
+import React from 'react'
+import styled from 'styled-components'
 
 const Button = styled.a`
   text-decoration: none;
@@ -32,11 +34,36 @@ const Button = styled.a`
     font: ${({ theme }) => theme.fonts.links};
     font-size: 1.1rem;
     margin-top: 0.8rem;
-    transition: transform .2s;
+    transition: transform 0.2s;
   }
 
   :hover h1 {
-    transform: scale(1.1)
+    transform: scale(1.1);
+  }
+
+  :first-of-type {
+    animation: float 3s 2s 2;
+  }
+  :nth-of-type(2) {
+    animation: float 3s 3s 2;
+  }
+  :nth-of-type(3) {
+    animation: float 3s 4s 2;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    20% {
+      transform: translateY(-20px);
+    }
+    50% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(0);
+    }
   }
 `
 
