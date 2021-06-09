@@ -19,6 +19,10 @@ const CartWrapper = styled.aside`
   box-shadow: 0 0 5px #dddddd;
   transition: bottom 0.4s;
 
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+
   :hover {
     bottom: 0;
   }
