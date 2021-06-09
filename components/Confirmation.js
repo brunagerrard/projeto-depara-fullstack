@@ -1,5 +1,5 @@
 /** @format */
-
+import { useSession } from 'next-auth/client'
 import { useState } from 'react'
 import styled from 'styled-components'
 import Address from './Address'
@@ -77,6 +77,7 @@ const OrderItem = styled.input`
 `
 
 export default function Confirmation({ cartItems, showModal, setShowModal }) {
+  const [session] = useSession()
   const [tipoLogradouro, setTipoLogradouro] = useState('')
   const [nomeLogradouro, setNomeLogradouro] = useState('')
   const [bairro, setBairro] = useState('')
@@ -91,6 +92,9 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
 
     const res = await fetch('../api/place-order', {
       body: JSON.stringify({
+        user: {
+          name: session.user.name
+        },
         address: {
           tipo: tipoResidencia,
           apartamento: numApto,
@@ -147,6 +151,7 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
                 disabled
               />
             ))}
+            {session.user.name}
             <DoOrDie>
               <Button onClick={() => setShowModal(false)}>Cancelar</Button>
               <Button type="submit">Confirmar</Button>
