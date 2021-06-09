@@ -122,7 +122,7 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
       method: 'POST',
     })
 
-    const result = await res.json()
+    const { _id } = await res.json()
 
     e.target.reset()
   }

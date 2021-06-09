@@ -192,9 +192,9 @@ export default function Address({
         <p id='feedback'>
           {session.user.name}, você receberá esse pedido em{' '}
           {tipoResidencia === 'Apartamento' ? 'seu' : 'sua'} {tipoResidencia}{' '}
-          {tipoResidencia === 'Apartamento' && numApto}
+          {tipoResidencia === 'Apartamento' && numApto}{' '}
           {tipoResidencia === 'Sala Comercial' &&
-            `${numSala} no edifício ${edificio}`}
+            `${numSala} no edifício ${edificio} `}
             {tipoLogradouro === 'Largo' ? 'no' : 'na'} {tipoLogradouro}{' '}
           {nomeLogradouro}, {bairro}.
         </p>
