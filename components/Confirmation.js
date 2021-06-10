@@ -67,24 +67,10 @@ const DoOrDie = styled.div`
   }
 `
 
-// const OrderItem = styled.input`
-//   width: 100%;
-//   border: none;
-//   font: ${({ theme }) => theme.fonts.smallParagraph};
-//   text-align: center;
-//   padding: 0.2rem 0.5rem;
-//   background-color: #ffffff;
-
-//   :first-of-type {
-//     margin-top: 1rem;
-//   }
-//   :last-of-type {
-//     margin-bottom: 1rem;
-//   }
-// `
-
 export default function Confirmation({ cartItems, showModal, setShowModal }) {
   const [session] = useSession()
+  const [isOrderSent, setIsOrderSent] = useState(false)
+  const [orderId, setOrderId] = useState('')
   const [tipoLogradouro, setTipoLogradouro] = useState('')
   const [nomeLogradouro, setNomeLogradouro] = useState('')
   const [bairro, setBairro] = useState('')
@@ -124,6 +110,9 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
 
     const { _id } = await res.json()
 
+    setOrderId(_id)
+    setIsOrderSent(true)
+
     // e.target.reset()
   }
 
@@ -132,41 +121,41 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
   } else {
     return (
       <ModalWrapper>
-        <Modal>
-          <h4>Insira um endereço válido:</h4>
-          <OrderDetails onSubmit={sendFormData}>
-            <Address
-              tipoLogradouro={tipoLogradouro}
-              setTipoLogradouro={setTipoLogradouro}
-              nomeLogradouro={nomeLogradouro}
-              setNomeLogradouro={setNomeLogradouro}
-              bairro={bairro}
-              setBairro={setBairro}
-              tipoResidencia={tipoResidencia}
-              setTipoResidencia={setTipoResidencia}
-              complemento={complemento}
-              setComplemento={setComplemento}
-              numApto={numApto}
-              setNumApto={setNumApto}
-              numSala={numSala}
-              setNumSala={setNumSala}
-              edificio={edificio}
-              setEdificio={setEdificio}
-            />
-            {/* {cartItems.map(item => (
-              <OrderItem
-                key={item.id}
-                value={`${item.option} - R$${item.price}.00`}
-                name={`item${item.id}`}
-                disabled
+        {isOrderSent ? (
+          <Modal>
+            <h4>Obrigada por contribuir para a cooperativa de entregadores e restaurantes parceiros.</h4>
+            <p style={{marginBottom: '16px'}}>O prazo dessa entrega é de 50 a 70 minutos.</p>
+            <a href={`/api/place-order/${ orderId }`}>Acompanhar pedido</a>
+          </Modal>
+        ) : (
+          <Modal>
+            <h4>Insira um endereço válido:</h4>
+            <OrderDetails onSubmit={sendFormData}>
+              <Address
+                tipoLogradouro={tipoLogradouro}
+                setTipoLogradouro={setTipoLogradouro}
+                nomeLogradouro={nomeLogradouro}
+                setNomeLogradouro={setNomeLogradouro}
+                bairro={bairro}
+                setBairro={setBairro}
+                tipoResidencia={tipoResidencia}
+                setTipoResidencia={setTipoResidencia}
+                complemento={complemento}
+                setComplemento={setComplemento}
+                numApto={numApto}
+                setNumApto={setNumApto}
+                numSala={numSala}
+                setNumSala={setNumSala}
+                edificio={edificio}
+                setEdificio={setEdificio}
               />
-            ))} */}
-            <DoOrDie>
-              <Button onClick={() => setShowModal(false)}>Cancelar</Button>
-              <Button type='submit'>Confirmar</Button>
-            </DoOrDie>
-          </OrderDetails>
-        </Modal>
+              <DoOrDie>
+                <Button onClick={() => setShowModal(false)}>Cancelar</Button>
+                <Button type='submit'>Confirmar</Button>
+              </DoOrDie>
+            </OrderDetails>
+          </Modal>
+        )}
       </ModalWrapper>
     )
   }

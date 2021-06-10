@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import NiceButton from './NiceButton'
+import { useSession } from 'next-auth/client'
 
 const Container = styled.div`
   display: flex;
@@ -24,17 +25,22 @@ const NavButtons = styled.div`
 `
 
 export default function Nav() {
+  const [session, loading] = useSession()
+
   return (
     <Container>
       <NavButtons>
         <Link href='/about' passHref>
           <NiceButton text='conhecer' icon='/images/magnifier.png' />
         </Link>
-        <Link href='/contact' passHref>
-          <NiceButton text='entregar' icon='/images/person.png' />
-        </Link>
+        {session && (<Link href='/profile' passHref>
+          <NiceButton text='perfil' icon='/images/person.png' />
+        </Link>)}
         <Link href='/restaurants' passHref>
           <NiceButton text='pedir' icon='/images/burger.png' id='last' />
+        </Link>
+        <Link href='/contact' passHref>
+          <NiceButton text='entregar' icon='/images/pin.png' />
         </Link>
       </NavButtons>
     </Container>
