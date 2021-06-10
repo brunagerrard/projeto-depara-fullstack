@@ -13,11 +13,11 @@ export default async function handler(req, res) {
 
     await db
       .collection('restaurantes')
-      .updateOne({ name: restaurant }, { $push: { orders: result } })
+      .updateOne({ name: restaurant }, { $push: { orders: req.body } })
 
-    // await db
-    //   .collection('users')
-    //   .updateOne({ email: user.email }, { $push: { orders: result } })
+    await db
+      .collection('users')
+      .updateOne({ email: user.email }, { $push: { orders: req.body } })
 
     res.status(200).json(result.ops[0])
   } else if (req.method === 'GET') {
