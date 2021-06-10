@@ -14,7 +14,7 @@ const ProfileWrapper = styled.div`
 
 export default function Profile() {
   const [session, loading] = useSession()
-  const { data, error } = useSWR(`/api/user/${session.user.email}`, fetcher)
+  const { data, error } = useSWR(`/api/user/${session?.user.email}`, fetcher)
 
   if (error) {
     console.log(error)
@@ -23,7 +23,7 @@ export default function Profile() {
   return (
     <>
       <Head>
-        <title>{session.user.email}</title>
+        <title>{session?.user.email}</title>
         <link rel='preconnect' href='https://fonts.gstatic.com' />
         <link rel='shortcut icon' href='/favicon.png' />
         <link
