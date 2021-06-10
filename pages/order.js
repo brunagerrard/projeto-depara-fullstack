@@ -1,7 +1,11 @@
+import { signIn, signOut, useSession } from 'next-auth/client'
 import styled from "styled-components";
 import Head from "next/head";
+import Session from '../components/Session'
 
-export default function Contact() {
+export default function Order() {
+  const [session, loading] = useSession()
+
     return (
       <>
         <Head>
@@ -12,6 +16,7 @@ export default function Contact() {
             rel="stylesheet"
           />
         </Head>
+        <Session/>
         <h1>pedido enviado</h1>
       </>
     );
