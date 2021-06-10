@@ -122,9 +122,9 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
       method: 'POST',
     })
 
-    const result = await res.json()
+    const { _id } = await res.json()
 
-    e.target.reset()
+    // e.target.reset()
   }
 
   if (!showModal) {
@@ -163,7 +163,7 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
             ))} */}
             <DoOrDie>
               <Button onClick={() => setShowModal(false)}>Cancelar</Button>
-              <Button type="submit">Confirmar</Button>
+              <Button type='submit'>Confirmar</Button>
             </DoOrDie>
           </OrderDetails>
         </Modal>
