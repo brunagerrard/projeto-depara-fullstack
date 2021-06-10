@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     const { db } = await connectToDatabase()
 
     const result = await db
-      .collection('usuarios')
+      .collection('users')
       .insertOne({ name, email, phone })
 
     res.status(200).json(result.ops[0])

@@ -9,7 +9,15 @@ export default async function handler(req, res) {
 
     const result = await db.collection('pedidos').insertOne(req.body)
 
-    // await db.collection('restaurants').updateOne()
+    const { restaurant, user } = req.body
+
+    await db
+      .collection('restaurantes')
+      .updateOne({ name: restaurant }, { $push: { orders: result } })
+
+    // await db
+    //   .collection('users')
+    //   .updateOne({ email: user.email }, { $push: { orders: result } })
 
     res.status(200).json(result.ops[0])
   } else if (req.method === 'GET') {
