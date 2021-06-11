@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import Session from '../components/Session'
 import Header from '../components/Header'
 import fetcher from '../utils/fetcher'
+import OrderHistory from '../components/OrderHistory'
 
 const ProfileWrapper = styled.div`
   margin-top: 2rem;
@@ -14,7 +15,16 @@ const ProfileWrapper = styled.div`
 
 export default function Profile() {
   const [session, loading] = useSession()
-  const { data, error } = useSWR(`/api/user/${session?.user.email}`, fetcher)
+  // const { data, error } = useSWR(`/api/user/${session?.user.email}`, fetcher)
+  const { data, error } = useSWR(
+    !loading
+      ? `/api/user/${session?.user.email}`
+      : null,
+    fetcher
+  );
+  // data && console.log(data.data)
+  const userData = data ? data.data : null
+  userData && console.log(userData)
 
   if (error) {
     console.log(error)
@@ -36,6 +46,7 @@ export default function Profile() {
       <ProfileWrapper>
         <h1>profile page</h1>
         {session && data && <p>{data.data.name}</p>}
+        {userData && <OrderHistory userData={userData}></OrderHistory>}
       </ProfileWrapper>
     </>
   )
