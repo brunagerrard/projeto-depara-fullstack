@@ -11,6 +11,7 @@ import OrderHistory from '../components/OrderHistory'
 
 const ProfileWrapper = styled.div`
   margin-top: 2rem;
+  padding: 1rem 10%;
 `
 
 export default function Profile() {
@@ -23,8 +24,8 @@ export default function Profile() {
     fetcher
   );
   // data && console.log(data.data)
+  // userData && console.log(userData)
   const userData = data ? data.data : null
-  userData && console.log(userData)
 
   if (error) {
     console.log(error)
@@ -44,9 +45,8 @@ export default function Profile() {
       <Session />
       <Header title='Seu perfil' />
       <ProfileWrapper>
-        <h1>profile page</h1>
         {session && data && <p>{data.data.name}</p>}
-        {userData && <OrderHistory userData={userData}></OrderHistory>}
+        {userData && <OrderHistory userData={userData} />}
       </ProfileWrapper>
     </>
   )
