@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Header from '../../components/Header'
 import Restaurant from '../../components/Restaurant'
 import Session from '../../components/Session'
-import restaurantsData from '../../public/data/restaurants'
+import connectToDatabase from '../../utils/dbconnect'
 
 const List = styled.main`
   height: 100%;
@@ -29,13 +29,13 @@ export default function Restaurants({ data }) {
       <Session />
       <Head>
         <title>Restaurantes</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link rel='preconnect' href='https://fonts.gstatic.com' />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto+Slab:wght@300;400;500;600&display=swap"
-          rel="stylesheet"
+          href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto+Slab:wght@300;400;500;600&display=swap'
+          rel='stylesheet'
         />
       </Head>
-      <Header title="Restaurantes" />
+      <Header title='Restaurantes' />
       <List>
         {data.map(restaurant => (
           <Restaurant restaurant={restaurant} key={restaurant.id} />
@@ -46,7 +46,11 @@ export default function Restaurants({ data }) {
 }
 
 export async function getStaticProps() {
-  const data = restaurantsData
-
-  return { props: { data } }
+  const { db } = await connectToDatabase()
+  const restaurantes = await db.collection('restaurantes').find({}).toArray()
+  return {
+    props: {
+      data: JSON.parse(JSON.stringify(restaurantes)),
+    },
+  }
 }
