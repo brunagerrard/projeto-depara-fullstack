@@ -1,5 +1,7 @@
-import Link from "next/link";
-import styled from "styled-components";
+/** @format */
+
+import Link from 'next/link'
+import styled from 'styled-components'
 
 export const Card = styled.div`
   background-color: #ffffff;
@@ -33,12 +35,12 @@ export const Card = styled.div`
     font: 500 0.8rem Inter, sans-serif;
     color: #bbb;
   }
-`;
+`
 
 function Restaurant({ restaurant }) {
   return (
-    <Link href="/restaurants/[id]" as={`/restaurants/${restaurant.id}`}>
-      <a style={{ textDecoration: "none" }}>
+    <Link href='/restaurants/[slug]' as={`/restaurants/${restaurant.slug}`}>
+      <a style={{ textDecoration: 'none' }}>
         <Card>
           <img src={restaurant.image} />
           <div>
@@ -48,7 +50,7 @@ function Restaurant({ restaurant }) {
         </Card>
       </a>
     </Link>
-  );
+  )
 }
 
-export default Restaurant;
+export default Restaurant
