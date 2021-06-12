@@ -1,6 +1,7 @@
 /** @format */
 import { useSession } from 'next-auth/client'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import Address from './Address'
 import { Button } from './CartButton'
@@ -79,6 +80,7 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
   const [numApto, setNumApto] = useState('')
   const [numSala, setNumSala] = useState('')
   const [edificio, setEdificio] = useState('')
+  const router = useRouter()
 
   const sendFormData = async e => {
     e.preventDefault()
@@ -114,6 +116,7 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
     setIsOrderSent(true)
 
     // e.target.reset()
+    router.push('/profile')
   }
 
   if (!showModal) {
@@ -123,9 +126,14 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
       <ModalWrapper>
         {isOrderSent ? (
           <Modal>
-            <h4>Obrigada por contribuir para a cooperativa de entregadores e restaurantes parceiros.</h4>
-            <p style={{marginBottom: '16px'}}>O prazo dessa entrega é de 50 a 70 minutos.</p>
-            <a href={`/api/place-order/${ orderId }`}>Acompanhar pedido</a>
+            <h4>
+              Obrigada por contribuir para a cooperativa de entregadores e
+              restaurantes parceiros.
+            </h4>
+            <p style={{ marginBottom: '16px' }}>
+              O prazo dessa entrega é de 50 a 70 minutos.
+            </p>
+            <a href={`/api/place-order/${orderId}`}>Acompanhar pedido</a>
           </Modal>
         ) : (
           <Modal>

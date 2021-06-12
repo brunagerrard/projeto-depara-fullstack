@@ -1,6 +1,6 @@
 /** @format */
 import { getSession } from 'next-auth/client'
-import connectToDatabase from '../../utils/dbconnect'
+import connectToDatabase from '../../../utils/dbconnect'
 import { ObjectId } from 'mongodb'
 
 export default async function handler(req, res) {

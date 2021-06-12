@@ -1,6 +1,6 @@
 /** @format */
 
-import connectToDatabase from '../../utils/dbconnect'
+import connectToDatabase from '../../../utils/dbconnect'
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
