@@ -21,11 +21,17 @@ export default async function handler(req, res) {
 
     await db
       .collection('restaurantes')
-      .updateOne({ name: restaurant }, { $push: { orders: req.body } })
+      .updateOne(
+        { name: restaurant },
+        { $push: { orders: { $each: [req.body], $position: 0 } } }
+      )
 
     await db
       .collection('users')
-      .updateOne({ email: user.email }, { $push: { orders: req.body } })
+      .updateOne(
+        { email: user.email },
+        { $push: { orders: { $each: [req.body], $position: 0 } } }
+      )
 
     res.status(200).json(result.ops[0])
   } else {

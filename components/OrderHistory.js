@@ -15,6 +15,28 @@ const Order = styled.div`
   border-radius: 10px;
   box-shadow: 1px 2px 5px ${({ theme }) => theme.colors.meredithGrey};
   font: ${({ theme }) => theme.fonts.secLinks};
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  small :nth-of-type(2) {
+    color: #b6b1bd;
+  }
+
+  h3 {
+    color: ${({ theme }) => theme.colors.primaryRed};
+    margin-top: 0.6rem;
+
+    :nth-of-type(2) {
+      color: ${({ theme }) => theme.colors.ellisGrey};
+    }
+  }
+
+  p {
+    padding: 0.5rem 0.3rem 0.2rem;
+    width: fit-content;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.richYellow};
+  }
 
   :hover {
     box-shadow: 3px 4px 10px ${({ theme }) => theme.colors.meredithGrey};
@@ -23,25 +45,27 @@ const Order = styled.div`
   .sent {
     background-color: ${({ theme }) => theme.colors.ellisGrey};
   }
-  .received {
-    background-color: #EDAFB8;
+  .preparing {
+    background-color: #edafb8;
   }
   .ontheway {
-    background-color: #C2EABD;
+    background-color: #c2eabd;
   }
   .ended {
-    background-color: #42D9C8;
+    background-color: #42d9c8;
+    color: #246e58;
   }
 `
 
 const StatusBadge = styled.small`
   padding: 0.2rem 0.5rem;
   border-radius: 5px;
+  width: fit-content;
+  font-weight: bold;
 `
 
 function OrderHistory({ userData }) {
   const { orders } = userData
-  orders.reverse()
   console.log(userData)
   return (
     <OrdersBox>
@@ -52,7 +76,7 @@ function OrderHistory({ userData }) {
               o.status === 'Pedido recebido pelo usuário'
                 ? 'ended'
                 : o.status === 'Pedido sendo preparado'
-                ? 'received'
+                ? 'preparing'
                 : o.status === 'Pedido a caminho'
                 ? 'ontheway'
                 : 'sent'
@@ -60,11 +84,14 @@ function OrderHistory({ userData }) {
           >
             {o.status}
           </StatusBadge>
-          <p>
-            {o.restaurant}, {o._id}
-          </p>
-          <h3>Restaurante {o.restaurant}</h3>
-          <p>{o.order[0].option}</p>
+          <small>ID do pedido: {o._id}</small>
+          <h3>{o.restaurant}</h3>
+          {o.order.map(option => (
+            <p>{option.option}</p>
+          ))}
+          <h3>
+            Total: {o.order.reduce((acc, item) => acc + item.price, 0)},00
+          </h3>
         </Order>
       ))}
     </OrdersBox>

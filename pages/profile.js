@@ -45,7 +45,7 @@ export default function Profile() {
       <Session />
       <Header title='Seu perfil' />
       <ProfileWrapper>
-        {session && data && <p>{data.data.name}</p>}
+        {session && data && <p>oi, {data.data.name}! aqui estão seus últimos pedidos:</p>}
         {userData && <OrderHistory userData={userData} />}
       </ProfileWrapper>
     </>
