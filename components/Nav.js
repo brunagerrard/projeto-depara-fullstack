@@ -1,3 +1,5 @@
+/** @format */
+
 import styled from 'styled-components'
 import Link from 'next/link'
 import NiceButton from './NiceButton'
@@ -12,9 +14,9 @@ const Container = styled.div`
 const NavButtons = styled.div`
   width: 86vw;
   display: flex;
-  gap: 1.2rem;
+  gap: 0.8rem;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 
   @media (min-width: 900px) {
     width: 70vw;
@@ -30,17 +32,19 @@ export default function Nav() {
   return (
     <Container>
       <NavButtons>
-        <Link href='/about' passHref>
-          <NiceButton text='conhecer' icon='/images/magnifier.png' />
-        </Link>
-        {session && (<Link href='/profile' passHref>
-          <NiceButton text='perfil' icon='/images/person.png' />
-        </Link>)}
+        {session && (
+          <Link href='/profile' passHref>
+            <NiceButton text='perfil' icon='/images/person.png' />
+          </Link>
+        )}
         <Link href='/restaurants' passHref>
           <NiceButton text='pedir' icon='/images/burger.png' id='last' />
         </Link>
         <Link href='/contact' passHref>
           <NiceButton text='entregar' icon='/images/pin.png' />
+        </Link>
+        <Link href='/about' passHref>
+          <NiceButton text='conhecer' icon='/images/magnifier.png' />
         </Link>
       </NavButtons>
     </Container>

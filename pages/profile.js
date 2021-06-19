@@ -16,15 +16,12 @@ const ProfileWrapper = styled.div`
 
 export default function Profile() {
   const [session, loading] = useSession()
-  // const { data, error } = useSWR(`/api/user/${session?.user.email}`, fetcher)
   const { data, error } = useSWR(
     !loading
       ? `/api/user/${session?.user.email}`
       : null,
     fetcher
   );
-  // data && console.log(data.data)
-  // userData && console.log(userData)
   const userData = data ? data.data : null
 
   if (error) {
@@ -45,7 +42,7 @@ export default function Profile() {
       <Session />
       <Header title='Seu perfil' />
       <ProfileWrapper>
-        {session && data && <p>{data.data.name}</p>}
+        {session && data && <p>oi, {data.data.name}! aqui estão seus últimos pedidos:</p>}
         {userData && <OrderHistory userData={userData} />}
       </ProfileWrapper>
     </>

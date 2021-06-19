@@ -115,7 +115,7 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
     setOrderId(_id)
     setIsOrderSent(true)
 
-    // e.target.reset()
+    e.target.reset()
     router.push('/profile')
   }
 
