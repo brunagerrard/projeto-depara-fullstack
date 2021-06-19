@@ -8,7 +8,7 @@ import styled from 'styled-components'
 // import Session from '../../../components/Session'
 import Header from '../../../components/Header'
 import fetcher from '../../../utils/fetcher'
-import OrderHistory from '../../../components/OrderHistory'
+import RestOrderHistory from '../../../components/RestOrderHistory'
 
 const ProfileWrapper = styled.div`
   margin-top: 2rem;
@@ -34,21 +34,26 @@ export default function Profile() {
 
   return (
     <>
-      <Head>
-        <title>test</title>
-        <link rel='preconnect' href='https://fonts.gstatic.com' />
-        <link rel='shortcut icon' href='/favicon.png' />
-        <link
-          href='https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&family=Roboto+Slab:wght@300;400;500;600&display=swap'
-          rel='stylesheet'
-        />
-      </Head>
-      {/* <Session /> */}
-      <Header title='Seu perfil' />
-      <ProfileWrapper>
-        {restData && <p>últimos pedidos:</p>}
-        {restData && <OrderHistory userData={restData} />}
-      </ProfileWrapper>
+      {data ? (
+        <>
+          <Head>
+            <title>{data.data.name}</title>
+            <link rel='preconnect' href='https://fonts.gstatic.com' />
+            <link rel='shortcut icon' href='/favicon.png' />
+            <link
+              href='https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&family=Roboto+Slab:wght@300;400;500;600&display=swap'
+              rel='stylesheet'
+            />
+          </Head>
+          <Header title={data.data.name} />
+          <ProfileWrapper>
+            {restData && <p>últimos pedidos recebidos:</p>}
+            {restData && <RestOrderHistory restData={restData} />}
+          </ProfileWrapper>
+        </>
+      ) : (
+        ''
+      )}
     </>
   )
 }
