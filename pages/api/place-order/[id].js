@@ -34,6 +34,7 @@ export default async function handler(req, res) {
     }
 
     const { db } = await connectToDatabase()
+
     const result = await db
       .collection('users')
       .updateOne(
@@ -41,6 +42,18 @@ export default async function handler(req, res) {
         { $set: { 'orders.$[el].status': order_status } },
         { arrayFilters: [{ 'el._id': ObjectId(id) }] }
       )
+
+    const updateRestaurant = await db
+      .collection('restaurantes')
+      .updateOne(
+        { 'orders._id': ObjectId(id) },
+        { $set: { 'orders.$[el].status': order_status } },
+        { arrayFilters: [{ 'el._id': ObjectId(id) }] }
+      )
+
+    const updateOrder = await db
+      .collection('pedidos')
+      .updateOne({ _id: ObjectId(id) }, { $set: { status: order_status } })
 
     res.status(200).json(result)
   } else {
