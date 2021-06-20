@@ -19,7 +19,7 @@ export default function Profile() {
   const { data, error } = useSWR(
     !loading ? `/api/user/${session?.user.email}` : null,
     fetcher,
-    { refreshInterval: 10000 }
+    { refreshInterval: 5000 }
   )
   const userData = data ? data.data : null
 
