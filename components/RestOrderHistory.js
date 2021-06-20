@@ -123,6 +123,7 @@ function RestOrderHistory({ restData }) {
               id='status'
               onChange={e => setStatusUpdate(e.target.value)}
             >
+              <option default>Atualize o status do pedido</option>
               <option value='Pedido enviado ao restaurante'>
                 Pedido enviado ao restaurante
               </option>
