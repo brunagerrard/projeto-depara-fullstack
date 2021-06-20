@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import Address from './Address'
 import { Button } from './CartButton'
+import Loading from './Loading'
 
 const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
@@ -116,7 +117,9 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
     setIsOrderSent(true)
 
     e.target.reset()
-    router.push('/profile')
+    setTimeout(() => {
+      router.push('/profile')
+    }, 3000)
   }
 
   if (!showModal) {
@@ -126,14 +129,8 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
       <ModalWrapper>
         {isOrderSent ? (
           <Modal>
-            <h4>
-              Obrigada por contribuir para a cooperativa de entregadores e
-              restaurantes parceiros.
-            </h4>
-            <p style={{ marginBottom: '16px' }}>
-              O prazo dessa entrega é de 50 a 70 minutos.
-            </p>
-            <a href={`/api/place-order/${orderId}`}>Acompanhar pedido</a>
+            <h4>Pedido enviado! Redirecionando...</h4>
+            <Loading />
           </Modal>
         ) : (
           <Modal>

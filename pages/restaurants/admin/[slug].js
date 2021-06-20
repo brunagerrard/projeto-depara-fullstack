@@ -22,7 +22,7 @@ export default function Profile() {
   } = router
   // const [session, loading] = useSession()
   const { data, error } = useSWR(`/api/restaurants/${slug}`, fetcher, {
-    refreshInterval: 10000,
+    refreshInterval: 5000,
   })
   const restData = data ? data.data : null
 

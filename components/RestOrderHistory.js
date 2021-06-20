@@ -4,6 +4,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Loading from '../components/Loading'
 
 const OrdersBox = styled.div`
   display: flex;
@@ -96,11 +97,12 @@ const SelectStatus = styled.select`
 
 function RestOrderHistory({ restData }) {
   const { orders } = restData
-  // console.log(restData)
 
+  const [isUpdateSent, setIsUpdateSent] = useState()
   const [statusUpdate, setStatusUpdate] = useState('')
 
   const sendStatusUpdate = async o => {
+    setIsUpdateSent('sending')
     const order_id = await o._id
 
     const res = await fetch(`../../api/place-order/${order_id}`, {
@@ -112,6 +114,9 @@ function RestOrderHistory({ restData }) {
       },
       method: 'POST',
     })
+
+    const result = await res.json()
+    if (result) setIsUpdateSent(true)
   }
   return (
     <OrdersBox>
@@ -143,6 +148,7 @@ function RestOrderHistory({ restData }) {
                 onClick={() => sendStatusUpdate(o)}
               />
             </p>
+            {isUpdateSent === 'sending' ? <Loading /> : ''}
           </ChangeStatus>
           <StatusBadge
             className={

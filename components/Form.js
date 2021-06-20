@@ -1,42 +1,52 @@
-import { useState } from "react"
-import styled from "styled-components"
+/** @format */
+
+import { useState } from 'react'
+import styled from 'styled-components'
+import { Button } from './CartButton'
+import { TextInput } from './Address'
+import Loading from './Loading'
 
 const FormWrapper = styled.div`
-  max-width: 700px;
+  max-width: 550px;
   background-color: #ffffff;
   padding: 2rem 1.5rem;
   margin: 2.4rem auto 2.4rem 0;
   border-radius: 10px;
   font: ${({ theme }) => theme.fonts.paragraph};
   transition: box-shadow 0.3s;
+  box-shadow: 1px 2px 5px ${({ theme }) => theme.colors.meredithGrey};
 
   :hover {
-    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.01);
+    box-shadow: 3px 4px 10px ${({ theme }) => theme.colors.meredithGrey};
   }
 `
 
 const MyForm = styled.form`
   display: flex;
   flex-direction: column;
-  row-gap: 1rem;
 
-  input,
-  textarea {
-    padding: 0.4rem 0.3rem;
-    border: none;
-    border-bottom: 2px solid #ccc;
-    outline-color: #ccc;
+  #hours {
+    margin-top: 1rem;
+
+    label {
+      margin-right: 0.6rem;
+
+      :nth-of-type(2) {
+        margin-left: 1.8rem;
+      }
+    }
+  }
+
+  label:not(:first-of-type) {
+    margin-top: 2.2rem;
+  }
+
+  input {
+    margin-top: 0.4rem;
     transition: border-bottom 0.3s;
-    font-family: Inter;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
 
     :hover {
       border-bottom: 2px solid ${({ theme }) => theme.colors.richYellow};
-    }
-
-    ::placeholder {
-      color: #ddd;
     }
   }
 
@@ -46,20 +56,7 @@ const MyForm = styled.form`
   }
 
   button {
-    width: 200px;
-    padding: 0.6rem 0;
-    border: 1px solid ${({ theme }) => theme.colors.primaryRed};
-    background-color: #fff;
-    color: ${({ theme }) => theme.colors.primaryRed};
-    font: ${({ theme }) => theme.fonts.smallParagraph};
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.2s;
-
-    :hover {
-      background-color: ${({ theme }) => theme.colors.primaryRed};
-      color: #fff;
-    }
+    margin: 2.6rem 0;
   }
 `
 
@@ -69,53 +66,113 @@ export default function Form() {
   const sendFormData = async e => {
     e.preventDefault()
 
-    const res = await fetch("api/contact", {
+    const res = await fetch('api/contact', {
       body: JSON.stringify({
         name: e.target.name.value,
         email: e.target.email.value,
+        fee: e.target.fee.value,
+        location: e.target.location.value,
+        hoursFrom: e.target.availability1.value,
+        hoursTil: e.target.availability2.value,
         story: e.target.story.value,
       }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      method: "POST",
+      method: 'POST',
     })
 
     const result = await res.json()
 
     e.target.reset()
 
-    if(result) setIsFormSent(true)
+    if (result) setIsFormSent(true)
   }
   return (
     <FormWrapper>
       <MyForm onSubmit={sendFormData}>
-        <label htmlFor="name">Como quer ser chamado?</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Seu nome"
+        <label htmlFor='name'>Qual o seu nome completo?</label>
+        <TextInput
+          type='text'
+          id='name'
+          name='name'
+          placeholder='Seu nome'
           required
+          autoFocus
         />
-        <label htmlFor="email">
+        <label htmlFor='email'>
           Qual o seu melhor e-mail para contato?
           <br />
           <small>Não divulgamos seus dados nem enviamos spam.</small>
         </label>
-        <input
-          type="text"
-          id="email"
-          name="email"
-          placeholder="Seu e-mail"
+        <TextInput
+          type='text'
+          id='email'
+          name='email'
+          placeholder='E-mail'
           required
         />
-        <label htmlFor="story">Quer enviar algum comentário?</label>
-        <textarea id="story" name="story" placeholder="Escreva o que quiser" />
-        <button type="submit" onClick={() => setIsFormSent('sending')}>Enviar</button>
+        <label htmlFor='fee'>
+          Qual valor de taxa você quer praticar?
+          <br />
+          <small>
+            A taxa será definida por acordo coletivo entre os entregadores da
+            cooperativa.
+          </small>
+        </label>
+        <TextInput
+          type='number'
+          min='1.00'
+          step='0.01'
+          id='fee'
+          name='fee'
+          placeholder='Taxa em R$ do km'
+          required
+        />
+        <label htmlFor='name'>
+          A quais localidades de São Paulo você pode atender?
+        </label>
+        <TextInput
+          type='text'
+          id='location'
+          name='location'
+          placeholder='Bairros separados por vírgula'
+          required
+        />
+        <label>Horário de disponibilidade:</label>
+        <div id='hours'>
+          <label htmlFor='availability1'>De</label>
+          <input
+            type='time'
+            id='availability1'
+            name='availability1'
+            required
+            defaultValue='08:30'
+          />
+          <label htmlFor='availability2'>Até</label>
+          <input
+            type='time'
+            id='availability2'
+            name='availability2'
+            required
+            defaultValue='18:30'
+          />
+        </div>
+        <label htmlFor='story'>Quer enviar algum comentário?</label>
+        <TextInput
+          id='story'
+          name='story'
+          placeholder='Comentários adicionais'
+        />
+        <Button type='submit' onClick={() => setIsFormSent('sending')}>
+          Enviar
+        </Button>
+        {isFormSent === 'sending' ? (
+          <Loading />
+        ) : (
+          isFormSent && 'Dados enviados! Agora é só aguardar nosso contato.'
+        )}
       </MyForm>
-
-      {isFormSent === 'sending' ? 'sending' : isFormSent && 'sent'}
     </FormWrapper>
   )
 }
