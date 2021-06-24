@@ -36,12 +36,12 @@ export default async function handler(req, res) {
     res.status(200).json(result.ops[0])
   } else if (req.method === 'GET') {
     //list all
-    const session = await getSession({ req })
+    // const session = await getSession({ req })
 
-    if (!session) {
-      res.status(401).json({ error: 'Not authenticated' })
-      return
-    }
+    // if (!session) {
+    //   res.status(401).json({ error: 'Not authenticated' })
+    //   return
+    // }
 
     const { db } = await connectToDatabase()
 
