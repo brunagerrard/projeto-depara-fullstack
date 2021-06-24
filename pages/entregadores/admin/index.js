@@ -1,6 +1,5 @@
 /** @format */
 
-import { useRouter } from 'next/router'
 import Head from 'next/head'
 // import { useSession } from 'next-auth/client'
 import useSWR from 'swr'
@@ -8,7 +7,7 @@ import styled from 'styled-components'
 // import Session from '../../../components/Session'
 import Header from '../../../components/Header'
 import fetcher from '../../../utils/fetcher'
-import RestOrderHistory from '../../../components/RestOrderHistory'
+import DeliveryOrderHistory from '../../../components/DeliveryOrderHistory'
 
 const ProfileWrapper = styled.div`
   margin-top: 2rem;
@@ -16,10 +15,6 @@ const ProfileWrapper = styled.div`
 `
 
 export default function Profile() {
-//   const router = useRouter()
-//   const {
-//     query: { slug },
-//   } = router
   // const [session, loading] = useSession()
   const { data, error } = useSWR('/api/place-order', fetcher, {
     refreshInterval: 5000,
@@ -39,7 +34,7 @@ export default function Profile() {
       {data ? (
         <>
           <Head>
-            {/* <title>{data.data.name}</title> */}
+            <title>Pedidos de entrega</title>
             <link rel='preconnect' href='https://fonts.gstatic.com' />
             <link rel='shortcut icon' href='/favicon.png' />
             <link
@@ -47,12 +42,10 @@ export default function Profile() {
               rel='stylesheet'
             />
           </Head>
-          data yes
-          {/* <Header title={data.data.name} />
           <ProfileWrapper>
             {ordersData && <p>últimos pedidos recebidos:</p>}
-            {ordersData && <RestOrderHistory restData={restData} />}
-          </ProfileWrapper> */}
+            {ordersData && <DeliveryOrderHistory ordersData={ordersData} />}
+          </ProfileWrapper>
         </>
       ) : (
         ''
