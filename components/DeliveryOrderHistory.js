@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Loading from '../components/Loading'
+import StatusUpdateBtn from '../components/StatusUpdateBtn'
 
 const OrdersBox = styled.div`
   display: flex;
@@ -100,6 +101,7 @@ function DeliveryOrderHistory({ ordersData }) {
 
   const [isUpdateSent, setIsUpdateSent] = useState()
   const [statusUpdate, setStatusUpdate] = useState('')
+  console.log(statusUpdate)
 
   const sendStatusUpdate = async o => {
     setIsUpdateSent('sending')
@@ -122,34 +124,33 @@ function DeliveryOrderHistory({ ordersData }) {
     <OrdersBox>
       {ordersData.map(o => (
         <Order key={o._id}>
-          <ChangeStatus>
-            <SelectStatus
-              name='status'
-              id='status'
-              onChange={e => setStatusUpdate(e.target.value)}
-            >
-              <option default>Atualize o status do pedido</option>
-              <option value='Entregador está indo ao restaurante'>
-                Entregador está indo ao restaurante
-              </option>
-              <option value='Entregador chegou no restaurante'>
-                Entregador chegou no restaurante
-              </option>
-              <option value='Pedido a caminho'>Pedido a caminho</option>
-            </SelectStatus>
-            <p
-              style={{
-                width: '20px',
-                cursor: 'pointer',
-              }}
-            >
-              <FontAwesomeIcon
-                icon={faArrowRight}
-                onClick={() => sendStatusUpdate(o)}
-              />
-            </p>
-            {isUpdateSent === 'sending' ? <Loading /> : ''}
-          </ChangeStatus>
+          {/* <form> */}
+            <button
+            onClick={(e) => {setStatusUpdate(e.target.innerText); sendStatusUpdate(o)}}
+            >{
+              o.status === 'Entregador chegou no restaurante'
+                ? 'Pedido a caminho'
+                : o.status === 'Pedido a caminho'
+                ? 'Entrega realizada'
+                : o.status === 'Entrega realizada'
+                ? 'no action'
+                : 'Entregador chegou no restaurante'
+            }
+          </button>
+          <p
+            style={{
+              width: '20px',
+              cursor: 'pointer',
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              onClick={() => sendStatusUpdate(o)}
+            />
+          </p>
+          {isUpdateSent === 'sending' ? <Loading /> : ''}
+          {/* </form> */}
+          
           <StatusBadge
             className={
               o.status === 'Pedido recebido pelo usuário'
@@ -163,7 +164,7 @@ function DeliveryOrderHistory({ ordersData }) {
           >
             {o.status}
           </StatusBadge>
-          <small id='id_text'>ID do pedido: {o._id}</small>
+          <small id="id_text">ID do pedido: {o._id}</small>
           <h3>{o.user.email}</h3>
           <AddressDetail>
             {o.address.nome}, {o.address.bairro}

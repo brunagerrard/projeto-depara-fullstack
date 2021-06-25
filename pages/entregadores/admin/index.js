@@ -17,7 +17,7 @@ const ProfileWrapper = styled.div`
 export default function Profile() {
   // const [session, loading] = useSession()
   const { data, error } = useSWR('/api/place-order', fetcher, {
-    refreshInterval: 5000,
+    refreshInterval: 1000,
   })
   const ordersData = data ? data.data : null
 
@@ -25,9 +25,9 @@ export default function Profile() {
     console.log(error)
   }
 
-  if (ordersData) {
-    console.log(ordersData)
-  }
+  // if (ordersData) {
+  //   console.log(ordersData)
+  // }
 
   return (
     <>
