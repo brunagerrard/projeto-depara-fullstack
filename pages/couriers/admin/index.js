@@ -1,6 +1,5 @@
 /** @format */
 
-import { useRouter } from 'next/router'
 import Head from 'next/head'
 // import { useSession } from 'next-auth/client'
 import useSWR from 'swr'
@@ -16,30 +15,27 @@ const ProfileWrapper = styled.div`
 `
 
 export default function Profile() {
-  const router = useRouter()
-  const {
-    query: { slug },
-  } = router
   // const [session, loading] = useSession()
-  const { data, error } = useSWR(`/api/restaurants/${slug}`, fetcher, {
+  const { data, error } = useSWR('/api/orders', fetcher, {
     refreshInterval: 5000,
   })
-  const restData = data ? data.data : null
-
+  const ordersData = data ? data.data : null
+  if (ordersData) ordersData.reverse()
+  
   if (error) {
     console.log(error)
   }
 
-  if (restData) {
-    console.log(restData)
-  }
+  // if (ordersData) {
+  //   console.log(ordersData)
+  // }
 
   return (
     <>
       {data ? (
         <>
           <Head>
-            <title>{data.data.name}</title>
+            <title>Pedidos de entrega</title>
             <link rel='preconnect' href='https://fonts.gstatic.com' />
             <link rel='shortcut icon' href='/favicon.png' />
             <link
@@ -47,10 +43,9 @@ export default function Profile() {
               rel='stylesheet'
             />
           </Head>
-          <Header title={data.data.name} />
           <ProfileWrapper>
-            {restData && <p>últimos pedidos recebidos:</p>}
-            {restData && <OrderHistory restData={restData} />}
+            {ordersData && <p>últimos pedidos recebidos:</p>}
+            {ordersData && <OrderHistory ordersData={ordersData} />}
           </ProfileWrapper>
         </>
       ) : (

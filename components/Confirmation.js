@@ -86,7 +86,7 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
   const sendFormData = async e => {
     e.preventDefault()
 
-    const res = await fetch('../api/place-order', {
+    const res = await fetch('../api/orders', {
       body: JSON.stringify({
         user: {
           name: session.user.name,

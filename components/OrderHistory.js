@@ -1,15 +1,20 @@
 /** @format */
 
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import Loading from './Loading'
+import OrderStatusBadge, { Label, Wrapper } from './OrderStatusBadge'
 
 const OrdersBox = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 2rem;
   margin-top: 2rem;
 `
 
 const Order = styled.div`
+  width: 100%;
   background-color: #ffffff;
   padding: 1rem;
   border-radius: 10px;
@@ -17,39 +22,33 @@ const Order = styled.div`
   font: ${({ theme }) => theme.fonts.secLinks};
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 0.3rem;
 
-  small :nth-of-type(2) {
-    color: #b6b1bd;
+  @media (min-width: 1000px) {
+    width: 35vw;
   }
 
   h3 {
-    color: ${({ theme }) => theme.colors.primaryRed};
-    margin-top: 0.6rem;
-
-    :nth-of-type(2) {
-      color: ${({ theme }) => theme.colors.ellisGrey};
-    }
-  }
-
-  p {
-    padding: 0.5rem 0.3rem 0.2rem;
-    width: fit-content;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.richYellow};
+    color: #5d737e;
   }
 
   :hover {
-    box-shadow: 3px 4px 10px ${({ theme }) => theme.colors.meredithGrey};
+    box-shadow: -3px -4px 10px ${({ theme }) => theme.colors.meredithGrey};
   }
 
   .sent {
     background-color: ${({ theme }) => theme.colors.ellisGrey};
+    color: #393d3f;
   }
   .preparing {
     background-color: #edafb8;
   }
+  .waiting {
+    background-color: #f9a03f;
+  }
   .ontheway {
-    background-color: #c2eabd;
+    background-color: #ff5964;
   }
   .ended {
     background-color: #42d9c8;
@@ -57,45 +56,152 @@ const Order = styled.div`
   }
 `
 
-const StatusBadge = styled.small`
-  padding: 0.2rem 0.5rem;
-  border-radius: 5px;
-  width: fit-content;
-  font-weight: bold;
+const OrderDetail = styled.p`
+  font: ${({ theme }) => theme.fonts.links};
 `
 
-function OrderHistory({ userData }) {
-  const { orders } = userData
-  console.log(userData)
+const AddressDetail = styled.p`
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: lowercase;
+`
+
+const ChangeStatusBtn = styled.button`
+  margin-top: 1.2rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font: ${({ theme }) => theme.fonts.secTitles};
+  color: #ff5964;
+  background-color: #ffffff;
+  box-shadow: inset 0 0 15px ${({ theme }) => theme.colors.meredithGrey};
+  transition: all 0.2s;
+
+  :hover {
+    color: #ffffff;
+    background-color: #ff5964;
+    box-shadow: inset 0 0 5px ${({ theme }) => theme.colors.primaryRed};
+  }
+`
+
+export default function OrderHistory({ ordersData, restData, userData }) {
+  if (restData) {
+    const { orders } = restData
+    ordersData = orders
+  }
+
+  if (userData) {
+    const { orders } = userData
+    ordersData = orders
+  }
+
+  const [isUpdateSent, setIsUpdateSent] = useState()
+
+  const sendStatusUpdate = async (o, status) => {
+    setIsUpdateSent('sending')
+    const order_id = await o._id
+
+    const res = await fetch(`../../api/orders/${order_id}`, {
+      body: JSON.stringify({
+        order_status: status,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    })
+
+    const result = await res.json()
+    if (result) setIsUpdateSent(true)
+  }
+
+  const router = useRouter()
+
   return (
     <OrdersBox>
-      {orders.map(o => (
+      {ordersData.map(o => (
         <Order key={o._id}>
-          <StatusBadge
-            className={
-              o.status === 'Pedido recebido pelo usuário'
-                ? 'ended'
-                : o.status === 'Pedido sendo preparado'
-                ? 'preparing'
-                : o.status === 'Pedido a caminho'
-                ? 'ontheway'
-                : 'sent'
-            }
-          >
-            {o.status}
-          </StatusBadge>
-          <small>ID do pedido: {o._id}</small>
-          <h3>{o.restaurant}</h3>
-          {o.order.map(option => (
-            <p>{option.option}</p>
-          ))}
-          <h3>
-            Total: {o.order.reduce((acc, item) => acc + item.price, 0)},00
-          </h3>
+          <OrderStatusBadge order={o} />
+
+          <Wrapper>
+            <Label>Usuário:</Label>
+            <h3>{o.user.email}</h3>
+          </Wrapper>
+
+          <Wrapper>
+            <Label>Endereço:</Label>
+            <AddressDetail>
+              <h3>
+                {o.address.nome}, {o.address.bairro}
+                {o.address.complemento && `, ${o.address.complemento}`}
+              </h3>
+            </AddressDetail>
+          </Wrapper>
+
+          <Wrapper>
+            <Label>Valor:</Label>
+            <h3>R$ {o.order.reduce((acc, item) => acc + item.price, 0)},00</h3>
+          </Wrapper>
+
+          <Wrapper>
+            <Label>Pedido:</Label>
+            <h3>
+              {o.order.map(option => (
+                <OrderDetail>{option.option}</OrderDetail>
+              ))}
+            </h3>
+          </Wrapper>
+
+          {router.pathname === '/couriers/admin' ? (
+            //if order has just been sent to the restaurant and you're on couriers page, it will show no button
+            o.status === 'Pedido enviado' ||
+            o.status === 'Entrega realizada' ? (
+              ''
+            ) : (
+              <ChangeStatusBtn
+                onClick={e => {
+                  sendStatusUpdate(o, e.target.innerText)
+                }}
+              >
+                {isUpdateSent === 'sending' ? (
+                  <Loading />
+                ) : o.status === 'Pedido sendo preparado' ? (
+                  'Entregador chegou no restaurante'
+                ) : o.status === 'Entregador chegou no restaurante' ? (
+                  'Pedido a caminho'
+                ) : o.status === 'Pedido a caminho' ? (
+                  'Entrega realizada'
+                ) : (
+                  ''
+                )}
+              </ChangeStatusBtn>
+            )
+          ) : router.pathname === '/restaurants/admin/[slug]' ? (
+            //if courier just got to the restaurant and you're on restaurants admin page, it will show no button
+            o.status !== 'Pedido enviado' ? (
+              ''
+            ) : (
+              <ChangeStatusBtn
+                onClick={e => {
+                  sendStatusUpdate(o, e.target.innerText)
+                }}
+              >
+                {isUpdateSent === 'sending' ? (
+                  <Loading />
+                ) : o.status === 'Pedido enviado' ? (
+                  'Pedido sendo preparado'
+                ) : (
+                  ''
+                )}
+              </ChangeStatusBtn>
+            )
+          ) : (
+            ''
+          )}
+
         </Order>
       ))}
     </OrdersBox>
   )
 }
-
-export default OrderHistory
