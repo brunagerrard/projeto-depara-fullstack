@@ -7,7 +7,7 @@ import styled from 'styled-components'
 // import Session from '../../../components/Session'
 import Header from '../../../components/Header'
 import fetcher from '../../../utils/fetcher'
-import DeliveryOrderHistory from '../../../components/DeliveryOrderHistory'
+import OrderHistory from '../../../components/OrderHistory'
 
 const ProfileWrapper = styled.div`
   margin-top: 2rem;
@@ -16,11 +16,12 @@ const ProfileWrapper = styled.div`
 
 export default function Profile() {
   // const [session, loading] = useSession()
-  const { data, error } = useSWR('/api/place-order', fetcher, {
-    refreshInterval: 1000,
+  const { data, error } = useSWR('/api/orders', fetcher, {
+    refreshInterval: 5000,
   })
   const ordersData = data ? data.data : null
-
+  if (ordersData) ordersData.reverse()
+  
   if (error) {
     console.log(error)
   }
@@ -44,7 +45,7 @@ export default function Profile() {
           </Head>
           <ProfileWrapper>
             {ordersData && <p>últimos pedidos recebidos:</p>}
-            {ordersData && <DeliveryOrderHistory ordersData={ordersData} />}
+            {ordersData && <OrderHistory ordersData={ordersData} />}
           </ProfileWrapper>
         </>
       ) : (

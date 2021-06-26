@@ -8,7 +8,7 @@ import styled from 'styled-components'
 // import Session from '../../../components/Session'
 import Header from '../../../components/Header'
 import fetcher from '../../../utils/fetcher'
-import RestOrderHistory from '../../../components/RestOrderHistory'
+import OrderHistory from '../../../components/OrderHistory'
 
 const ProfileWrapper = styled.div`
   margin-top: 2rem;
@@ -50,7 +50,7 @@ export default function Profile() {
           <Header title={data.data.name} />
           <ProfileWrapper>
             {restData && <p>últimos pedidos recebidos:</p>}
-            {restData && <RestOrderHistory restData={restData} />}
+            {restData && <OrderHistory restData={restData} />}
           </ProfileWrapper>
         </>
       ) : (
