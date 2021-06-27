@@ -126,32 +126,41 @@ export default function OrderHistory({ ordersData, restData, userData }) {
 
           <Wrapper>
             <Label>Usuário:</Label>
-            <h3>{o.user.email}</h3>
+            <OrderDetail>{o.user.email}</OrderDetail>
           </Wrapper>
 
           <Wrapper>
             <Label>Endereço:</Label>
             <AddressDetail>
-              <h3>
-                {o.address.nome}, {o.address.bairro}
+              <OrderDetail>
+                {o.address.rua}, {o.address.bairro}
                 {o.address.complemento && `, ${o.address.complemento}`}
-              </h3>
+              </OrderDetail>
             </AddressDetail>
           </Wrapper>
 
           <Wrapper>
             <Label>Valor:</Label>
-            <h3>R$ {o.order.reduce((acc, item) => acc + item.price, 0)},00</h3>
+            <OrderDetail>
+              R$ {o.order.reduce((acc, item) => acc + item.price, 0)},00
+            </OrderDetail>
           </Wrapper>
 
           <Wrapper>
             <Label>Pedido:</Label>
-            <h3>
+            <div>
               {o.order.map(option => (
                 <OrderDetail>{option.option}</OrderDetail>
               ))}
-            </h3>
+            </div>
           </Wrapper>
+
+          {router.pathname !== '/restaurants/admin/[slug]' && (
+            <Wrapper>
+              <Label>Loja:</Label>
+              <OrderDetail>{o.restaurant}</OrderDetail>
+            </Wrapper>
+          )}
 
           {router.pathname === '/couriers/admin' ? (
             //if order has just been sent to the restaurant and you're on couriers page, it will show no button
@@ -199,7 +208,6 @@ export default function OrderHistory({ ordersData, restData, userData }) {
           ) : (
             ''
           )}
-
         </Order>
       ))}
     </OrdersBox>

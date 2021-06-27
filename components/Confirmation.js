@@ -46,6 +46,7 @@ const DoOrDie = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 0.4rem;
+  margin-top: 2rem;
 
   @media (max-width: 700px) {
     flex-direction: column;
@@ -66,21 +67,20 @@ const DoOrDie = styled.div`
     background-color: ${({ theme }) => theme.colors.richYellow};
     color: ${({ theme }) => theme.colors.darkerRed};
     flex-grow: 2;
+    transition: all .4s;
+
+    :disabled {
+      background-color: ${({ theme }) => theme.colors.ellisGrey};
+      color: #ffffff;
+    }
   }
 `
 
 export default function Confirmation({ cartItems, showModal, setShowModal }) {
   const [session] = useSession()
   const [isOrderSent, setIsOrderSent] = useState(false)
-  const [orderId, setOrderId] = useState('')
-  const [tipoLogradouro, setTipoLogradouro] = useState('')
-  const [nomeLogradouro, setNomeLogradouro] = useState('')
-  const [bairro, setBairro] = useState('')
-  const [tipoResidencia, setTipoResidencia] = useState('')
-  const [complemento, setComplemento] = useState('')
-  const [numApto, setNumApto] = useState('')
-  const [numSala, setNumSala] = useState('')
-  const [edificio, setEdificio] = useState('')
+  const [cep, setCep] = useState('')
+  const [num, setNum] = useState('')
   const router = useRouter()
 
   const sendFormData = async e => {
@@ -93,13 +93,9 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
           email: session.user.email,
         },
         address: {
-          tipo: tipoResidencia,
-          apartamento: numApto,
-          sala: numSala,
-          edificio,
-          nome: `${tipoLogradouro} ${nomeLogradouro}`,
-          bairro,
-          complemento,
+          rua: `${e.target.street.value}, ${e.target.number.value}`,
+          bairro: `${e.target.neighborhood.value}`,
+          complemento: `${e.target.additional.value}`
         },
         restaurant: document.title,
         order: cartItems,
@@ -111,10 +107,7 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
       method: 'POST',
     })
 
-    const { _id } = await res.json()
-
-    setOrderId(_id)
-    setIsOrderSent(true)
+    res && setIsOrderSent(true)
 
     e.target.reset()
     setTimeout(() => {
@@ -137,26 +130,13 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
             <h4>Insira um endereço válido:</h4>
             <OrderDetails onSubmit={sendFormData}>
               <Address
-                tipoLogradouro={tipoLogradouro}
-                setTipoLogradouro={setTipoLogradouro}
-                nomeLogradouro={nomeLogradouro}
-                setNomeLogradouro={setNomeLogradouro}
-                bairro={bairro}
-                setBairro={setBairro}
-                tipoResidencia={tipoResidencia}
-                setTipoResidencia={setTipoResidencia}
-                complemento={complemento}
-                setComplemento={setComplemento}
-                numApto={numApto}
-                setNumApto={setNumApto}
-                numSala={numSala}
-                setNumSala={setNumSala}
-                edificio={edificio}
-                setEdificio={setEdificio}
+                cep={cep}
+                setCep={setCep}
+                setNum={setNum}
               />
               <DoOrDie>
                 <Button onClick={() => setShowModal(false)}>Cancelar</Button>
-                <Button type='submit'>Confirmar</Button>
+                <Button type='submit' disabled={!num}>Confirmar</Button>
               </DoOrDie>
             </OrderDetails>
           </Modal>

@@ -1,204 +1,118 @@
 /** @format */
 import { useSession } from 'next-auth/client'
+import ViaCep from 'react-via-cep'
 import styled from 'styled-components'
+import Loading from './Loading'
+import { Wrapper } from './OrderStatusBadge'
+import { BsCheck } from 'react-icons/bs'
 
 const AddressForm = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
 
-  #feedback {
-    padding: 1rem 0.8rem;
-    margin-bottom: 0.8rem;
-    background-color: ${({ theme }) => theme.colors.background};
+  #cep {
+    width: 100px;
+  }
+
+  #number {
+    flex-shrink: 1.6;
+  }
+
+  #neighborhood {
+    flex-shrink: 1.3;
   }
 `
 
-const StreetType = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.2rem;
-  font: ${({ theme }) => theme.fonts.links};
-
-  @media (max-width: 700px) {
-  }
-
-  label {
-    flex-grow: 1;
-    cursor: pointer;
-    border: 2px solid ${({ theme }) => theme.colors.meredithGrey};
-    border-radius: 8px;
-    padding: 0.6rem;
-    text-align: center;
-
-    :hover {
-      border-color: ${({ theme }) => theme.colors.richYellow};
-    }
-  }
-
-  input[type='radio']:checked + label {
-    border-color: ${({ theme }) => theme.colors.richYellow};
-  }
-
-  input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
+export const GoButton = styled.button`
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.colors.primaryRed};
 `
 
 export const TextInput = styled.input`
+  width: 100%;
   border: none;
   outline: none;
   border-bottom: 2px solid ${({ theme }) => theme.colors.meredithGrey};
-  width: 100%;
   font: ${({ theme }) => theme.fonts.links};
-  padding: 0.8rem 0.3rem 0.4rem;
+  padding: 0.2rem 0.3rem;
 
   ::placeholder {
     color: ${({ theme }) => theme.colors.ellisGrey};
   }
 `
 
-export default function Address({
-  tipoLogradouro,
-  setTipoLogradouro,
-  nomeLogradouro,
-  setNomeLogradouro,
-  bairro,
-  setBairro,
-  tipoResidencia,
-  setTipoResidencia,
-  complemento,
-  setComplemento,
-  numApto,
-  setNumApto,
-  numSala,
-  setNumSala,
-  edificio,
-  setEdificio,
-}) {
+export default function Address({ cep, setCep, num, setNum }) {
   const [session] = useSession()
   return (
     <AddressForm>
-      <StreetType>
-        <input
-          type='radio'
-          id='casa'
-          name='building'
-          value='Casa'
-          onClick={e => setTipoResidencia(e.target.value)}
-        />
-        <label htmlFor='casa'>Casa</label>
-        <input
-          type='radio'
-          id='apartamento'
-          name='building'
-          value='Apartamento'
-          onClick={e => setTipoResidencia(e.target.value)}
-        />
-        <label htmlFor='apartamento'>Apartamento</label>
-        <input
-          type='radio'
-          id='comercial'
-          name='building'
-          value='Sala Comercial'
-          onClick={e => setTipoResidencia(e.target.value)}
-        />
-        <label htmlFor='comercial'>Prédio comercial</label>
-      </StreetType>
-      {tipoResidencia === 'Apartamento' && (
-        <TextInput
-          type='text'
-          name='apto'
-          placeholder='número do apartamento'
-          id='apto'
-          onInput={e => setNumApto(e.target.value)}
-          required
-        />
-      )}
-      {tipoResidencia === 'Sala Comercial' && (
-        <>
-          <TextInput
-            type='text'
-            name='predio'
-            placeholder='nome do edifício'
-            id='predio'
-            onInput={e => setEdificio(e.target.value)}
-            required
-          />
-          <TextInput
-            type='text'
-            name='sala'
-            placeholder='número da sala'
-            id='sala'
-            onInput={e => setNumSala(e.target.value)}
-            required
-          />
-        </>
-      )}
-      <StreetType>
-        <input
-          type='radio'
-          id='rua'
-          name='street-type'
-          value='Rua'
-          onClick={e => setTipoLogradouro(e.target.value)}
-        />
-        <label htmlFor='rua'>Rua</label>
-        <input
-          type='radio'
-          id='av'
-          name='street-type'
-          value='Avenida'
-          onClick={e => setTipoLogradouro(e.target.value)}
-        />
-        <label htmlFor='av'>Avenida</label>
-        <input
-          type='radio'
-          id='rodovia'
-          name='street-type'
-          value='Rodovia'
-          onClick={e => setTipoLogradouro(e.target.value)}
-        />
-        <label htmlFor='rodovia'>Rodovia</label>
-      </StreetType>
-      <TextInput
-        type='text'
-        name='street'
-        placeholder='nome e número do local: Exemplo, 123'
-        id='street'
-        onInput={e => setNomeLogradouro(e.target.value)}
-        required
-      />
-      <TextInput
-        type='text'
-        name='neighborhood'
-        placeholder='bairro'
-        id='neighborhood'
-        onInput={e => setBairro(e.target.value)}
-        required
-      />
-      <TextInput
-        type='text'
-        name='additional'
-        placeholder='complementos'
-        id='additional'
-        onInput={e => setComplemento(e.target.value)}
-        required
-      />
-      {complemento && (
-        <p id='feedback'>
-          {session.user.name}, você receberá esse pedido em{' '}
-          {tipoResidencia === 'Apartamento' ? 'seu' : 'sua'} {tipoResidencia}{' '}
-          {tipoResidencia === 'Apartamento' && numApto}{' '}
-          {tipoResidencia === 'Sala Comercial' &&
-            `${numSala} no edifício ${edificio} `}
-          {tipoLogradouro === 'Largo' ? 'no' : 'na'} {tipoLogradouro}{' '}
-          {nomeLogradouro}, {bairro}.
-        </p>
-      )}
+      <ViaCep cep={cep} lazy>
+        {({ data, loading, error, fetch }) => {
+          if (loading) {
+            return <Loading />
+          }
+          if (error) {
+            console.log(error)
+          }
+          return (
+            <>
+              <Wrapper>
+                <TextInput
+                  onChange={e => setCep(e.target.value)}
+                  value={cep}
+                  placeholder='CEP'
+                  type='text'
+                  id='cep'
+                />
+                <GoButton onClick={fetch}>
+                  {' '}
+                  <BsCheck />
+                </GoButton>
+              </Wrapper>
+              {data && (
+                <>
+                  {console.log(data)}
+                  <Wrapper id='wrapper'>
+                    <TextInput
+                      type='text'
+                      name='street'
+                      id='street'
+                      value={data.logradouro}
+                      required
+                      readOnly
+                    />
+                    <TextInput
+                      type='text'
+                      name='neighborhood'
+                      id='neighborhood'
+                      value={data.bairro}
+                      required
+                      readOnly
+                    />
+                    <TextInput
+                      type='number'
+                      name='number'
+                      id='number'
+                      placeholder='nº'
+                      required
+                      onInput={e => setNum(e.target.value)}
+                    />
+                  </Wrapper>
+                  <TextInput
+                    type='text'
+                    name='additional'
+                    placeholder='complementos'
+                    id='additional'
+                  />
+                </>
+              )}
+            </>
+          )
+        }}
+      </ViaCep>
     </AddressForm>
   )
 }

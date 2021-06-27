@@ -10,12 +10,13 @@ export const Wrapper = styled.div`
 `
 
 export const Label = styled.small`
-  width: fit-content;
+  width: 80px;
   text-transform: uppercase;
   font: ${({ theme }) => theme.fonts.secLinks};
   font-weight: 600;
   color: #2ec4b6;
-  border-bottom: 1px solid #2ec4b6;
+  text-decoration: underline;
+  text-underline-position: under;
 `
 
 const StatusBadge = styled.small`

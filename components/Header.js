@@ -2,14 +2,19 @@
 
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IoReturnDownBack } from 'react-icons/io5'
 
 const Bar = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 4.4rem;
+
+  #icon {
+    vertical-align: middle;
+    margin-right: 1.1rem;
+    cursor: pointer;
+  }
 `
 
 const HeaderTitle = styled.h1`
@@ -23,17 +28,7 @@ function Header(props) {
   return (
     <Bar>
       <HeaderTitle>
-        <p
-          style={{
-            display: 'inline-block',
-            width: '20px',
-            marginRight: '20px',
-            color: `${({ theme }) => theme.colors.primaryRed}`,
-            cursor: 'pointer',
-          }}
-        >
-          <FontAwesomeIcon icon={faArrowLeft} onClick={() => router.back()} />
-        </p>
+        <IoReturnDownBack onClick={() => router.back()} id='icon' />
         {props.title}
       </HeaderTitle>
     </Bar>
