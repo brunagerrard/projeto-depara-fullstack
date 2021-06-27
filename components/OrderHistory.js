@@ -133,7 +133,7 @@ export default function OrderHistory({ ordersData, restData, userData }) {
             <Label>Endereço:</Label>
             <AddressDetail>
               <h3>
-                {o.address.nome}, {o.address.bairro}
+                {o.address.rua}, {o.address.bairro}
                 {o.address.complemento && `, ${o.address.complemento}`}
               </h3>
             </AddressDetail>

@@ -38,7 +38,7 @@ export default function Restaurants({ data }) {
       <Header title='Restaurantes' />
       <List>
         {data.map(restaurant => (
-          <Restaurant restaurant={restaurant} key={restaurant.id} />
+          <Restaurant restaurant={restaurant} key={restaurant.slug} />
         ))}
       </List>
     </>
