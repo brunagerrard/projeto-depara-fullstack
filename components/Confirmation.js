@@ -81,6 +81,8 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
   const [numApto, setNumApto] = useState('')
   const [numSala, setNumSala] = useState('')
   const [edificio, setEdificio] = useState('')
+
+  const [cep, setCep] = useState()
   const router = useRouter()
 
   const sendFormData = async e => {
@@ -135,8 +137,11 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
         ) : (
           <Modal>
             <h4>Insira um endereço válido:</h4>
+
             <OrderDetails onSubmit={sendFormData}>
               <Address
+                cep={cep}
+                setCep={setCep}
                 tipoLogradouro={tipoLogradouro}
                 setTipoLogradouro={setTipoLogradouro}
                 nomeLogradouro={nomeLogradouro}

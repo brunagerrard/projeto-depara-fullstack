@@ -1,5 +1,6 @@
 /** @format */
 import { useSession } from 'next-auth/client'
+import ViaCep from 'react-via-cep'
 import styled from 'styled-components'
 
 const AddressForm = styled.div`
@@ -62,6 +63,8 @@ export const TextInput = styled.input`
 `
 
 export default function Address({
+  cep,
+  setCep,
   tipoLogradouro,
   setTipoLogradouro,
   nomeLogradouro,
@@ -82,6 +85,48 @@ export default function Address({
   const [session] = useSession()
   return (
     <AddressForm>
+      <ViaCep cep={cep} lazy>
+        {({ data, loading, error, fetch }) => {
+          if (loading) {
+            return <p>loading...</p>
+          }
+          if (error) {
+            console.log(error)
+          }
+          if (data) {
+            console.log(data)
+            return (
+              <>
+                <p>
+                  CEP: {data.cep} <br />
+                  LOGRADOURO: {data.logradouro} <br />
+                  CIDADE: {data.localidade} <br />
+                  UF: {data.uf} <br />
+                </p>
+                <TextInput
+                  type='text'
+                  name='street'
+                  placeholder='nome e número do local: Exemplo, 123'
+                  id='street'
+                  value={data.logradouro}
+                  required
+                />
+              </>
+            )
+          }
+          return (
+            <>
+              <input
+                onChange={e => setCep(e.target.value)}
+                value={cep}
+                placeholder='CEP'
+                type='text'
+              />
+              <button onClick={fetch}>Pesquisar</button>
+            </>
+          )
+        }}
+      </ViaCep>
       <StreetType>
         <input
           type='radio'
@@ -138,40 +183,7 @@ export default function Address({
           />
         </>
       )}
-      <StreetType>
-        <input
-          type='radio'
-          id='rua'
-          name='street-type'
-          value='Rua'
-          onClick={e => setTipoLogradouro(e.target.value)}
-        />
-        <label htmlFor='rua'>Rua</label>
-        <input
-          type='radio'
-          id='av'
-          name='street-type'
-          value='Avenida'
-          onClick={e => setTipoLogradouro(e.target.value)}
-        />
-        <label htmlFor='av'>Avenida</label>
-        <input
-          type='radio'
-          id='rodovia'
-          name='street-type'
-          value='Rodovia'
-          onClick={e => setTipoLogradouro(e.target.value)}
-        />
-        <label htmlFor='rodovia'>Rodovia</label>
-      </StreetType>
-      <TextInput
-        type='text'
-        name='street'
-        placeholder='nome e número do local: Exemplo, 123'
-        id='street'
-        onInput={e => setNomeLogradouro(e.target.value)}
-        required
-      />
+
       <TextInput
         type='text'
         name='neighborhood'
