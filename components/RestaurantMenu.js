@@ -1,6 +1,7 @@
-import styled from "styled-components";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+/** @format */
+
+import styled from 'styled-components'
+import { BsPlusSquareFill } from 'react-icons/bs'
 
 export const List = styled.main`
   height: 100%;
@@ -15,7 +16,7 @@ export const List = styled.main`
   @media (max-width: 800px) {
     grid-template-columns: repeat(auto-fill, minmax(1fr, 300px));
   }
-`;
+`
 
 const Option = styled.div`
   background-color: #ffffff;
@@ -51,15 +52,19 @@ const Option = styled.div`
     justify-content: space-between;
     margin: 1rem 0;
     & p {
-      font-weight: 400;
+      font-weight: 600;
     }
   }
 
   #add {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: ${({theme}) => theme.colors.primaryRed};
+    cursor: pointer;
     opacity: 0;
     transition: opacity 0.1s;
   }
-`;
+`
 
 export const RestaurantMenu = ({ item, handleAddToCart }) => {
   return (
@@ -68,18 +73,8 @@ export const RestaurantMenu = ({ item, handleAddToCart }) => {
       <p>{item.description}</p>
       <div>
         <p>R$ {item.price},00</p>
-        <p
-          id="add"
-          style={{
-            display: "inline-block",
-            width: "0.9rem",
-            color: "#cc2929",
-            cursor: "pointer",
-          }}
-        >
-          <FontAwesomeIcon icon={faPlus} />
-        </p>
+        <BsPlusSquareFill id='add' />
       </div>
     </Option>
-  );
-};
+  )
+}

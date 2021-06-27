@@ -1,7 +1,7 @@
-import styled from "styled-components"
-// import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+/** @format */
+
+import styled from 'styled-components'
+import { BsTrash } from 'react-icons/bs'
 
 const Item = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.richYellow};
@@ -21,6 +21,7 @@ const Item = styled.div`
   }
 
   #trash-icon {
+    cursor: pointer;
     color: ${({ theme }) => theme.colors.richYellow};
     :hover {
       color: ${({ theme }) => theme.colors.primaryRed};
@@ -33,20 +34,7 @@ export default function CartItem({ item, removeFromCart }) {
     <Item>
       <p>{item.option}</p>
       <p>{item.price},00</p>
-      <p
-        style={{
-          display: "inline-block",
-          width: "10px",
-          color: `${({ theme }) => theme.colors.primaryRed}`,
-          cursor: "pointer",
-        }}
-      >
-        <FontAwesomeIcon
-          icon={faTrashAlt}
-          onClick={() => removeFromCart(item.id)}
-          id="trash-icon"
-        />
-      </p>
+      <BsTrash onClick={() => removeFromCart(item.id)} id='trash-icon' />
     </Item>
   )
 }

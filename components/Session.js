@@ -2,8 +2,7 @@
 
 import { signIn, signOut, useSession } from 'next-auth/client'
 import styled from 'styled-components'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai'
 
 const SessionBar = styled.div`
   position: absolute;
@@ -18,6 +17,11 @@ const SessionBar = styled.div`
 
   #first {
     flex-grow: 2;
+  }
+
+  #icon {
+    font-size: 2rem;
+    cursor: pointer;
   }
 
   * {
@@ -46,35 +50,13 @@ export default function Session() {
             para sua conveniência, faça cadastro ou login antes de utilizar a
             aplicação.
           </p>
-          <button onClick={() => signIn('auth0')}>
-            <p
-              style={{
-                display: 'inline-block',
-                width: '20px',
-                color: `${({ theme }) => theme.colors.primaryRed}`,
-                cursor: 'pointer',
-              }}
-            >
-              <FontAwesomeIcon icon={faSignInAlt} title="login" />
-            </p>
-          </button>
+          <AiOutlineLogin onClick={() => signIn('auth0')} id='icon' />
         </>
       )}
       {session && (
         <>
           <p id="first">olá, camarada {session.user.name}!</p>
-          <button onClick={() => signOut()}>
-            <p
-              style={{
-                display: 'inline-block',
-                width: '20px',
-                color: `${({ theme }) => theme.colors.primaryRed}`,
-                cursor: 'pointer',
-              }}
-            >
-              <FontAwesomeIcon icon={faSignOutAlt} title="logout" />
-            </p>
-          </button>
+          <AiOutlineLogout onClick={() => signOut()} id='icon' />          
         </>
       )}
     </SessionBar>
