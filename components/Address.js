@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/client'
 import ViaCep from 'react-via-cep'
 import styled from 'styled-components'
 import Loading from './Loading'
-import { Wrapper } from './OrderStatusBadge'
+import { Wrapper } from './OrderStatus'
 import { BsCheck } from 'react-icons/bs'
 
 const AddressForm = styled.div`
@@ -63,9 +63,9 @@ export default function Address({ cep, setCep, num, setNum }) {
                 <TextInput
                   onChange={e => setCep(e.target.value)}
                   value={cep}
-                  placeholder='CEP'
-                  type='text'
-                  id='cep'
+                  placeholder="CEP"
+                  type="text"
+                  id="cep"
                 />
                 <GoButton onClick={fetch}>
                   {' '}
@@ -75,37 +75,37 @@ export default function Address({ cep, setCep, num, setNum }) {
               {data && (
                 <>
                   {console.log(data)}
-                  <Wrapper id='wrapper'>
+                  <Wrapper id="wrapper">
                     <TextInput
-                      type='text'
-                      name='street'
-                      id='street'
+                      type="text"
+                      name="street"
+                      id="street"
                       value={data.logradouro}
                       required
                       readOnly
                     />
                     <TextInput
-                      type='text'
-                      name='neighborhood'
-                      id='neighborhood'
+                      type="text"
+                      name="neighborhood"
+                      id="neighborhood"
                       value={data.bairro}
                       required
                       readOnly
                     />
                     <TextInput
-                      type='number'
-                      name='number'
-                      id='number'
-                      placeholder='nº'
+                      type="number"
+                      name="number"
+                      id="number"
+                      placeholder="nº"
                       required
                       onInput={e => setNum(e.target.value)}
                     />
                   </Wrapper>
                   <TextInput
-                    type='text'
-                    name='additional'
-                    placeholder='complementos'
-                    id='additional'
+                    type="text"
+                    name="additional"
+                    placeholder="complementos"
+                    id="additional"
                   />
                 </>
               )}

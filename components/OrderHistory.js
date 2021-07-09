@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import Loading from './Loading'
-import OrderStatusBadge, { Label, Wrapper } from './OrderStatusBadge'
+import OrderStatus, { Label, Wrapper } from './OrderStatus'
 
 const OrdersBox = styled.div`
   display: flex;
@@ -15,7 +15,8 @@ const OrdersBox = styled.div`
 
 const Order = styled.div`
   width: 100%;
-  background-color: #ffffff;
+  background: url('/images/map.png') #ffffff no-repeat center;
+  background-size: cover;
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 1px 2px 5px ${({ theme }) => theme.colors.meredithGrey};
@@ -122,12 +123,14 @@ export default function OrderHistory({ ordersData, restData, userData }) {
     <OrdersBox>
       {ordersData.map(o => (
         <Order key={o._id}>
-          <OrderStatusBadge order={o} />
+          <OrderStatus order={o} />
 
-          <Wrapper>
-            <Label>Usuário:</Label>
-            <OrderDetail>{o.user.email}</OrderDetail>
-          </Wrapper>
+          {router.pathname !== '/profile' && (
+            <Wrapper>
+              <Label>Usuário:</Label>
+              <OrderDetail>{o.user.email}</OrderDetail>
+            </Wrapper>
+          )}
 
           <Wrapper>
             <Label>Endereço:</Label>
