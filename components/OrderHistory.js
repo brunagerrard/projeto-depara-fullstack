@@ -8,16 +8,17 @@ import OrderStatus, { Label, Wrapper } from './OrderStatus'
 
 const OrdersBox = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 2rem;
   margin-top: 2rem;
 `
 
 const Order = styled.div`
+  position: relative;
   width: 100%;
   background: url('/images/map.png') #ffffff no-repeat center;
   background-size: cover;
-  padding: 1rem;
+  padding: 1rem 1rem 5rem;
   border-radius: 10px;
   box-shadow: 1px 2px 5px ${({ theme }) => theme.colors.meredithGrey};
   font: ${({ theme }) => theme.fonts.secLinks};
@@ -26,34 +27,34 @@ const Order = styled.div`
   justify-content: space-between;
   gap: 0.3rem;
 
-  @media (min-width: 1000px) {
-    width: 35vw;
-  }
-
-  h3 {
-    color: #5d737e;
-  }
-
   :hover {
     box-shadow: -3px -4px 10px ${({ theme }) => theme.colors.meredithGrey};
   }
 
   .sent {
-    background-color: ${({ theme }) => theme.colors.ellisGrey};
+    background-color: rgba(203, 202, 207, 0.88);
     color: #393d3f;
   }
   .preparing {
-    background-color: #edafb8;
+    background-color: rgba(237, 175, 184, 0.9);
   }
   .waiting {
-    background-color: #f9a03f;
+    background-color: rgba(249, 160, 63, 0.88);
   }
   .ontheway {
-    background-color: #ff5964;
+    background-color: rgba(255, 89, 100, 0.88);
   }
   .ended {
     background-color: #42d9c8;
     color: #246e58;
+  }
+`
+
+export const Legend = styled.small`
+  color: #5d737e;
+
+  :not(:first-of-type) {
+    margin-top: 0.6rem;
   }
 `
 
@@ -132,37 +133,31 @@ export default function OrderHistory({ ordersData, restData, userData }) {
             </Wrapper>
           )}
 
-          <Wrapper>
-            <Label>Endereço:</Label>
-            <AddressDetail>
-              <OrderDetail>
-                {o.address.rua}, {o.address.bairro}
-                {o.address.complemento && `, ${o.address.complemento}`}
-              </OrderDetail>
-            </AddressDetail>
-          </Wrapper>
-
-          <Wrapper>
-            <Label>Valor:</Label>
+          <Legend>Endereço:</Legend>
+          <AddressDetail>
             <OrderDetail>
-              R$ {o.order.reduce((acc, item) => acc + item.price, 0)},00
+              {o.address.rua}, {o.address.bairro}
+              {o.address.complemento && `, ${o.address.complemento}`}
             </OrderDetail>
-          </Wrapper>
+          </AddressDetail>
 
-          <Wrapper>
-            <Label>Pedido:</Label>
-            <div>
-              {o.order.map(option => (
-                <OrderDetail>{option.option}</OrderDetail>
-              ))}
-            </div>
-          </Wrapper>
+          <Legend>Valor:</Legend>
+          <OrderDetail>
+            R$ {o.order.reduce((acc, item) => acc + item.price, 0)},00
+          </OrderDetail>
+
+          <Legend>Pedido:</Legend>
+          <div>
+            {o.order.map(option => (
+              <OrderDetail>{option.option}</OrderDetail>
+            ))}
+          </div>
 
           {router.pathname !== '/restaurants/admin/[slug]' && (
-            <Wrapper>
-              <Label>Loja:</Label>
+            <>
+              <Legend>Loja:</Legend>
               <OrderDetail>{o.restaurant}</OrderDetail>
-            </Wrapper>
+            </>
           )}
 
           {router.pathname === '/couriers/admin' ? (
