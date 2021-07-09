@@ -37,9 +37,9 @@ const StatusUpdate = styled.div`
   margin-top: 0.6rem;
 
   @media (min-width: 800px) {
+    width: 300px;
     display: inline-flex;
     position: absolute;
-    top: 1rem;
     right: 0.8rem;
   }
 
