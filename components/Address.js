@@ -9,7 +9,6 @@ import { BsCheck } from 'react-icons/bs'
 const AddressForm = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 
   #cep {
     width: 100px;

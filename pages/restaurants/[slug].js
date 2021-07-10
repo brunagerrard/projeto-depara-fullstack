@@ -8,6 +8,7 @@ import Confirmation from '../../components/Confirmation'
 import { List, RestaurantMenu } from '../../components/RestaurantMenu'
 import Cart from '../../components/Cart'
 import Session from '../../components/Session'
+import Nav from '../../components/Nav'
 import connectToDatabase from '../../utils/dbconnect'
 
 export default function Menu({ data }) {
@@ -31,7 +32,8 @@ export default function Menu({ data }) {
   return (
     <>
       <Head>
-        <title>{restaurant.name}</title>
+        <title>{restaurant.name} | de_para: delivery camarada</title>
+        <link rel="shortcut icon" href="/favicon.png" />
         <link rel='preconnect' href='https://fonts.gstatic.com' />
         <link
           href='https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&family=Roboto+Slab:wght@300;400;500;600&display=swap'
@@ -39,6 +41,7 @@ export default function Menu({ data }) {
         />
       </Head>
       <Session />
+      <Nav />
       <Header title={restaurant.name} />
       <List>
         {menu

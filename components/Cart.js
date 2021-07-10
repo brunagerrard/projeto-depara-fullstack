@@ -2,6 +2,7 @@ import { useState } from "react";
 import CartItem from "./CartItem";
 import CartButton from "./CartButton";
 import styled from "styled-components";
+import { BsFillBagFill } from "react-icons/bs";
 
 const CartWrapper = styled.aside`
   width: 60vw;
@@ -9,7 +10,7 @@ const CartWrapper = styled.aside`
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(5px);
   position: sticky;
-  bottom: -21vh;
+  bottom: -11vh;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -24,7 +25,7 @@ const CartWrapper = styled.aside`
   }
 
   :hover {
-    bottom: 0;
+    bottom: 5vh;
   }
 
   p {
@@ -72,7 +73,7 @@ export default function Cart({ cartItems, setCartItems, setShowModal }) {
 
   return (
     <CartWrapper>
-      <h4>Carrinho</h4>
+      <h4><BsFillBagFill /> Sacola</h4>
       {cartItems.length === 0 ? (
         <p>
           Você ainda não adicionou nada. Clique sobre o item que deseja incluir!

@@ -11,9 +11,15 @@ const SessionBar = styled.div`
   right: 0;
   padding: 0.5rem 10%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+
   background-color: ${({ theme }) => theme.colors.primaryRed};
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   #first {
     flex-grow: 2;
@@ -44,21 +50,24 @@ export default function Session() {
   const [session, loading] = useSession()
   return (
     <SessionBar>
-      {!session && (
-        <>
-          <p id="first">
-            para sua conveniência, faça cadastro ou login antes de utilizar a
-            aplicação.
-          </p>
-          <AiOutlineLogin onClick={() => signIn('auth0')} id='icon' />
-        </>
-      )}
-      {session && (
-        <>
-          <p id="first">olá, camarada {session.user.name}!</p>
-          <AiOutlineLogout onClick={() => signOut()} id='icon' />          
-        </>
-      )}
+      <div>
+        {' '}
+        {!session && (
+          <>
+            <p id="first">
+              para sua conveniência, faça cadastro ou login antes de utilizar a
+              aplicação.
+            </p>
+            <AiOutlineLogin onClick={() => signIn('auth0')} id="icon" />
+          </>
+        )}
+        {session && (
+          <>
+            <p id="first">olá, camarada {session.user.name}!</p>
+            <AiOutlineLogout onClick={() => signOut()} id="icon" />
+          </>
+        )}
+      </div>
     </SessionBar>
   )
 }

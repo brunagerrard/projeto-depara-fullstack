@@ -5,17 +5,18 @@ import { useSession } from 'next-auth/client'
 import useSWR from 'swr'
 import styled from 'styled-components'
 import Session from '../components/Session'
+import Nav from '../components/Nav'
 import fetcher from '../utils/fetcher'
 import OrderHistory from '../components/OrderHistory'
-import ProfileDetails from '../components/ProfileDetails'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import { IoFastFoodOutline } from 'react-icons/io5'
 import { CgProfile } from 'react-icons/cg'
+import ProfileDetails from '../components/ProfileDetails'
 
 const ProfileWrap = styled.div`
   margin-top: 2rem;
-  padding: 2rem 5%;
+  padding: 3rem 5% 4rem;
 
   .react-tabs__tab-panel {
     background-color: #ffffff;
@@ -67,7 +68,7 @@ export default function Profile() {
   return (
     <>
       <Head>
-        <title>{session?.user.email}</title>
+        <title>{session?.user.name} | de_para: delivery camarada</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link rel="shortcut icon" href="/favicon.png" />
         <link
@@ -76,6 +77,7 @@ export default function Profile() {
         />
       </Head>
       <Session />
+      <Nav />
       <ProfileWrap>
         <Tabs id="my-tabs">
           <TabList id="tabs-list">
@@ -99,7 +101,7 @@ export default function Profile() {
           </TabPanel>
 
           <TabPanel>
-            <ProfileDetails />
+            {userData && <ProfileDetails userData={userData} />}
           </TabPanel>
         </Tabs>
       </ProfileWrap>

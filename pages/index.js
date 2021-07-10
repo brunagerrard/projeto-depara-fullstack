@@ -18,7 +18,6 @@ const HomeBox = styled.div`
 
   #logo {
     width: 250px;
-    z-index: 1;
   }
 `
 
@@ -35,12 +34,12 @@ export default function Home() {
         />
       </Head>
       <Session/>
+      <Nav />
       <img
         src="/images/logodepara.svg"
         alt="Logotipo da aplicação de_para, com a ilustração de uma bicicleta formada por símbolos comunistas. O pneu dianteiro é similar à engrenagem de uma máquina, o traseiro é uma foice e o guidão o martelo."
         id="logo"
       />
-      <Nav />
     </HomeBox>
   )
 }

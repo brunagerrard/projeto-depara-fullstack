@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import Header from '../../components/Header'
 import Restaurant from '../../components/Restaurant'
 import Session from '../../components/Session'
+import Nav from '../../components/Nav'
 import connectToDatabase from '../../utils/dbconnect'
 
 const List = styled.main`
@@ -26,15 +27,17 @@ const List = styled.main`
 export default function Restaurants({ data }) {
   return (
     <>
-      <Session />
       <Head>
-        <title>Restaurantes</title>
+        <title>Restaurantes | de_para: delivery camarada</title>
         <link rel='preconnect' href='https://fonts.gstatic.com' />
+        <link rel="shortcut icon" href="/favicon.png" />
         <link
           href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto+Slab:wght@300;400;500;600&display=swap'
           rel='stylesheet'
         />
       </Head>
+      <Session />
+      <Nav />
       <Header title='Restaurantes' />
       <List>
         {data.map(restaurant => (

@@ -2,51 +2,65 @@
 
 import styled from 'styled-components'
 import Link from 'next/link'
-import NiceButton from './NiceButton'
+import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/client'
+import { IoFastFood, IoHome } from 'react-icons/io5'
+import { RiMotorbikeFill } from 'react-icons/ri'
+import { FaUserCircle, FaInfoCircle } from 'react-icons/fa'
 
-const Container = styled.div`
+const NavButtons = styled.nav`
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
+  padding: 0 10%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-`
+  justify-content: space-between;
+  background-color: ${({ theme }) => theme.colors.primaryRed};
+  color: #ffffff;
 
-const NavButtons = styled.div`
-  width: 86vw;
-  display: flex;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-  justify-content: space-around;
-
-  @media (min-width: 900px) {
-    width: 70vw;
+  .active {
+    background-color: #ffffff;
+    color: ${({ theme }) => theme.colors.primaryRed};
   }
-  @media (min-width: 1200px) {
-    width: 50vw;
+
+  .icon {
+    box-sizing: content-box;
+    padding: 0.6rem 0;
+    width: 100%;
+    font-size: 1.4rem;
+    cursor: pointer;
+
+    :hover {
+      background-color: #ffffff;
+      color: ${({ theme }) => theme.colors.primaryRed};
+    }
   }
 `
 
 export default function Nav() {
   const [session, loading] = useSession()
+  const router = useRouter()
 
   return (
-    <Container>
-      <NavButtons>
-        {session && (
-          <Link href='/profile' passHref>
-            <NiceButton text='perfil' icon='/images/person.png' />
-          </Link>
-        )}
-        <Link href='/restaurants' passHref>
-          <NiceButton text='pedir' icon='/images/burger.png' id='last' />
+    <NavButtons>
+      <Link href="/">
+        <IoHome className={router.pathname === '/' ? 'active icon' : 'icon'} />
+      </Link>
+      {session && (
+        <Link href="/profile">
+          <FaUserCircle className={router.pathname === '/profile' ? 'active icon' : 'icon'} />
         </Link>
-        <Link href='/contact' passHref>
-          <NiceButton text='entregar' icon='/images/pin.png' />
-        </Link>
-        <Link href='/about' passHref>
-          <NiceButton text='conhecer' icon='/images/magnifier.png' />
-        </Link>
-      </NavButtons>
-    </Container>
+      )}
+      <Link href="/restaurants">
+        <IoFastFood className={router.pathname === '/restaurants' ? 'active icon' : 'icon'} />
+      </Link>
+      <Link href="/contact">
+        <RiMotorbikeFill className={router.pathname === '/contact' ? 'active icon' : 'icon'} />
+      </Link>
+      <Link href="/about">
+        <FaInfoCircle className={router.pathname === '/about' ? 'active icon' : 'icon'} />
+      </Link>
+    </NavButtons>
   )
 }
