@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import styled from 'styled-components'
 import Loading from './Loading'
 import OrderStatus, { Label, Wrapper } from './OrderStatus'
@@ -60,6 +61,7 @@ export const Legend = styled.small`
 
 const OrderDetail = styled.p`
   font: ${({ theme }) => theme.fonts.links};
+  color: #5d737e;
 `
 
 const AddressDetail = styled.p`
@@ -88,6 +90,7 @@ const ChangeStatusBtn = styled.button`
 `
 
 export default function OrderHistory({ ordersData, restData, userData }) {
+  
   if (restData) {
     const { orders } = restData
     ordersData = orders
@@ -127,10 +130,10 @@ export default function OrderHistory({ ordersData, restData, userData }) {
           <OrderStatus order={o} />
 
           {router.pathname !== '/profile' && (
-            <Wrapper>
-              <Label>Usuário:</Label>
+            <>
+              <Legend>Usuário:</Legend>
               <OrderDetail>{o.user.email}</OrderDetail>
-            </Wrapper>
+            </>
           )}
 
           <Legend>Endereço:</Legend>
@@ -156,7 +159,9 @@ export default function OrderHistory({ ordersData, restData, userData }) {
           {router.pathname !== '/restaurants/admin/[slug]' && (
             <>
               <Legend>Loja:</Legend>
-              <OrderDetail>{o.restaurant}</OrderDetail>
+              <Link href={`../restaurants${o.restaurant.slug}`}>
+                <OrderDetail style={{textDecoration: 'underline', textUnderlinePosition: 'under'}}>{o.restaurant.name}</OrderDetail>
+              </Link>
             </>
           )}
 

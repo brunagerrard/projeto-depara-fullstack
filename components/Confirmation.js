@@ -76,7 +76,7 @@ const DoOrDie = styled.div`
   }
 `
 
-export default function Confirmation({ cartItems, showModal, setShowModal }) {
+export default function Confirmation({ cartItems, showModal, setShowModal, restaurantInfo }) {
   const [session] = useSession()
   const [isOrderSent, setIsOrderSent] = useState(false)
   const [cep, setCep] = useState('')
@@ -97,7 +97,10 @@ export default function Confirmation({ cartItems, showModal, setShowModal }) {
           bairro: `${e.target.neighborhood.value}`,
           complemento: `${e.target.additional.value}`
         },
-        restaurant: document.title,
+        restaurant: {
+          name: restaurantInfo.name,
+          slug: restaurantInfo.slug,
+        },
         order: cartItems,
         status: 'Pedido enviado',
       }),

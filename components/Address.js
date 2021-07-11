@@ -73,7 +73,7 @@ export default function Address({ cep, setCep, num, setNum }) {
               </Wrapper>
               {data && (
                 <>
-                  {console.log(data)}
+                  {/* {console.log(data)} */}
                   <Wrapper id="wrapper">
                     <TextInput
                       type="text"

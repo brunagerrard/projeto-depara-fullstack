@@ -32,7 +32,7 @@ export default function Menu({ data }) {
   return (
     <>
       <Head>
-        <title>{restaurant.name}</title>
+        <title>{restaurant.name} | de_para: delivery camarada</title>
         <link rel="shortcut icon" href="/favicon.png" />
         <link rel='preconnect' href='https://fonts.gstatic.com' />
         <link
@@ -63,6 +63,7 @@ export default function Menu({ data }) {
         cartItems={cartItems}
         showModal={showModal}
         setShowModal={setShowModal}
+        restaurantInfo={restaurant}
       />
     </>
   )
