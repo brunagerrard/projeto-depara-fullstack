@@ -103,6 +103,8 @@ export default function Confirmation({ cartItems, showModal, setShowModal, resta
         },
         order: cartItems,
         status: 'Pedido enviado',
+        date: new Date().getDate(),
+        time: `${new Date().getHours()}:${new Date().getMinutes()}`,
       }),
       headers: {
         'Content-Type': 'application/json',

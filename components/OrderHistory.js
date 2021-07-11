@@ -28,6 +28,26 @@ const Order = styled.div`
   justify-content: space-between;
   gap: 0.3rem;
 
+  .flex {
+    display: flex;
+    line-height: 135%;
+  }
+
+  .price {
+    color: #ffffff;
+    background-color: ${({theme}) => theme.colors.ellisGrey};
+    padding: 0 0.4rem;
+    border-radius: 5px;
+    margin-right: 0.5rem;
+  }
+
+  .price.total {
+    background-color: #42d9c8;
+    color: #246e58;
+    width: fit-content;
+    padding: 0.3rem 0.6rem;
+  }
+
   :hover {
     box-shadow: -3px -4px 10px ${({ theme }) => theme.colors.meredithGrey};
   }
@@ -52,7 +72,7 @@ const Order = styled.div`
 `
 
 export const Legend = styled.small`
-  color: #5d737e;
+  font-weight: 600;
 
   :not(:first-of-type) {
     margin-top: 0.6rem;
@@ -90,7 +110,6 @@ const ChangeStatusBtn = styled.button`
 `
 
 export default function OrderHistory({ ordersData, restData, userData }) {
-  
   if (restData) {
     const { orders } = restData
     ordersData = orders
@@ -128,6 +147,13 @@ export default function OrderHistory({ ordersData, restData, userData }) {
       {ordersData.map(o => (
         <Order key={o._id}>
           <OrderStatus order={o} />
+          
+          {o.date && o.time && (
+            <>
+              <Legend>Pedido realizado às:</Legend>
+              <h2>{o.time}</h2>
+            </>
+          )}
 
           {router.pathname !== '/profile' && (
             <>
@@ -144,23 +170,30 @@ export default function OrderHistory({ ordersData, restData, userData }) {
             </OrderDetail>
           </AddressDetail>
 
-          <Legend>Valor:</Legend>
-          <OrderDetail>
-            R$ {o.order.reduce((acc, item) => acc + item.price, 0)},00
-          </OrderDetail>
-
           <Legend>Pedido:</Legend>
           <div>
             {o.order.map(option => (
-              <OrderDetail>{option.option}</OrderDetail>
+              <OrderDetail className='flex'><span className='price'>{option.price},00</span> {option.option}</OrderDetail>
             ))}
           </div>
+
+          <Legend>Total a pagar:</Legend>
+          <OrderDetail className='price total'>
+            R$ {o.order.reduce((acc, item) => acc + item.price, 0)},00
+          </OrderDetail>
 
           {router.pathname !== '/restaurants/admin/[slug]' && (
             <>
               <Legend>Loja:</Legend>
               <Link href={`../restaurants${o.restaurant.slug}`}>
-                <OrderDetail style={{textDecoration: 'underline', textUnderlinePosition: 'under'}}>{o.restaurant.name}</OrderDetail>
+                <OrderDetail
+                  style={{
+                    textDecoration: 'underline',
+                    textUnderlinePosition: 'under',
+                  }}
+                >
+                  {o.restaurant.name}
+                </OrderDetail>
               </Link>
             </>
           )}
