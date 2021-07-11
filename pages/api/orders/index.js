@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     await db
       .collection('restaurantes')
       .updateOne(
-        { name: restaurant },
+        { name: restaurant.name },
         { $push: { orders: { $each: [req.body], $position: 0 } } }
       )
 

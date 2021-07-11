@@ -27,7 +27,7 @@ export default async function handler(req, res) {
       return
     }
 
-    const { order_status } = req.body
+    const { order_status, updated } = req.body
     if (!order_status) {
       res.status(400).json({ err: 'Missing status update on request' })
       return
@@ -39,7 +39,12 @@ export default async function handler(req, res) {
       .collection('users')
       .updateOne(
         { 'orders._id': ObjectId(id) },
-        { $set: { 'orders.$[el].status': order_status } },
+        {
+          $set: {
+            'orders.$[el].status': order_status,
+            'orders.$[el].updatedAt': updated,
+          },
+        },
         { arrayFilters: [{ 'el._id': ObjectId(id) }] }
       )
 
@@ -47,13 +52,21 @@ export default async function handler(req, res) {
       .collection('restaurantes')
       .updateOne(
         { 'orders._id': ObjectId(id) },
-        { $set: { 'orders.$[el].status': order_status } },
+        {
+          $set: {
+            'orders.$[el].status': order_status,
+            'orders.$[el].updatedAt': updated,
+          },
+        },
         { arrayFilters: [{ 'el._id': ObjectId(id) }] }
       )
 
     const updateOrder = await db
       .collection('pedidos')
-      .updateOne({ _id: ObjectId(id) }, { $set: { status: order_status } })
+      .updateOne(
+        { _id: ObjectId(id) },
+        { $set: { status: order_status, updatedAt: updated } }
+      )
 
     res.status(200).json(result)
   } else {

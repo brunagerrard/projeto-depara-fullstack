@@ -28,6 +28,16 @@ const Order = styled.div`
   justify-content: space-between;
   gap: 0.3rem;
 
+  #time {
+    animation: flicker 1s infinite ease-in-out alternate;
+
+    @keyframes flicker {
+      100% {
+        opacity: 0.2;
+      }
+    }
+  }
+
   .flex {
     display: flex;
     line-height: 135%;
@@ -35,7 +45,7 @@ const Order = styled.div`
 
   .price {
     color: #ffffff;
-    background-color: ${({theme}) => theme.colors.ellisGrey};
+    background-color: ${({ theme }) => theme.colors.ellisGrey};
     padding: 0 0.4rem;
     border-radius: 5px;
     margin-right: 0.5rem;
@@ -129,6 +139,7 @@ export default function OrderHistory({ ordersData, restData, userData }) {
     const res = await fetch(`../../api/orders/${order_id}`, {
       body: JSON.stringify({
         order_status: status,
+        updated: `${new Date().getHours()}:${new Date().getMinutes()}`,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -147,12 +158,26 @@ export default function OrderHistory({ ordersData, restData, userData }) {
       {ordersData.map(o => (
         <Order key={o._id}>
           <OrderStatus order={o} />
-          
-          {o.date && o.time && (
-            <>
-              <Legend>Pedido realizado às:</Legend>
-              <h2>{o.time}</h2>
-            </>
+
+          {o.time && (
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              <div>
+                <small>Pedido feito</small>
+                <h2>{o.time}</h2>
+              </div>
+              {o.updatedAt && o.status !== 'Entrega realizada' && (
+                <div>
+                  <small>Atualizado</small>
+                  <h2 id="time">{o.updatedAt}</h2>
+                </div>
+              )}
+              {o.status === 'Entrega realizada' && (
+                <div>
+                <small>Entregue</small>
+                <h2>{o.updatedAt}</h2>
+              </div>
+              )}
+            </div>
           )}
 
           {router.pathname !== '/profile' && (
@@ -173,12 +198,14 @@ export default function OrderHistory({ ordersData, restData, userData }) {
           <Legend>Pedido:</Legend>
           <div>
             {o.order.map(option => (
-              <OrderDetail className='flex'><span className='price'>{option.price},00</span> {option.option}</OrderDetail>
+              <OrderDetail className="flex">
+                <span className="price">{option.price},00</span> {option.option}
+              </OrderDetail>
             ))}
           </div>
 
           <Legend>Total a pagar:</Legend>
-          <OrderDetail className='price total'>
+          <OrderDetail className="price total">
             R$ {o.order.reduce((acc, item) => acc + item.price, 0)},00
           </OrderDetail>
 
