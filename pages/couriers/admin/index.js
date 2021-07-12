@@ -76,6 +76,15 @@ export default function Profile() {
                   Em breve você poderá visualizar entregadores, informações da
                   cooperativa, delegar entregas e muito mais.
                 </p>
+                <img
+                  src="../../../images/waiting.png"
+                  style={{
+                    width: '60vw',
+                    maxWidth: '500px',
+                    display: 'block',
+                    margin: '1.1rem auto',
+                  }}
+                />
               </TabPanel>
             </Tabs>
           </ProfileWrap>

@@ -68,7 +68,19 @@ export default function Profile() {
               </TabPanel>
               <TabPanel>
                 <Title>Estamos construindo essa funcionalidade!</Title>
-                <p style={{marginTop: '1rem'}}>Em breve você poderá editar cardápios, preços, endereços de entrega e mais.</p>
+                <p style={{ marginTop: '1rem' }}>
+                  Em breve você poderá editar cardápios, preços, endereços de
+                  entrega e mais.
+                </p>
+                <img
+                  src="../../../images/waiting.png"
+                  style={{
+                    width: '60vw',
+                    maxWidth: '500px',
+                    display: 'block',
+                    margin: '1.1rem auto',
+                  }}
+                />
               </TabPanel>
             </Tabs>
           </ProfileWrap>
