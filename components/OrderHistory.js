@@ -6,7 +6,6 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import Loading from './Loading'
 import OrderStatus from './OrderStatus'
-import { RiCheckboxCircleFill } from 'react-icons/ri'
 
 export const OrdersBox = styled.div`
   display: flex;
@@ -251,8 +250,7 @@ export default function OrderHistory({ ordersData, restData, userData }) {
                   'Entrega realizada'
                 ) : (
                   ''
-                )}{' '}
-                <RiCheckboxCircleFill />
+                )}
               </ChangeStatusBtn>
             )
           ) : router.pathname === '/restaurants/admin/[slug]' ? (
@@ -271,8 +269,7 @@ export default function OrderHistory({ ordersData, restData, userData }) {
                   'Pedido sendo preparado'
                 ) : (
                   ''
-                )}{' '}
-                <RiCheckboxCircleFill />
+                )}
               </ChangeStatusBtn>
             )
           ) : (
