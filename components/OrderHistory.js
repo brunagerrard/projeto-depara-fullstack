@@ -6,6 +6,7 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import Loading from './Loading'
 import OrderStatus from './OrderStatus'
+import { RiCheckboxCircleFill } from 'react-icons/ri'
 
 export const OrdersBox = styled.div`
   display: flex;
@@ -105,18 +106,19 @@ const ChangeStatusBtn = styled.button`
   margin-top: 1.2rem;
   padding: 0.5rem 0.7rem;
   border-radius: 5px;
-  border: none;
+  border: 1.4px solid ${({ theme }) => theme.colors.primaryRed};
   cursor: pointer;
   font: ${({ theme }) => theme.fonts.secTitles};
-  color: #ff5964;
+  color: ${({ theme }) => theme.colors.primaryRed};
   background-color: #ffffff;
-  box-shadow: inset 0 0 15px ${({ theme }) => theme.colors.meredithGrey};
   transition: all 0.2s;
+  > * {
+    vertical-align: middle;
+  }
 
   :hover {
     color: #ffffff;
-    background-color: #ff5964;
-    box-shadow: inset 0 0 5px ${({ theme }) => theme.colors.primaryRed};
+    background-color: ${({ theme }) => theme.colors.primaryRed};
   }
 `
 
@@ -249,7 +251,8 @@ export default function OrderHistory({ ordersData, restData, userData }) {
                   'Entrega realizada'
                 ) : (
                   ''
-                )}
+                )}{' '}
+                <RiCheckboxCircleFill />
               </ChangeStatusBtn>
             )
           ) : router.pathname === '/restaurants/admin/[slug]' ? (
@@ -268,7 +271,8 @@ export default function OrderHistory({ ordersData, restData, userData }) {
                   'Pedido sendo preparado'
                 ) : (
                   ''
-                )}
+                )}{' '}
+                <RiCheckboxCircleFill />
               </ChangeStatusBtn>
             )
           ) : (

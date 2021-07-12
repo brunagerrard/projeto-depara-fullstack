@@ -6,12 +6,14 @@ import Head from 'next/head'
 import useSWR from 'swr'
 import styled from 'styled-components'
 // import Session from '../../../components/Session'
-import Header from '../../../components/Header'
 import fetcher from '../../../utils/fetcher'
 import OrderHistory from '../../../components/OrderHistory'
+import { HeaderTitle } from '../../../components/Header'
 import { ProfileWrap, Title } from '../../profile'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
+import { FaClipboardList } from 'react-icons/fa'
+import { IoIosSettings } from 'react-icons/io'
 
 export default function Profile() {
   const router = useRouter()
@@ -45,13 +47,19 @@ export default function Profile() {
               rel="stylesheet"
             />
           </Head>
-          <Header title={data.data.name} />
+          <HeaderTitle style={{ textAlign: 'center', margin: '1.2rem auto 0' }}>
+            {data.data.name} | Admin
+          </HeaderTitle>
 
-          <ProfileWrap>
+          <ProfileWrap style={{ marginTop: '0', paddingTop: '1rem' }}>
             <Tabs id="my-tabs">
               <TabList id="tabs-list">
-                <Tab><p>Pedidos recebidos</p></Tab>
-                <Tab><p>Dados do restaurante</p></Tab>
+                <Tab>
+                  <p>Pedidos recebidos</p> <FaClipboardList className="icon" />
+                </Tab>
+                <Tab>
+                  <p>Dados do restaurante</p> <IoIosSettings className="icon" />
+                </Tab>
               </TabList>
 
               <TabPanel>
@@ -59,7 +67,8 @@ export default function Profile() {
                 {restData && <OrderHistory restData={restData} />}
               </TabPanel>
               <TabPanel>
-                <h2>Any content 2</h2>
+                <Title>Estamos construindo essa funcionalidade!</Title>
+                <p style={{marginTop: '1rem'}}>Em breve você poderá editar cardápios, preços, endereços de entrega e mais.</p>
               </TabPanel>
             </Tabs>
           </ProfileWrap>

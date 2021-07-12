@@ -17,7 +17,7 @@ const Bar = styled.header`
   }
 `
 
-const HeaderTitle = styled.h1`
+export const HeaderTitle = styled.h1`
   width: 80%;
   font: ${({ theme }) => theme.fonts.titles};
   color: ${({ theme }) => theme.colors.primaryRed};
