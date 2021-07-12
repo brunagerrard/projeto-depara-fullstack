@@ -5,23 +5,23 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import styled from 'styled-components'
 import Loading from './Loading'
-import OrderStatus, { Label, Wrapper } from './OrderStatus'
+import OrderStatus from './OrderStatus'
 
-const OrdersBox = styled.div`
+export const OrdersBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
   margin-top: 2rem;
 `
 
-const Order = styled.div`
+export const Order = styled.div`
   position: relative;
   width: 100%;
   background: url('/images/map.png') #ffffff no-repeat center;
   background-size: cover;
   padding: 1rem 1rem 5rem;
   border-radius: 10px;
-  box-shadow: 1px 2px 5px ${({ theme }) => theme.colors.meredithGrey};
+  box-shadow: 0 2px 6px ${({ theme }) => theme.colors.meredithGrey};
   font: ${({ theme }) => theme.fonts.secLinks};
   display: flex;
   flex-direction: column;
@@ -49,17 +49,18 @@ const Order = styled.div`
     padding: 0 0.4rem;
     border-radius: 5px;
     margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .price.total {
     background-color: #42d9c8;
     color: #246e58;
-    width: fit-content;
     padding: 0.3rem 0.6rem;
-  }
+    text-align: center;
 
-  :hover {
-    box-shadow: -3px -4px 10px ${({ theme }) => theme.colors.meredithGrey};
+    @media (min-width: 700px) {
+      width: fit-content;
+    }
   }
 
   .sent {
@@ -89,12 +90,12 @@ export const Legend = styled.small`
   }
 `
 
-const OrderDetail = styled.p`
+export const OrderDetail = styled.p`
   font: ${({ theme }) => theme.fonts.links};
   color: #5d737e;
 `
 
-const AddressDetail = styled.p`
+export const AddressDetail = styled.p`
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: lowercase;
@@ -139,7 +140,9 @@ export default function OrderHistory({ ordersData, restData, userData }) {
     const res = await fetch(`../../api/orders/${order_id}`, {
       body: JSON.stringify({
         order_status: status,
-        updated: `${new Date().getHours()}:${new Date().getMinutes()}`,
+        updated: `${new Date().getHours()}:${
+          (new Date().getMinutes() < 10 ? '0' : '') + new Date().getMinutes()
+        }`,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -160,7 +163,7 @@ export default function OrderHistory({ ordersData, restData, userData }) {
           <OrderStatus order={o} />
 
           {o.time && (
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <div>
                 <small>Pedido feito</small>
                 <h2>{o.time}</h2>
@@ -173,9 +176,9 @@ export default function OrderHistory({ ordersData, restData, userData }) {
               )}
               {o.status === 'Entrega realizada' && (
                 <div>
-                <small>Entregue</small>
-                <h2>{o.updatedAt}</h2>
-              </div>
+                  <small>Entregue</small>
+                  <h2>{o.updatedAt}</h2>
+                </div>
               )}
             </div>
           )}

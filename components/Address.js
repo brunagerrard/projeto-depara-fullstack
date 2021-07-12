@@ -44,7 +44,7 @@ export const TextInput = styled.input`
   }
 `
 
-export default function Address({ cep, setCep, num, setNum }) {
+export default function Address({ cep, setCep, defaultCep, num, setNum }) {
   const [session] = useSession()
   return (
     <AddressForm>
@@ -62,7 +62,7 @@ export default function Address({ cep, setCep, num, setNum }) {
                 <TextInput
                   onChange={e => setCep(e.target.value)}
                   value={cep}
-                  placeholder="CEP"
+                  placeholder={defaultCep}
                   type="text"
                   id="cep"
                 />

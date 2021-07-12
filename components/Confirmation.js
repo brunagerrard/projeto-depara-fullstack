@@ -95,6 +95,7 @@ export default function Confirmation({ cartItems, showModal, setShowModal, resta
         address: {
           rua: `${e.target.street.value}, ${e.target.number.value}`,
           bairro: `${e.target.neighborhood.value}`,
+          cep,
           complemento: `${e.target.additional.value}`
         },
         restaurant: {

@@ -51,6 +51,7 @@ export default function ProfileDetails({ userData }) {
         address: {
           rua: `${e.target.street.value}, ${e.target.number.value}`,
           bairro: `${e.target.neighborhood.value}`,
+          cep,
           complemento: `${e.target.additional.value}`,
         },
       }),
@@ -71,7 +72,7 @@ export default function ProfileDetails({ userData }) {
         type="text"
         id="name"
         name="name"
-        placeholder={userData.name}
+        placeholder={userData.name || ''}
       />
       <label htmlFor="email">E-mail</label>
       <TextInput
@@ -82,7 +83,7 @@ export default function ProfileDetails({ userData }) {
         readOnly
       />
       <label>Endereço</label>
-      <Address cep={cep} setCep={setCep} setNum={setNum} />
+      <Address cep={cep} setCep={setCep} setNum={setNum} defaultCep={userData.address.cep || ''} />
       <Button type="submit" onClick={() => setIsFormSent('sending')}>
         Enviar
       </Button>
