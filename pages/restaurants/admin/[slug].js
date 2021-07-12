@@ -9,11 +9,9 @@ import styled from 'styled-components'
 import Header from '../../../components/Header'
 import fetcher from '../../../utils/fetcher'
 import OrderHistory from '../../../components/OrderHistory'
-
-const ProfileWrapper = styled.div`
-  margin-top: 2rem;
-  padding: 1rem 10%;
-`
+import { ProfileWrap, Title } from '../../profile'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import 'react-tabs/style/react-tabs.css'
 
 export default function Profile() {
   const router = useRouter()
@@ -40,18 +38,31 @@ export default function Profile() {
         <>
           <Head>
             <title>{data.data.name}</title>
-            <link rel='preconnect' href='https://fonts.gstatic.com' />
-            <link rel='shortcut icon' href='/favicon.png' />
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link rel="shortcut icon" href="/favicon.png" />
             <link
-              href='https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&family=Roboto+Slab:wght@300;400;500;600&display=swap'
-              rel='stylesheet'
+              href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&family=Roboto+Slab:wght@300;400;500;600&display=swap"
+              rel="stylesheet"
             />
           </Head>
           <Header title={data.data.name} />
-          <ProfileWrapper>
-            {restData && <p>últimos pedidos recebidos:</p>}
-            {restData && <OrderHistory restData={restData} />}
-          </ProfileWrapper>
+
+          <ProfileWrap>
+            <Tabs id="my-tabs">
+              <TabList id="tabs-list">
+                <Tab><p>Pedidos recebidos</p></Tab>
+                <Tab><p>Dados do restaurante</p></Tab>
+              </TabList>
+
+              <TabPanel>
+                {restData && <Title>últimos pedidos recebidos:</Title>}
+                {restData && <OrderHistory restData={restData} />}
+              </TabPanel>
+              <TabPanel>
+                <h2>Any content 2</h2>
+              </TabPanel>
+            </Tabs>
+          </ProfileWrap>
         </>
       ) : (
         ''

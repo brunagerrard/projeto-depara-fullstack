@@ -24,7 +24,7 @@ import { RiUserSettingsFill } from 'react-icons/ri'
 import { HiBadgeCheck } from 'react-icons/hi'
 import ProfileDetails from '../components/ProfileDetails'
 
-const ProfileWrap = styled.div`
+export const ProfileWrap = styled.div`
   margin-top: 2rem;
   padding: 3rem 10% 4rem;
 
@@ -61,7 +61,7 @@ const ProfileWrap = styled.div`
   }
 `
 
-const Title = styled.h1`
+export const Title = styled.h1`
   font: ${({ theme }) => theme.fonts.secTitles};
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -106,10 +106,12 @@ export default function Profile() {
       <ProfileWrap>
         <Tabs id="my-tabs">
           <TabList id="tabs-list">
-            <Tab>
-              <p>Pedido atual</p>
-              <FaRoute className="icon" />
-            </Tab>
+            {currentOrder && currentOrder.status !== 'Entrega realizada' && (
+              <Tab>
+                <p>Pedido atual</p>
+                <FaRoute className="icon" />
+              </Tab>
+            )}
             <Tab>
               <p>Pedidos entregues</p>
               <HiBadgeCheck className="icon" />
@@ -120,89 +122,91 @@ export default function Profile() {
             </Tab>
           </TabList>
 
-          <TabPanel>
-            <OrdersWrap>
-              <Title>pedido atual</Title>
-              {currentOrder && (
-                <OrdersBox>
-                  <Order>
-                    <OrderStatus order={currentOrder} />
+          {currentOrder && currentOrder.status !== 'Entrega realizada' && (
+            <TabPanel>
+              <OrdersWrap>
+                <Title>acompanhar pedido</Title>
+                {currentOrder && (
+                  <OrdersBox>
+                    <Order>
+                      <OrderStatus order={currentOrder} />
 
-                    {currentOrder.time && (
-                      <div
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                        }}
-                      >
-                        <div>
-                          <small>Pedido feito</small>
-                          <h2>{currentOrder.time}</h2>
-                        </div>
-                        {currentOrder.updatedAt &&
-                          currentOrder.status !== 'Entrega realizada' && (
+                      {currentOrder.time && (
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                          }}
+                        >
+                          <div>
+                            <small>Pedido feito</small>
+                            <h2>{currentOrder.time}</h2>
+                          </div>
+                          {currentOrder.updatedAt &&
+                            currentOrder.status !== 'Entrega realizada' && (
+                              <div>
+                                <small>Atualizado</small>
+                                <h2 id="time">{currentOrder.updatedAt}</h2>
+                              </div>
+                            )}
+                          {currentOrder.status === 'Entrega realizada' && (
                             <div>
-                              <small>Atualizado</small>
-                              <h2 id="time">{currentOrder.updatedAt}</h2>
+                              <small>Entregue</small>
+                              <h2>{currentOrder.updatedAt}</h2>
                             </div>
                           )}
-                        {currentOrder.status === 'Entrega realizada' && (
-                          <div>
-                            <small>Entregue</small>
-                            <h2>{currentOrder.updatedAt}</h2>
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    <Legend>Endereço:</Legend>
-                    <AddressDetail>
-                      <OrderDetail>
-                        {currentOrder.address.rua},{' '}
-                        {currentOrder.address.bairro}
-                        {currentOrder.address.complemento &&
-                          `, ${currentOrder.address.complemento}`}
-                      </OrderDetail>
-                    </AddressDetail>
-
-                    <Legend>Pedido:</Legend>
-                    <div>
-                      {currentOrder.order.map(option => (
-                        <OrderDetail className="flex">
-                          <span className="price">{option.price},00</span>{' '}
-                          {option.option}
-                        </OrderDetail>
-                      ))}
-                    </div>
-
-                    <Legend>Loja:</Legend>
-                    <Link
-                      href={`../restaurants${currentOrder.restaurant.slug}`}
-                    >
-                      <OrderDetail
-                        style={{
-                          textDecoration: 'underline',
-                          textUnderlinePosition: 'under',
-                        }}
-                      >
-                        {currentOrder.restaurant.name}
-                      </OrderDetail>
-                    </Link>
-
-                    <Legend>Total a pagar:</Legend>
-                    <OrderDetail className="price total">
-                      R${' '}
-                      {currentOrder.order.reduce(
-                        (acc, item) => acc + item.price,
-                        0
+                        </div>
                       )}
-                      ,00
-                    </OrderDetail>
-                  </Order>
-                </OrdersBox>
-              )}
-            </OrdersWrap>
-          </TabPanel>
+
+                      <Legend>Endereço:</Legend>
+                      <AddressDetail>
+                        <OrderDetail>
+                          {currentOrder.address.rua},{' '}
+                          {currentOrder.address.bairro}
+                          {currentOrder.address.complemento &&
+                            `, ${currentOrder.address.complemento}`}
+                        </OrderDetail>
+                      </AddressDetail>
+
+                      <Legend>Pedido:</Legend>
+                      <div>
+                        {currentOrder.order.map(option => (
+                          <OrderDetail className="flex">
+                            <span className="price">{option.price},00</span>{' '}
+                            {option.option}
+                          </OrderDetail>
+                        ))}
+                      </div>
+
+                      <Legend>Loja:</Legend>
+                      <Link
+                        href={`../restaurants${currentOrder.restaurant.slug}`}
+                      >
+                        <OrderDetail
+                          style={{
+                            textDecoration: 'underline',
+                            textUnderlinePosition: 'under',
+                          }}
+                        >
+                          {currentOrder.restaurant.name}
+                        </OrderDetail>
+                      </Link>
+
+                      <Legend>Total a pagar:</Legend>
+                      <OrderDetail className="price total">
+                        R${' '}
+                        {currentOrder.order.reduce(
+                          (acc, item) => acc + item.price,
+                          0
+                        )}
+                        ,00
+                      </OrderDetail>
+                    </Order>
+                  </OrdersBox>
+                )}
+              </OrdersWrap>
+            </TabPanel>
+          )}
 
           <TabPanel>
             <OrdersWrap>
